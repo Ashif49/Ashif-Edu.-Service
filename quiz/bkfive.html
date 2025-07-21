@@ -213,6 +213,9 @@ const submitBtn = document.getElementById('submit')
 
 let currentQuiz = 0
 let score = 0
+let userAnswers = [];
+
+
 
 loadQuiz()
 
@@ -229,6 +232,8 @@ function loadQuiz() {
 
 
 }
+
+
 
 function deselectAnswers() {
     answerEls.forEach(answerEl => answerEl.checked = false)
@@ -247,26 +252,53 @@ function getSelected() {
 }
 
 submitBtn.addEventListener('click', () => {
-    const answer = getSelected()
-    
-    if(answer) {
-        if(answer === quizData[currentQuiz].correct) {
-            score++
+    const answer = getSelected();
+
+    if (answer) {
+        const currentData = quizData[currentQuiz];
+        userAnswers.push({
+            question: currentData.question,
+            selected: answer,
+            correct: currentData.correct,
+            options: {
+                a: currentData.a,
+                b: currentData.b,
+                c: currentData.c,
+                d: currentData.d
+            }
+        });
+
+        if (answer === currentData.correct) {
+            score++;
         }
 
-        currentQuiz++
+        currentQuiz++;
 
-        if(currentQuiz < quizData.length) {
-            loadQuiz()
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
         } else {
-            quiz.innerHTML = `
-                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-
-                <button onclick="location.reload()">Reload</button>
-            `
+            showResults();
         }
     }
-})
+});
+
+function showResults() {
+    let resultHTML = `<h2>You answered ${score}/${quizData.length} questions correctly</h2><br><div class="results">`;
+
+    userAnswers.forEach((entry, index) => {
+        const isCorrect = entry.selected === entry.correct;
+        resultHTML += `
+            <div class="question-block" style="margin-bottom: 20px;">
+                <h3>Q${index + 1}: ${entry.question}</h3>
+                <p>Your Answer: <strong style="color: ${isCorrect ? 'green' : 'red'}">${entry.options[entry.selected]}</strong></p>
+                ${!isCorrect ? `<p>Correct Answer: <strong style="color: green">${entry.options[entry.correct]}</strong></p>` : ''}
+            </div>
+        `;
+    });
+
+    resultHTML += `<button onclick="location.reload()">Reload</button></div>`;
+    quiz.innerHTML = resultHTML;
+}
 	
 	
 	</script>

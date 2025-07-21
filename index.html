@@ -23,16 +23,29 @@
       <img src="Images/eLearning_logo.png" alt="Website logo" />
 	  
 	  
-	  
-	  <ul id="toplist">
-	  
-	 <li><a href="">Home</a></li>	 
-	 <li><a href="">Notes</a></li>	 
-	 <li><a href="">Test</a></li>	 
-	 <li><a href="subject/subjects.html">Quiz</a></li>	 
-	  
-	  
-	  </ul>
+	<ul id="toplist">
+  <li><a href="">Home</a></li>
+  <li><a href="">Notes</a></li>
+  <li><a href="">Test</a></li>
+  <li><a href="../subject/subjects.html">Quiz</a></li>
+</ul>
+
+<!-- Move outside nav UL and style for top-right corner -->
+<div id="username-display"
+     style="
+       position: absolute;
+       top: 15px;
+       right: 20px;
+       font-weight: 600;
+       color: #424067;
+       background: #fff;
+       padding: 6px 12px;
+       border-radius: 8px;
+       box-shadow: 0 0 5px rgba(0,0,0,0.1);
+       font-size: 0.9rem;
+       z-index: 999;
+     ">
+</div>
 	  
 	  
 	  
@@ -273,5 +286,51 @@ btn.addEventListener('click', () => {
     input.focus()
 })
     </script>
+
+	  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBR8-Qd-0ZvGShfv9J9_QyIuEmPBgYNhLU",
+    authDomain: "ashif-edu-service.firebaseapp.com",
+    projectId: "ashif-edu-service",
+    storageBucket: "ashif-edu-service.appspot.com",
+    messagingSenderId: "463579037251",
+    appId: "1:463579037251:web:603a76b1ae70bae35b1ef6",
+    measurementId: "G-DVFQ9JHLWQ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginBtn = document.querySelector('.btn-one');
+  const usernameSpan = document.getElementById("username-display");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Show username/email
+      if (usernameSpan) {
+        usernameSpan.textContent = `Welcome, ${user.email}`;
+      }
+
+      // Replace login with logout
+      if (loginBtn) {
+        loginBtn.textContent = "Logout";
+        loginBtn.href = "#";
+        loginBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          signOut(auth).then(() => {
+            window.location.reload();
+          });
+        });
+      }
+    } else {
+      if (usernameSpan) {
+        usernameSpan.textContent = "";
+      }
+    }
+  });
+</script>
   </body>
 </html>

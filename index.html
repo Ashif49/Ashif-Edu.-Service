@@ -23,13 +23,15 @@
       <img src="Images/eLearning_logo.png" alt="Website logo" />
 	  
 	  
+	  
 	<ul id="toplist">
   <li><a href="">Home</a></li>
   <li><a href="">Notes</a></li>
   <li><a href="">Test</a></li>
-  <li><a href="subject/subjects.html">Quiz</a></li>
+  <li><a href="../subject/subjects.html">Quiz</a></li>
 </ul>
 
+<!-- Move outside nav UL and style for top-right corner -->
 <div id="username-display"
      style="
        position: absolute;
@@ -41,12 +43,10 @@
        padding: 6px 12px;
        border-radius: 8px;
        box-shadow: 0 0 5px rgba(0,0,0,0.1);
-       font-size: 0.9rem;
+       font-size: 0.7rem;
        z-index: 999;
      ">
 </div>
-	  
-	  
 	  
 	  
 <div class="search">
@@ -70,7 +70,7 @@
 		comprehensive, easy-to-understand lessons tailored to your board curriculum
       </p>
       <div class="btn">
-        <a class="btn-one" href="#course">Login</a>
+        <a class="btn-one" href="../login/index.html">Login</a>
         <a class="btn-two" href="#course">Visit Courses</a>
       </div>
     </section>
@@ -115,7 +115,7 @@
       <p>We provide tution service to all three streams </p>
       <div class="course-box">
         <div class="courses">
-          <img src="Images/webdev.png" alt="Web Development" />
+          <img src="images/webdev.png" alt="Web Development" />
           <div class="details">
             <span>Updated 20-07-25</span>
             <h6>Arts</h6>
@@ -132,7 +132,7 @@
         </div>
 
         <div class="courses">
-          <img src="Images/app_development.jpg" alt="Web Development" />
+          <img src="images/app_development.jpg" alt="Web Development" />
           <div class="details">
             <span>Updated 20-07-25</span>
             <h6>Science</h6>
@@ -149,7 +149,7 @@
         </div>
 
         <div class="courses">
-          <img src="Images/Full_Stack.png" alt="Web Development" />
+          <img src="images/Full_Stack.png" alt="Web Development" />
           <div class="details">
             <span>Updated 20-07-25</span>
             <h6>Commerce</h6>
@@ -177,7 +177,7 @@ Here are our experienced and expert faculties
         <div class="profile">
           <img 
           <img 
-            src="Images/pfp.png"
+            src="images/pfp.png"
             alt="profile image"
           />
           <h6>Ashif Mahammad Laskar</h6>
@@ -284,9 +284,10 @@ btn.addEventListener('click', () => {
     search.classList.toggle('active')
     input.focus()
 })
-    </script>
 
-	  <script type="module">
+
+    </script>
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
@@ -331,5 +332,6 @@ btn.addEventListener('click', () => {
     }
   });
 </script>
+
   </body>
 </html>

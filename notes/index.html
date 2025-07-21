@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sticky Notes - Ashif Edu Service</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin: 30px;
+      color: #333;
+      text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+      font-size: 2.5rem;
+      animation: fadeInDown 0.8s ease-out;
+    }
+    .note-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+      width: 90%;
+      max-width: 500px;
+      animation: slideInUp 1s ease-out;
+    }
+    textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 1rem;
+      border-radius: 12px;
+      border: 2px solid #ff9a76;
+      resize: none;
+      height: 120px;
+      margin-bottom: 15px;
+      background: #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #ff704d;
+      box-shadow: 0 0 8px rgba(255, 112, 77, 0.5);
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(to right, #ff512f, #dd2476);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 1200px;
+      animation: fadeIn 1.2s ease-in;
+    }
+    .note {
+      background: #fff9c4;
+      padding: 15px;
+      border-radius: 15px;
+      min-height: 120px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.3s ease;
+      animation: bounceIn 0.5s ease;
+    }
+    .note:hover {
+      transform: translateY(-5px);
+    }
+    .note p {
+      margin: 0;
+      word-wrap: break-word;
+    }
+    .note .delete {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #e74c3c;
+      font-size: 1.4rem;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      60% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .note-form textarea {
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Sticky Notes</h1>
+  <div class="note-form">
+    <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+    <button id="addNoteBtn">Add Note</button>
+  </div>
+  <div class="notes" id="notesContainer"></div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, updateDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR8-Qd-0ZvGShfv9J9_QyIuEmPBgYNhLU",
+      authDomain: "ashif-edu-service.firebaseapp.com",
+      projectId: "ashif-edu-service",
+      storageBucket: "ashif-edu-service.appspot.com",
+      messagingSenderId: "463579037251",
+      appId: "1:463579037251:web:603a76b1ae70bae35b1ef6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const noteInput = document.getElementById('noteInput');
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const notesContainer = document.getElementById('notesContainer');
+
+    let currentUID = null;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUID = user.uid;
+        const ref = doc(db, 'users', currentUID);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) await setDoc(ref, { notes: [] });
+        else loadNotes(snap.data().notes || []);
+      } else {
+        alert('Please log in to use sticky notes.');
+        window.location.href = '../login/index.html';
+      }
+    });
+
+    function loadNotes(notes) {
+      notesContainer.innerHTML = '';
+      notes.forEach((text, index) => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.innerHTML = `<span class="delete" data-id="${index}">&times;</span><p>${text}</p>`;
+        notesContainer.appendChild(div);
+      });
+      attachDeleteEvents();
+    }
+
+    async function updateNotesInDB(newNotes) {
+      const ref = doc(db, 'users', currentUID);
+      await updateDoc(ref, { notes: newNotes });
+    }
+
+    addNoteBtn.addEventListener('click', async () => {
+      const text = noteInput.value.trim();
+      if (text) {
+        const ref = doc(db, 'users', currentUID);
+        const snap = await getDoc(ref);
+        const existing = snap.exists() ? snap.data().notes || [] : [];
+        const updated = [...existing, text];
+        await updateNotesInDB(updated);
+        loadNotes(updated);
+        noteInput.value = '';
+      }
+    });
+
+    function attachDeleteEvents() {
+      document.querySelectorAll('.note .delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = parseInt(btn.dataset.id);
+          const ref = doc(db, 'users', currentUID);
+          const snap = await getDoc(ref);
+          const existing = snap.exists() ? snap.data().notes || [] : [];
+          existing.splice(id, 1);
+          await updateNotesInDB(existing);
+          loadNotes(existing);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

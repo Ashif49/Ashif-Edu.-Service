@@ -307,30 +307,35 @@ btn.addEventListener('click', () => {
   const loginBtn = document.querySelector('.btn-one');
   const usernameSpan = document.getElementById("username-display");
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // Show username/email
-      if (usernameSpan) {
-        usernameSpan.textContent = `Welcome, ${user.email}`;
-      }
+onAuthStateChanged(auth, (user) => {
+  const usernameSpan = document.getElementById("username-display");
+  const loginBtn = document.querySelector(".btn-one");
 
-      // Replace login with logout
-      if (loginBtn) {
-        loginBtn.textContent = "Logout";
-        loginBtn.href = "#";
-        loginBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          signOut(auth).then(() => {
-            window.location.reload();
-          });
-        });
-      }
-    } else {
-      if (usernameSpan) {
-        usernameSpan.textContent = "";
-      }
+  if (user) {
+    // Show email
+    if (usernameSpan) {
+      usernameSpan.textContent = `Welcome, ${user.email}`;
+      usernameSpan.style.display = "block";
+
+      // ⏳ Hide after 5 seconds
+      setTimeout(() => {
+        usernameSpan.style.display = "none";
+      }, 5000);
     }
-  });
+
+    // Change login to logout
+    if (loginBtn) {
+      loginBtn.textContent = "Logout";
+      loginBtn.href = "#";
+      loginBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        signOut(auth).then(() => window.location.reload());
+      });
+    }
+  } else {
+    if (usernameSpan) usernameSpan.style.display = "none";
+  }
+});
 </script>
 
   </body>

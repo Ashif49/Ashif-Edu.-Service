@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Sign Up - Ashif Edu Service</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .container {
+      width: 380px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      animation: floatIn 0.7s ease-in-out;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    .form-group button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-group button:hover {
+      background: #1b5fd3;
+    }
+    .toggle {
+      text-align: center;
+      margin-top: 1rem;
+      color: #555;
+      cursor: pointer;
+    }
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 420px) {
+      .container {
+        width: 90%;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="form-container">
+    <h2 id="form-title">Login</h2>
+    <form id="login-form">
+      <div class="form-group">
+        <input type="email" id="login-email" placeholder="Email" required />
+      </div>
+      <div class="form-group">
+        <input type="password" id="login-password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+
+    <form id="signup-form" style="display: none;">
+      <div class="form-group">
+        <input type="email" id="signup-email" placeholder="Email" required />
+      </div>
+      <div class="form-group">
+        <input type="password" id="signup-password" placeholder="Password" required />
+      </div>
+      <div class="form-group">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+
+    <div class="toggle" id="toggle-form">Don't have an account? Sign Up</div>
+  </div>
+
+  <!-- Firebase JS SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBR8-Qd-0ZvGShfv9J9_QyIuEmPBgYNhLU",
+      authDomain: "ashif-edu-service.firebaseapp.com",
+      projectId: "ashif-edu-service",
+      storageBucket: "ashif-edu-service.appspot.com",
+      messagingSenderId: "463579037251",
+      appId: "1:463579037251:web:603a76b1ae70bae35b1ef6",
+      measurementId: "G-DVFQ9JHLWQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const toggleForm = document.getElementById("toggle-form");
+    const formTitle = document.getElementById("form-title");
+
+    toggleForm.addEventListener("click", () => {
+      const isLoginVisible = loginForm.style.display !== "none";
+      loginForm.style.display = isLoginVisible ? "none" : "block";
+      signupForm.style.display = isLoginVisible ? "block" : "none";
+      toggleForm.textContent = isLoginVisible
+        ? "Already have an account? Login"
+        : "Don't have an account? Sign Up";
+      formTitle.textContent = isLoginVisible ? "Sign Up" : "Login";
+    });
+
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Signup successful! Please login.");
+          signupForm.reset();
+          toggleForm.click(); // Switch to login
+        })
+        .catch((error) => {
+          alert("Signup Error: " + error.message);
+        });
+    });
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "../main/index.html"; 
+        })
+        .catch((error) => {
+          alert("Login Error: " + error.message);
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What motivates Rosemary to bring Miss Smith home?",
+        a: "Genuine sympathy",
+        b: "Her desire to do something unconventional and dramatic",
+        c: "Obligation from her friends’ suggestion",
+        d: "Pressure from her husband",
+        correct: "b",
+    },
+    {
+        question: "How is Rosemary’s emotional instability hinted at in the story?",
+        a: "Through her fluctuating moods and impulsive actions",
+        b: "Through her dreams",
+        c: "By her conversations with Miss Smith",
+        d: "By her avoidance of public places",
+        correct: "a",
+    },
+    {
+        question: "What does the antique shop scene reveal about Rosemary?",
+        a: "She is frugal",
+        b: "She is indecisive and easily influenced by aesthetics",
+        c: "She prefers modern over old",
+        d: "She dislikes spending money on herself",
+        correct: "b",
+    },
+    {
+        question: "Why does Mansfield keep Miss Smith’s background vague?",
+        a: "To focus more on Rosemary’s perception and reaction",
+        b: "To create suspense",
+        c: "To make Miss Smith unrelatable",
+        d: "To reflect societal ignorance",
+        correct: "a",
+    },
+    {
+        question: "Which phrase best captures the theme of the story?",
+        a: "Fortune favors the brave",
+        b: "The illusion of charity",
+        c: "Beauty is truth, truth beauty",
+        d: "True kindness is always rewarded",
+        correct: "b",
+    },
+    {
+        question: "Why does Philip's comment about Miss Smith’s beauty bother Rosemary?",
+        a: "Because it challenges her sense of superiority",
+        b: "Because she thought Miss Smith was unattractive",
+        c: "Because she wanted Philip to praise her charity",
+        d: "Because it exposed Philip’s insensitivity",
+        correct: "a",
+    },
+    {
+        question: "What social critique does the story subtly present?",
+        a: "Education is the root of all morality",
+        b: "Rich women are the pillars of charity",
+        c: "Wealthy classes often use charity for self-gratification",
+        d: "Poor people are inherently dependent",
+        correct: "c",
+    },
+    {
+        question: "Which stylistic element is consistently used in the story?",
+        a: "Stream of consciousness",
+        b: "Omniscient narration with irony",
+        c: "First-person perspective",
+        d: "Dialogue-only structure",
+        correct: "b",
+    },
+    {
+        question: "What is Rosemary’s final concern at the end of the story?",
+        a: "Whether Miss Smith is safe",
+        b: "How much tea Miss Smith drank",
+        c: "Whether Philip still finds her attractive",
+        d: "Miss Smith’s health condition",
+        correct: "c",
+    },
+    {
+        question: "What contrast is established between Rosemary and Miss Smith?",
+        a: "Intelligence and strength",
+        b: "Emotional resilience and ambition",
+        c: "Luxury and poverty",
+        d: "Charity and cruelty",
+        correct: "c",
+    },
+    {
+        question: "Why does Miss Smith appear only briefly in the narrative?",
+        a: "To focus more on the change in Rosemary’s self-perception",
+        b: "Because she wasn’t a real person",
+        c: "To introduce a romantic subplot",
+        d: "To depict kindness",
+        correct: "a",
+    },
+    {
+        question: "What irony lies in Rosemary’s idea of ‘helping’ Miss Smith?",
+        a: "She helps Miss Smith find employment",
+        b: "Her help is more about herself than the girl’s needs",
+        c: "She brings her to a shelter",
+        d: "She teaches her etiquette",
+        correct: "b",
+    },
+    {
+        question: "Which of the following best describes the tone of the story?",
+        a: "Tragic and horrifying",
+        b: "Sentimental and poetic",
+        c: "Satirical and ironic",
+        d: "Comedic and light-hearted",
+        correct: "c",
+    },
+    {
+        question: "How does the story end?",
+        a: "Rosemary continues helping Miss Smith",
+        b: "Miss Smith is taken to a hospital",
+        c: "Rosemary becomes a champion of social reform",
+        d: "Rosemary seeks reassurance about her beauty from Philip",
+        correct: "d",
+    },
+    {
+        question: "Which literary movement does *'A Cup of Tea'* best align with?",
+        a: "Romanticism",
+        b: "Modernism",
+        c: "Post-structuralism",
+        d: "Victorianism",
+        correct: "b",
+    },
+    {
+        question: "What is the role of the minor characters like the shop assistant?",
+        a: "To show Rosemary’s social class superiority",
+        b: "To move the story forward",
+        c: "To distract the reader",
+        d: "To question Rosemary’s behavior",
+        correct: "a",
+    },
+    {
+        question: "How is the class difference symbolized in the story?",
+        a: "By Rosemary’s car and Miss Smith’s coat",
+        b: "By the use of poetry",
+        c: "By the tea set on the table",
+        d: "By Miss Smith’s literacy level",
+        correct: "a",
+    },
+    {
+        question: "What emotion drives Rosemary to give Miss Smith money?",
+        a: "Pity mixed with fear of losing Philip's admiration",
+        b: "Genuine guilt",
+        c: "Pure compassion",
+        d: "Hatred and confusion",
+        correct: "a",
+    },
+    {
+        question: "What does Mansfield suggest about appearances through Philip’s line?",
+        a: "That beauty is empowering for the poor",
+        b: "That beauty makes the rich more charitable",
+        c: "That appearance can shift power and perception",
+        d: "That beauty is always deceptive",
+        correct: "c",
+    },
+    {
+        question: "What does the story’s title imply when viewed ironically?",
+        a: "That tea is the solution to all problems",
+        b: "That small gestures define human worth",
+        c: "That even acts of kindness can be superficial",
+        d: "That the story is focused on English tradition",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

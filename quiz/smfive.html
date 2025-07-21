@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "What deeper philosophical conflict does the poem address?",
+    a: "The duality of politics and religion",
+    b: "Man's existential conflict with mortality and violence",
+    c: "Science vs. faith",
+    d: "Urban vs. rural life",
+    correct: "b"
+  },
+  {
+    question: "What is implied by the enemy claiming to be 'the enemy you killed, my friend'?",
+    a: "Forgiveness after death",
+    b: "Shared humanity despite wartime labels",
+    c: "Supernatural reconciliation",
+    d: "A literal ghost haunting",
+    correct: "b"
+  },
+  {
+    question: "Owen's use of paradox throughout the poem serves to:",
+    a: "Create confusion",
+    b: "Mock war leadership",
+    c: "Highlight the complexity of war experiences",
+    d: "Simplify war imagery",
+    correct: "c"
+  },
+  {
+    question: "The expression 'the pity of war' that Owen uses in his works reflects:",
+    a: "The cowardice of generals",
+    b: "The bravery of soldiers",
+    c: "The unnecessary and tragic loss of young life",
+    d: "The gains of empire",
+    correct: "c"
+  },
+  {
+    question: "What narrative ambiguity exists in the poem?",
+    a: "Unclear location of the meeting",
+    b: "Uncertainty whether the speaker or the stranger is alive",
+    c: "Undefined cause of death",
+    d: "All of the above",
+    correct: "d"
+  },
+  {
+    question: "In the poem, what does the stranger mourn most deeply?",
+    a: "The pain of war wounds",
+    b: "Lost comrades",
+    c: "His poetry and message never being heard",
+    d: "The destruction of cities",
+    correct: "c"
+  },
+  {
+    question: "Which of the following most accurately captures the structure of the poem?",
+    a: "Terza rima",
+    b: "Blank verse",
+    c: "Heroic couplets in iambic pentameter",
+    d: "Free verse",
+    correct: "c"
+  },
+  {
+    question: "The line 'Foreheads of men have bled where no wounds were' can best be interpreted as:",
+    a: "Spiritual pain beyond physical injury",
+    b: "Reference to illness",
+    c: "Hallucination from trauma",
+    d: "Memory loss",
+    correct: "a"
+  },
+  {
+    question: "What role does Owen’s personal war experience play in the poem?",
+    a: "He fictionalizes most events",
+    b: "His trauma informs the vivid and emotional tone",
+    c: "He distances himself from it",
+    d: "He writes from a historian’s viewpoint",
+    correct: "b"
+  },
+  {
+    question: "The 'strange meeting' setting can be seen as symbolic of:",
+    a: "Limbo between life and death",
+    b: "Heavenly reward",
+    c: "A place of judgment",
+    d: "Hell as punishment",
+    correct: "a"
+  },
+  {
+    question: "What makes the poem’s anti-war message profound?",
+    a: "It glorifies defeat",
+    b: "It personalizes the enemy and removes hatred",
+    c: "It justifies violence",
+    d: "It avoids emotion",
+    correct: "b"
+  },
+  {
+    question: "What literary function does the poem's slow pacing and introspective tone serve?",
+    a: "It builds suspense",
+    b: "It allows emotional depth and reflection",
+    c: "It confuses the reader",
+    d: "It minimizes impact",
+    correct: "b"
+  },
+  {
+    question: "Which literary tradition influences Owen’s style in this poem?",
+    a: "Victorian romanticism",
+    b: "Greek mythology",
+    c: "Classical epic and Dantean descent",
+    d: "Harlem Renaissance",
+    correct: "c"
+  },
+  {
+    question: "What does the 'chariot wheels' imagery subtly evoke?",
+    a: "Biblical apocalypse",
+    b: "Roman triumphs",
+    c: "The machinery of war and inevitable death",
+    d: "Olympic glory",
+    correct: "c"
+  },
+  {
+    question: "Which of these best reflects Owen’s innovation as a war poet?",
+    a: "Rhymed structure and glorification",
+    b: "Unflinching realism combined with poetic form",
+    c: "Use of comedy",
+    d: "Propaganda tone",
+    correct: "b"
+  },
+  {
+    question: "Why is the poem considered psychologically intense?",
+    a: "It focuses on military strategy",
+    b: "It depicts hallucinations and dreams",
+    c: "It explores inner emotional conflict and survivor’s guilt",
+    d: "It describes battlefield logistics",
+    correct: "c"
+  },
+  {
+    question: "The stranger claims he could have 'warned' others. This suggests:",
+    a: "He was a spy",
+    b: "He had prophetic insight into war’s cost",
+    c: "He knew enemy plans",
+    d: "He was a deserter",
+    correct: "b"
+  },
+  {
+    question: "What function do the 'dead smiles' serve in the poem’s atmosphere?",
+    a: "Create hope",
+    b: "Satirize soldier training",
+    c: "Intensify the unnatural and eerie tone",
+    d: "Suggest amusement",
+    correct: "c"
+  },
+  {
+    question: "What is the significance of calling the meeting 'strange'?",
+    a: "It was unexpected",
+    b: "It was dreamlike and eerie, symbolizing a surreal truce",
+    c: "It involved strangers",
+    d: "It was in a foreign land",
+    correct: "b"
+  },
+  {
+    question: "What does the poem ultimately reveal about Owen’s philosophy on war?",
+    a: "War is a necessary evil",
+    b: "War elevates national identity",
+    c: "War dehumanizes and silences the true voice of humanity",
+    d: "War is a noble sacrifice",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

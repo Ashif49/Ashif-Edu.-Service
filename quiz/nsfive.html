@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+ {
+    question: "How does 'Night of the Scorpion' explore the conflict between tradition and modernity in rural India?",
+    a: "By portraying the villagers as superstitious and the father as scientific, highlighting coexistence and tension",
+    b: "By advocating for total rejection of traditions",
+    c: "By ignoring scientific methods",
+    d: "By focusing solely on urban life",
+    correct: "a"
+  },
+  {
+    question: "What role does irony play in the depiction of the villagers’ prayers?",
+    a: "They are effective in curing the sting",
+    b: "They are futile but reveal human vulnerability and hope",
+    c: "They are mocked by the poet",
+    d: "They cause harm to the mother",
+    correct: "b"
+  },
+  {
+    question: "In what way does the poem comment on human resilience?",
+    a: "By focusing on the mother’s endurance despite physical suffering and social beliefs",
+    b: "By describing only the father’s actions",
+    c: "By ignoring pain",
+    d: "By describing the scorpion’s death",
+    correct: "a"
+  },
+  {
+    question: "How does the poet’s narrative perspective influence the tone of the poem?",
+    a: "Provides a detached scientific report",
+    b: "Balances sympathy for mother with critical observation of villagers’ superstition",
+    c: "Adopts a judgmental stance",
+    d: "Uses first-person to ridicule the situation",
+    correct: "b"
+  },
+  {
+    question: "What is the significance of the phrase 'like swarms of flies'?",
+    a: "To show the villagers’ annoyance",
+    b: "To depict the overwhelming and somewhat irrational crowd",
+    c: "To describe the scorpion",
+    d: "To indicate peace",
+    correct: "b"
+  },
+  {
+    question: "How is the natural environment subtly portrayed in the poem?",
+    a: "As indifferent to human suffering",
+    b: "As hostile and dangerous",
+    c: "As nurturing and peaceful",
+    d: "As irrelevant",
+    correct: "a"
+  },
+  {
+    question: "What critical theory can be applied to analyze the poem’s tension between science and superstition?",
+    a: "Marxism",
+    b: "Postcolonialism",
+    c: "Structuralism",
+    d: "Feminism",
+    correct: "b"
+  },
+  {
+    question: "How does the poem reflect the postcolonial context of India?",
+    a: "Through highlighting ongoing traditional beliefs alongside modernity",
+    b: "By celebrating colonial rule",
+    c: "By advocating Western science only",
+    d: "By ignoring cultural context",
+    correct: "a"
+  },
+  {
+    question: "What is the effect of the poem’s straightforward language on its impact?",
+    a: "Creates distance",
+    b: "Enhances relatability and poignancy",
+    c: "Confuses the reader",
+    d: "Makes it humorous",
+    correct: "b"
+  },
+  {
+    question: "Why does the poet include both the villagers’ and father’s reactions?",
+    a: "To show a divided society",
+    b: "To mock both parties",
+    c: "To emphasize a balanced perspective on tradition and reason",
+    d: "To confuse the narrative",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

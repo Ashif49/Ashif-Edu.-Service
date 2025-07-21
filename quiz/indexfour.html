@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+	
+	
+	const quizData = [
+    {
+        question: "How does the story reflect the British class consciousness?",
+        a: "By portraying the church as inclusive",
+        b: "By mocking lower-class accents",
+        c: "By highlighting the divide between educated clergy and working-class staff",
+        d: "By promoting upward mobility for all",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s ability to notice the absence of a tobacconist shop reflects his:",
+        a: "Literary knowledge",
+        b: "Spiritual insight",
+        c: "Observational intelligence",
+        d: "Business connections",
+        correct: "c",
+    },
+    {
+        question: "The vicar's concern about Foreman's literacy can best be interpreted as:",
+        a: "Genuine concern for Foreman’s growth",
+        b: "An effort to uphold standards",
+        c: "A reflection of institutional snobbery",
+        d: "A form of kindness",
+        correct: "c",
+    },
+    {
+        question: "Which of the following can be seen as a symbol of Foreman's past?",
+        a: "His tobacco shop",
+        b: "The bank book",
+        c: "His verger’s gown",
+        d: "The church bell",
+        correct: "c",
+    },
+    {
+        question: "The phrase 'What would you be now if you had been able to read?' implies:",
+        a: "Reading would have made Foreman a better man",
+        b: "Illiteracy was his only barrier",
+        c: "Foreman’s lack of education ironically helped his success",
+        d: "Education is always beneficial",
+        correct: "c",
+    },
+    {
+        question: "Foreman's rise to wealth contrasts with the church's view that:",
+        a: "Only the devout can succeed",
+        b: "Morality is more important than money",
+        c: "Illiteracy is a disqualifying flaw",
+        d: "Business is inferior to religion",
+        correct: "c",
+    },
+    {
+        question: "The new vicar represents which kind of mindset?",
+        a: "Traditional",
+        b: "Conservative religious",
+        c: "Modern institutional",
+        d: "Free-spirited",
+        correct: "c",
+    },
+    {
+        question: "What does the church vestry meeting reveal about the clergy’s priorities?",
+        a: "They value loyalty",
+        b: "They prioritize efficiency over compassion",
+        c: "They seek innovation",
+        d: "They encourage personal development",
+        correct: "b",
+    },
+    {
+        question: "Foreman's response to the vicar's demand can be interpreted as:",
+        a: "Passive aggression",
+        b: "Defensive denial",
+        c: "Quiet dignity and acceptance",
+        d: "Clever evasion",
+        correct: "c",
+    },
+    {
+        question: "Why is the bank manager’s admiration for Foreman significant?",
+        a: "It reflects society’s changing values",
+        b: "It shows education is not always necessary",
+        c: "It proves that churchmen were wrong",
+        d: "It reveals that money equals success",
+        correct: "a",
+    },
+    {
+        question: "The story critiques bureaucracy through the depiction of:",
+        a: "Church rituals",
+        b: "Hiring processes",
+        c: "Rigid educational requirements",
+        d: "Banking rules",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s refusal to learn to read is a sign of:",
+        a: "Ignorance",
+        b: "Pride",
+        c: "Self-sufficiency",
+        d: "Laziness",
+        correct: "c",
+    },
+    {
+        question: "The irony of Foreman's success lies in the fact that:",
+        a: "He outshines the educated vicar",
+        b: "He never wanted to be rich",
+        c: "He becomes religious after leaving the church",
+        d: "He becomes literate in the end",
+        correct: "a",
+    },
+    {
+        question: "The theme of transformation in the story is primarily achieved through:",
+        a: "Religious awakening",
+        b: "Character flaws",
+        c: "External circumstances and internal strength",
+        d: "Support from family",
+        correct: "c",
+    },
+    {
+        question: "The story suggests that life’s setbacks can be:",
+        a: "Irreversible",
+        b: "Hidden blessings",
+        c: "Avoided through planning",
+        d: "Caused by lack of education",
+        correct: "b",
+    },
+    {
+        question: "What might the bank symbolize in the story?",
+        a: "Materialism",
+        b: "Freedom from church",
+        c: "Recognition of practical intelligence",
+        d: "Corporate control",
+        correct: "c",
+    },
+    {
+        question: "The contrast between the church and the bank highlights:",
+        a: "Faith vs Greed",
+        b: "Tradition vs Progress",
+        c: "Moral vs Immoral",
+        d: "Prayer vs Profit",
+        correct: "b",
+    },
+    {
+        question: "The author’s primary purpose in writing 'The Verger' is to:",
+        a: "Entertain with irony and satire",
+        b: "Advocate church reform",
+        c: "Promote education",
+        d: "Encourage blind faith",
+        correct: "a",
+    },
+    {
+        question: "The verger’s transformation is best described as:",
+        a: "Religious to secular",
+        b: "Dependent to independent",
+        c: "Ignorant to wise",
+        d: "Poor to rich",
+        correct: "b",
+    },
+    {
+        question: "How does Foreman feel about the idea of learning to read?",
+        a: "Excited but hesitant",
+        b: "Confused and scared",
+        c: "Unaffected and disinterested",
+        d: "Offended and defensive",
+        correct: "c",
+    },
+    {
+        question: "The story ends with which type of irony?",
+        a: "Verbal irony",
+        b: "Situational irony",
+        c: "Dramatic irony",
+        d: "Cosmic irony",
+        correct: "b",
+    },
+    {
+        question: "Which of these best represents Foreman's coping mechanism?",
+        a: "Faith in God",
+        b: "Withdrawal from society",
+        c: "Entrepreneurship",
+        d: "Dependency on others",
+        correct: "c",
+    },
+    {
+        question: "Which line from the story best encapsulates its message?",
+        a: "You’ll learn in time, Mr. Foreman.",
+        b: "I’d be a verger still.",
+        c: "Success comes in many forms.",
+        d: "It’s the Lord’s will.",
+        correct: "b",
+    },
+    {
+        question: "What lesson does the story offer about imposed expectations?",
+        a: "They help people improve",
+        b: "They drive success",
+        c: "They can limit personal potential",
+        d: "They build character",
+        correct: "c",
+    },
+    {
+        question: "What does Foreman’s journey suggest about intelligence?",
+        a: "Only academic skills matter",
+        b: "Emotional intelligence is overrated",
+        c: "Practical intelligence can be equally valuable",
+        d: "Intelligence is inherited",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select a Set</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card {
+      perspective: 1000px;
+      width: 220px;
+      height: 220px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+      border-radius: 1rem;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg) scale(1.05);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 1rem;
+      color: white;
+    }
+
+    .card-front {
+      background: #4f46e5;
+    }
+
+    .card-back {
+      background: #1e3a8a;
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-blue-100 to-indigo-300 min-h-screen flex flex-col items-center py-12">
+
+  <h1 class="text-4xl font-bold mb-10 text-indigo-800">Choose a Set</h1>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <!-- 6 Cards -->
+
+
+    <!-- Card 1 -->
+    <div class="card cursor-pointer" onclick="goToSetone()">
+      <div class="card-inner">
+        <div class="card-front">Set 1</div>
+        <div class="card-back">Click to Start</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card cursor-pointer" onclick="goToSettwo()">
+      <div class="card-inner">
+        <div class="card-front bg-green-600">Set 2</div>
+        <div class="card-back bg-green-800">Click to Start</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card cursor-pointer" onclick="goToSetthree()">
+      <div class="card-inner">
+        <div class="card-front bg-pink-600">Set 3</div>
+        <div class="card-back bg-pink-800">Click to Start</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card cursor-pointer" onclick="goToSetfour()">
+      <div class="card-inner">
+        <div class="card-front bg-yellow-500">Set 4</div>
+        <div class="card-back bg-yellow-700">Click to Start</div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card cursor-pointer" onclick="goToSetfive()">
+      <div class="card-inner">
+        <div class="card-front bg-red-500">Set 5</div>
+        <div class="card-back bg-red-700">Click to Start</div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card cursor-pointer" onclick="goToSetsix()">
+      <div class="card-inner">
+        <div class="card-front bg-indigo-600">Set 6</div>
+        <div class="card-back bg-indigo-800">Click to Start</div>
+      </div>
+    </div>
+
+   
+  </div>
+
+  <script>
+    function goToSetone() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indexone.html";
+      }, 600); // match animation duration
+    }
+	
+	  function goToSettwo() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indextwo.html";
+      }, 600); // match animation duration
+    }
+	
+	  function goToSetthree() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indexthree.html";
+      }, 600); // match animation duration
+    }
+	
+	  function goToSetfour() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indexfour.html";
+      }, 600); // match animation duration
+    }
+	
+	  function goToSetfive() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indexfive.html";
+      }, 600); // match animation duration
+    }
+	
+	  function goToSetsix() {
+      setTimeout(() => {
+        window.location.href = "../quiz/indexsix.html";
+      }, 600); // match animation duration
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "How does the poet's use of a solitary voyage redefine the concept of personal freedom?",
+        a: "As political independence",
+        b: "As escape from social constraints",
+        c: "As liberation through self-acceptance despite loneliness",
+        d: "As detachment from emotional bonds",
+        correct: "c",
+    },
+    {
+        question: "In the poem, how is ‘memory’ treated during the voyage?",
+        a: "A burden to forget",
+        b: "A motivating force",
+        c: "A companion that fades with time",
+        d: "A punishment from the past",
+        correct: "c",
+    },
+    {
+        question: "Which philosophical stance is most aligned with the poet’s journey?",
+        a: "Determinism",
+        b: "Utilitarianism",
+        c: "Existentialism",
+        d: "Idealism",
+        correct: "c",
+    },
+    {
+        question: "The idea that companions leave the voyage midway suggests what reality of human existence?",
+        a: "Fear of the unknown",
+        b: "Temporary nature of relationships",
+        c: "Rejection of spirituality",
+        d: "Triumph of solitude",
+        correct: "b",
+    },
+    {
+        question: "The voyage becomes a metaphor for self-exploration because—",
+        a: "The poet isolates himself to seek fame",
+        b: "He dreams of writing his autobiography",
+        c: "The diminishing crew symbolizes the fading noise of the world",
+        d: "It celebrates outer space travel",
+        correct: "c",
+    },
+    {
+        question: "Which line from the poem most emphasizes mortality?",
+        a: "The oars broke mid-journey",
+        b: "The river flows backward no more",
+        c: "The sails hang low with silence",
+        d: "No shore lies in sight",
+        correct: "b",
+    },
+    {
+        question: "The poet’s silence in the face of adversity reflects—",
+        a: "Cowardice",
+        b: "Philosophical surrender",
+        c: "Suppressed rage",
+        d: "Political protest",
+        correct: "b",
+    },
+    {
+        question: "How is the poem's setting (a solitary river or sea) crucial to its message?",
+        a: "It highlights natural disasters",
+        b: "It reflects a stage for epic war",
+        c: "It symbolizes the vast unknown of life's course",
+        d: "It provides a literal travelogue",
+        correct: "c",
+    },
+    {
+        question: "Why does the poet mention that even 'songs have become silent'?",
+        a: "He’s lost his voice",
+        b: "To convey deep emotional numbness and solitude",
+        c: "He hates music now",
+        d: "He has no audience left",
+        correct: "b",
+    },
+    {
+        question: "How does Bhupen Hazarika use symbolism to express loss in the poem?",
+        a: "By referring to money",
+        b: "Through imagery of broken oars and disappearing friends",
+        c: "With pictures of war",
+        d: "By praising kings",
+        correct: "b",
+    },
+    {
+        question: "What does the poet’s continued sailing despite uncertainty signify?",
+        a: "Blind faith",
+        b: "Addiction to movement",
+        c: "Endurance and philosophical acceptance",
+        d: "Refusal to return",
+        correct: "c",
+    },
+    {
+        question: "What poetic device is dominant in the poet’s reference to ‘the boat and river’?",
+        a: "Imagery",
+        b: "Paradox",
+        c: "Symbolism",
+        d: "Allusion",
+        correct: "c",
+    },
+    {
+        question: "What does the poet's reflection on the ‘changing companions’ indirectly suggest about time?",
+        a: "Time is loyal",
+        b: "Time removes false identities",
+        c: "Time erodes attachments",
+        d: "Time protects relationships",
+        correct: "c",
+    },
+    {
+        question: "The poem's focus on isolation and silence mirrors which literary theme?",
+        a: "Romanticism",
+        b: "Postmodern fragmentation",
+        c: "Existential solitude",
+        d: "Colonial nostalgia",
+        correct: "c",
+    },
+    {
+        question: "The poet’s attitude toward death in the poem can best be described as—",
+        a: "Fearful and regretful",
+        b: "Inevitable and dignified",
+        c: "Joyful and celebrated",
+        d: "Dismissive and careless",
+        correct: "b",
+    },
+    {
+        question: "The recurring use of water imagery signifies—",
+        a: "Cleansing of the past",
+        b: "Drowning fears",
+        c: "Uncertainty and constant flow of life",
+        d: "Irrigation and fertility",
+        correct: "c",
+    },
+    {
+        question: "The breaking of oars and vanishing of the shore indicate—",
+        a: "Triumph of nature over man",
+        b: "Misguidance of society",
+        c: "Loss of direction and clarity in life",
+        d: "A shift in profession",
+        correct: "c",
+    },
+    {
+        question: "Why is the poet determined to complete the voyage even when alone?",
+        a: "He has promised someone",
+        b: "He seeks a romantic reunion",
+        c: "He believes in fulfilling life’s purpose alone",
+        d: "He’s too proud to stop",
+        correct: "c",
+    },
+    {
+        question: "Bhupen Hazarika’s mention of songs fading during the voyage suggests—",
+        a: "Cultural loss",
+        b: "Internal silence overpowering external joy",
+        c: "Theft of music",
+        d: "Loss of traditional instruments",
+        correct: "b",
+    },
+    {
+        question: "In the poem, which of these is **not** a symbol of solitude?",
+        a: "Empty boat",
+        b: "Fading stars",
+        c: "Cheering crowds",
+        d: "Broken oars",
+        correct: "c",
+    }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

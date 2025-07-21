@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "Why is the poem titled 'Ozymandias' when the king’s legacy is in ruins?",
+    a: "To evoke irony about fame",
+    b: "Because he still rules symbolically",
+    c: "To glorify ancient rulers",
+    d: "To emphasize Egyptian culture",
+    correct: "a",
+  },
+  {
+    question: "The phrase 'the hand that mocked them' refers to the sculptor's:",
+    a: "Revenge",
+    b: "Satirical attitude",
+    c: "Skilled craftsmanship and ironic tone",
+    d: "Obedience to the king",
+    correct: "c",
+  },
+  {
+    question: "Which poetic device is prominent in 'colossal wreck'?",
+    a: "Onomatopoeia",
+    b: "Oxymoron",
+    c: "Simile",
+    d: "Personification",
+    correct: "b",
+  },
+  {
+    question: "How does Shelley explore the futility of tyranny in 'Ozymandias'?",
+    a: "By glorifying war victories",
+    b: "Through vivid natural description",
+    c: "Through the decaying statue’s irony",
+    d: "By praising the sculptor",
+    correct: "c",
+  },
+  {
+    question: "Why is the traveler’s account crucial to the poem’s theme?",
+    a: "He met Ozymandias in person",
+    b: "It gives a modern perspective on ancient pride",
+    c: "It reinforces authenticity",
+    d: "It highlights Shelley's personal bias",
+    correct: "b",
+  },
+  {
+    question: "Which philosophical theme is underscored by the image of 'lone and level sands'?",
+    a: "Monarchy and legacy",
+    b: "Cycle of seasons",
+    c: "Impermanence of glory",
+    d: "Immortality through art",
+    correct: "c",
+  },
+  {
+    question: "The poem is a warning against:",
+    a: "Romanticism",
+    b: "Artistic freedom",
+    c: "Excessive pride and authoritarian rule",
+    d: "Historical analysis",
+    correct: "c",
+  },
+  {
+    question: "What effect does the broken statue have on the reader’s perception of power?",
+    a: "It glorifies the king’s past",
+    b: "It questions power’s durability",
+    c: "It romanticizes ancient history",
+    d: "It offers political advice",
+    correct: "b",
+  },
+  {
+    question: "The 'visage' of Ozymandias is described as:",
+    a: "Tranquil and thoughtful",
+    b: "Joyful and noble",
+    c: "Cold and commanding",
+    d: "Smiling and kind",
+    correct: "c",
+  },
+  {
+    question: "Which best captures the tone of the poem?",
+    a: "Praising and worshipful",
+    b: "Detached and reflective",
+    c: "Witty and playful",
+    d: "Angry and rebellious",
+    correct: "b",
+  },
+  {
+    question: "Why does Shelley present Ozymandias through multiple narrative layers?",
+    a: "To confuse the reader",
+    b: "To enhance mythic storytelling",
+    c: "To add depth and distance to the theme",
+    d: "To glorify the traveler's journey",
+    correct: "c",
+  },
+  {
+    question: "The word 'shattered' in the context of the statue’s face emphasizes:",
+    a: "Peace",
+    b: "Decay and collapse",
+    c: "Beauty",
+    d: "New beginnings",
+    correct: "b",
+  },
+  {
+    question: "Which line is the best example of dramatic irony?",
+    a: "'My name is Ozymandias, king of kings...'",
+    b: "'Half sunk, a shattered visage lies...'",
+    c: "'The lone and level sands stretch far away.'",
+    d: "'Two vast and trunkless legs of stone...'",
+    correct: "a",
+  },
+  {
+    question: "The statue’s ruined state represents:",
+    a: "Ozymandias’s transformation",
+    b: "Natural forces overtaking man-made structures",
+    c: "Peaceful coexistence",
+    d: "Triumph of memory",
+    correct: "b",
+  },
+  {
+    question: "Which technique helps reinforce the idea of passing time in the poem?",
+    a: "First-person narration",
+    b: "Alliteration",
+    c: "Descriptive ruins and empty desert",
+    d: "Dialogue between characters",
+    correct: "c",
+  },
+  {
+    question: "What makes the phrase 'Look on my Works, ye Mighty, and despair!' ironic?",
+    a: "No works are visible",
+    b: "The king is still respected",
+    c: "The desert is thriving",
+    d: "The traveler is frightened",
+    correct: "a",
+  },
+  {
+    question: "Shelley's view of history in 'Ozymandias' could be best described as:",
+    a: "Optimistic and reverent",
+    b: "Cyclical and inevitable",
+    c: "Pessimistic and ironic",
+    d: "Historical and empirical",
+    correct: "c",
+  },
+  {
+    question: "What is symbolized by the 'sands' in the poem?",
+    a: "Hope and growth",
+    b: "Memory and wisdom",
+    c: "Nature’s dominance and time",
+    d: "Ozymandias’s legacy",
+    correct: "c",
+  },
+  {
+    question: "The sculptor's 'mocking' might suggest:",
+    a: "Reverence for Ozymandias",
+    b: "Subtle criticism of arrogance",
+    c: "Fear of power",
+    d: "Complete loyalty",
+    correct: "b",
+  },
+  {
+    question: "What role does nature play in the poem?",
+    a: "It supports human achievements",
+    b: "It reflects divine will",
+    c: "It slowly erases all signs of power",
+    d: "It protects historical memory",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

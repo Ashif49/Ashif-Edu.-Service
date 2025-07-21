@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "What does the title 'Strange Meeting' imply?",
+    a: "A military strategy meeting",
+    b: "A reunion of old friends",
+    c: "An encounter beyond life and death",
+    d: "A political debate",
+    correct: "c"
+  },
+  {
+    question: "Which literary device is most dominant in the poem?",
+    a: "Irony",
+    b: "Allegory",
+    c: "Satire",
+    d: "Hyperbole",
+    correct: "a"
+  },
+  {
+    question: "Where does the meeting in the poem take place?",
+    a: "A battlefield",
+    b: "A trench",
+    c: "A dreamlike underworld",
+    d: "A hospital ward",
+    correct: "c"
+  },
+  {
+    question: "What does the line 'Foreheads of men have bled where no wounds were' signify?",
+    a: "Physical injury",
+    b: "Internal suffering and mental trauma",
+    c: "Sunburn",
+    d: "Fever",
+    correct: "b"
+  },
+  {
+    question: "How is the enemy described in the poem?",
+    a: "Cruel and merciless",
+    b: "A fellow poet and a mirror of the self",
+    c: "An old soldier",
+    d: "A political figure",
+    correct: "b"
+  },
+  {
+    question: "What is the primary theme of the poem?",
+    a: "Victory and glory",
+    b: "Nature's beauty",
+    c: "The horror and futility of war",
+    d: "National pride",
+    correct: "c"
+  },
+  {
+    question: "What role does silence play in the poem?",
+    a: "It shows rest from chaos",
+    b: "It represents death and suppressed truths",
+    c: "It depicts the peace of victory",
+    d: "It marks time",
+    correct: "b"
+  },
+  {
+    question: "Why is the poem considered unconventional for a war poem?",
+    a: "It lacks rhyme",
+    b: "It sympathizes with the enemy",
+    c: "It supports war policies",
+    d: "It includes romantic elements",
+    correct: "b"
+  },
+  {
+    question: "Which figure from classical literature influences the setting of the poem?",
+    a: "Homer",
+    b: "Virgil",
+    c: "Dante",
+    d: "Ovid",
+    correct: "c"
+  },
+  {
+    question: "What does the enemy soldier regret most?",
+    a: "Not returning home",
+    b: "Dying without sharing his message",
+    c: "Losing his family",
+    d: "Not winning the battle",
+    correct: "b"
+  },
+  {
+    question: "What tone dominates the poem?",
+    a: "Triumphant",
+    b: "Celebratory",
+    c: "Solemn and introspective",
+    d: "Angry and loud",
+    correct: "c"
+  },
+  {
+    question: "How does Owen present the concept of heroism?",
+    a: "By glorifying war",
+    b: "By redefining it as understanding and empathy",
+    c: "By using medals and awards",
+    d: "By recounting battles",
+    correct: "b"
+  },
+  {
+    question: "Which line reveals the mutual recognition between the speaker and the dead enemy?",
+    a: "'I am the enemy you killed, my friend'",
+    b: "'Let us sleep now'",
+    c: "'Too fast in thought or death to be bestirred'",
+    d: "'Lifted me into sunlight'",
+    correct: "a"
+  },
+  {
+    question: "What poetic structure is used in the poem?",
+    a: "Iambic tetrameter",
+    b: "Free verse",
+    c: "Heroic couplets",
+    d: "Haiku",
+    correct: "c"
+  },
+  {
+    question: "Why does the enemy say he would have 'poured [his] spirit without stint'?",
+    a: "He believed in war propaganda",
+    b: "He wanted to express the truth of war to others",
+    c: "He was a commander",
+    d: "He wanted revenge",
+    correct: "b"
+  },
+  {
+    question: "Which emotion is most dominant in the voice of the enemy?",
+    a: "Hate",
+    b: "Pride",
+    c: "Regret",
+    d: "Jealousy",
+    correct: "c"
+  },
+  {
+    question: "What literary technique is used in the phrase 'vain citadels of peace'?",
+    a: "Personification",
+    b: "Oxymoron",
+    c: "Alliteration",
+    d: "Paradox",
+    correct: "d"
+  },
+  {
+    question: "What is the message behind 'I mean the truth untold, the pity of war'?",
+    a: "There is beauty in war",
+    b: "War brings progress",
+    c: "War silences voices that speak against it",
+    d: "Soldiers enjoy war",
+    correct: "c"
+  },
+  {
+    question: "How does the setting support the poem's message?",
+    a: "By showcasing real battles",
+    b: "By creating an allegorical place of reflection and realization",
+    c: "By detailing the enemy’s strategy",
+    d: "By highlighting global politics",
+    correct: "b"
+  },
+  {
+    question: "How does 'Strange Meeting' contrast with traditional war poetry?",
+    a: "It celebrates national victory",
+    b: "It blames soldiers for war",
+    c: "It explores inner conflict rather than outer glory",
+    d: "It uses romantic metaphors",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

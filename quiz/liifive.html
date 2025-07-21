@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "Which literary philosophy is most aligned with Yeats’ portrayal of Innisfree?",
+    a: "Naturalism",
+    b: "Modernism",
+    c: "Romantic Transcendentalism",
+    d: "Realism",
+    correct: "c"
+  },
+  {
+    question: "How does the poem reflect the influence of Henry David Thoreau’s 'Walden'?",
+    a: "Through political protest",
+    b: "By advocating spiritual communion with nature and solitude",
+    c: "Via structured farming methods",
+    d: "With rejection of all modern tools",
+    correct: "b"
+  },
+  {
+    question: "The sound imagery in the poem functions primarily to:",
+    a: "Create disharmony",
+    b: "Signal supernatural events",
+    c: "Bridge inner consciousness with natural rhythms",
+    d: "Break narrative structure",
+    correct: "c"
+  },
+  {
+    question: "How does Yeats challenge materialism through the poem?",
+    a: "By explicitly rejecting wealth",
+    b: "By not mentioning luxury",
+    c: "By presenting peace in simple rural living over urban success",
+    d: "By criticizing capitalism directly",
+    correct: "c"
+  },
+  {
+    question: "What aspect of Yeats’ biographical context is subtly embedded in the poem?",
+    a: "His political career",
+    b: "His Anglo-Irish heritage and search for identity",
+    c: "His legal education",
+    d: "His illness",
+    correct: "b"
+  },
+  {
+    question: "Which device is used in the entire poem to maintain a meditative rhythm?",
+    a: "Caesura",
+    b: "Alliteration",
+    c: "Enjambment",
+    d: "Epistrophe",
+    correct: "c"
+  },
+  {
+    question: "What is the paradox inherent in the speaker’s longing for Innisfree?",
+    a: "He doesn’t actually want to go",
+    b: "He finds peace only in imagining the place, not in being there",
+    c: "Nature is both calm and violent",
+    d: "He wants both silence and noise",
+    correct: "b"
+  },
+  {
+    question: "Why does the poet use simple rural imagery instead of mystical or grandiose language?",
+    a: "To appeal to farmers",
+    b: "To emphasize authenticity and direct emotional appeal",
+    c: "To mock Romantic poets",
+    d: "To highlight nationalism",
+    correct: "b"
+  },
+  {
+    question: "What deeper function does 'glimmer' in 'midnight’s all a glimmer' serve?",
+    a: "Indicates uncertainty",
+    b: "Symbolizes hope amidst darkness",
+    c: "Depicts dreamlike fear",
+    d: "References a star only",
+    correct: "b"
+  },
+  {
+    question: "What might 'peace comes dropping slow' suggest about Yeats’ views on emotional healing?",
+    a: "Peace is easily attained",
+    b: "Peace arrives slowly and subtly through nature",
+    c: "Peace must be forced",
+    d: "Peace does not last",
+    correct: "b"
+  },
+  {
+    question: "Which poetic theory is best applied to analyze the poem’s interplay between self and space?",
+    a: "Structuralism",
+    b: "Ecocriticism",
+    c: "Deconstruction",
+    d: "Marxism",
+    correct: "b"
+  },
+  {
+    question: "Yeats’s reference to natural time (midnight, noon, evening) illustrates:",
+    a: "Religious allegory",
+    b: "Contrast between body and soul",
+    c: "Cyclical, harmonious natural existence",
+    d: "Confusion in narrative timeline",
+    correct: "c"
+  },
+  {
+    question: "The entire poem may be seen as an act of:",
+    a: "Rebellion",
+    b: "Confession",
+    c: "Internal pilgrimage",
+    d: "Mystical sermon",
+    correct: "c"
+  },
+  {
+    question: "What does the phrase 'deep heart’s core' reveal about Yeats’ poetic consciousness?",
+    a: "His love of material success",
+    b: "His detachment from imagination",
+    c: "A soulful longing that transcends physical boundaries",
+    d: "A reliance on urban reality",
+    correct: "c"
+  },
+  {
+    question: "The lack of punctuation in some lines helps to:",
+    a: "Confuse the reader",
+    b: "Highlight breathless excitement or dreamlike flow",
+    c: "Emphasize strict control",
+    d: "Create rhyme",
+    correct: "b"
+  },
+  {
+    question: "Which critical lens would argue Innisfree is an imagined utopia never truly accessible?",
+    a: "Post-colonialism",
+    b: "Psychological criticism",
+    c: "Formalism",
+    d: "New Historicism",
+    correct: "b"
+  },
+  {
+    question: "Which idea is subtly embedded in the rural construction of peace?",
+    a: "Peace is artificial",
+    b: "Nature’s solitude can restore mental clarity",
+    c: "Urban chaos must be embraced",
+    d: "Yeats despises farming",
+    correct: "b"
+  },
+  {
+    question: "What does the speaker’s detachment from his physical setting imply?",
+    a: "He is lost in fantasy",
+    b: "He finds urban life unbearable",
+    c: "He mentally lives within nature though physically not there",
+    d: "He is ill",
+    correct: "c"
+  },
+  {
+    question: "Yeats’s spiritual engagement with nature is portrayed as:",
+    a: "Superficial",
+    b: "Hostile",
+    c: "Deeply meditative and redemptive",
+    d: "Ambivalent",
+    correct: "c"
+  },
+  {
+    question: "Which interpretation aligns with the poem as a response to industrial alienation?",
+    a: "It supports mechanization",
+    b: "It romanticizes destruction",
+    c: "It critiques urban detachment through longing for simpler life",
+    d: "It supports colonial values",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

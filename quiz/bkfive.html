@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "What narrative paradox is presented through the narrator’s imaginative reconstructions?",
+    a: "He creates a history without facts",
+    b: "He documents facts without belief",
+    c: "He denies the past altogether",
+    d: "He seeks truth through science",
+    correct: "a",
+  },
+  {
+    question: "Which metaphor is most prominently embedded in the house in 'Bina Kutir'?",
+    a: "Temple of knowledge",
+    b: "Graveyard of memory",
+    c: "Canvas of imagined life",
+    d: "Nest of nostalgia",
+    correct: "c",
+  },
+  {
+    question: "How does the story challenge the reliability of memory?",
+    a: "By citing contradictory sources",
+    b: "By imagining unknown people and events",
+    c: "By denying history altogether",
+    d: "By focusing only on dreams",
+    correct: "b",
+  },
+  {
+    question: "What philosophical idea is reflected in the narrator’s acceptance of fiction as truth?",
+    a: "Pragmatism",
+    b: "Phenomenology",
+    c: "Post-structuralism",
+    d: "Rationalism",
+    correct: "b",
+  },
+  {
+    question: "What structural technique enhances the depth of the story?",
+    a: "Alternating perspectives",
+    b: "Non-linear chronology",
+    c: "Third-person omniscience",
+    d: "Unseen narrator",
+    correct: "b",
+  },
+  {
+    question: "How does Saurav Kumar Chaliha use minimalism in the story?",
+    a: "To keep readers in suspense",
+    b: "To allow reader interpretation of vague details",
+    c: "To emphasize linguistic richness",
+    d: "To create drama",
+    correct: "b",
+  },
+  {
+    question: "What does the lack of names in many parts of the story signify?",
+    a: "The forgetfulness of time",
+    b: "The story is unfinished",
+    c: "The irrelevance of identity",
+    d: "A dreamlike composition",
+    correct: "a",
+  },
+  {
+    question: "Which of the following best describes the narrator’s tone?",
+    a: "Didactic and instructive",
+    b: "Romantic and lyrical",
+    c: "Detached but imaginative",
+    d: "Objective and factual",
+    correct: "c",
+  },
+  {
+    question: "What role does silence play in the narrative?",
+    a: "It functions as a void",
+    b: "It fills the space with imagined echoes",
+    c: "It is a narrative technique to distract",
+    d: "It represents ignorance",
+    correct: "b",
+  },
+  {
+    question: "Which technique is used to create a sense of blurred reality?",
+    a: "Documentary realism",
+    b: "Magical interventions",
+    c: "Memory-based speculation",
+    d: "Epistolary inserts",
+    correct: "c",
+  },
+  {
+    question: "Why does the narrator construct a full life for the unseen family?",
+    a: "To preserve emotional connection with a vanished past",
+    b: "To escape modern life",
+    c: "To document social history",
+    d: "To practice his fiction skills",
+    correct: "a",
+  },
+  {
+    question: "Which of the following best defines the story’s genre?",
+    a: "Historical fiction",
+    b: "Autobiographical fiction",
+    c: "Reflective literary sketch",
+    d: "Political allegory",
+    correct: "c",
+  },
+  {
+    question: "Which literary influence is evident in Chaliha’s subtle style?",
+    a: "Bengali Realism",
+    b: "Western Existentialism",
+    c: "Stream-of-consciousness Modernism",
+    d: "Marxist Social Realism",
+    correct: "c",
+  },
+  {
+    question: "How does 'Bina Kutir' redefine the idea of home?",
+    a: "As a dream-like space detached from its occupants",
+    b: "As a monument of wealth",
+    c: "As a temple of truth",
+    d: "As a prison of memories",
+    correct: "a",
+  },
+  {
+    question: "Which contrast underlines the emotional depth of the story?",
+    a: "Silence and voice",
+    b: "Past and future",
+    c: "Fact and fiction",
+    d: "Loneliness and comfort",
+    correct: "c",
+  },
+  {
+    question: "Why can 'Bina Kutir' be considered metafictional?",
+    a: "Because it reflects on the act of storytelling",
+    b: "Because it includes newspaper clippings",
+    c: "Because it has a narrator as a ghost",
+    d: "Because it breaks the fourth wall",
+    correct: "a",
+  },
+  {
+    question: "What emotional effect is created by the imagined conversations?",
+    a: "Joy",
+    b: "Tension",
+    c: "Nostalgic melancholy",
+    d: "Fear",
+    correct: "c",
+  },
+  {
+    question: "What does the ‘overgrown garden’ most likely represent?",
+    a: "Prosperity",
+    b: "Unkempt nature",
+    c: "Passage of time and neglect",
+    d: "A hiding place",
+    correct: "c",
+  },
+  {
+    question: "Which of these best captures the existential undertone of the story?",
+    a: "Search for the divine",
+    b: "Doubt of all meaning except imagined purpose",
+    c: "Celebration of culture",
+    d: "Desire for social activism",
+    correct: "b",
+  },
+  {
+    question: "In literary terms, what is ‘Bina Kutir’ ultimately a meditation on?",
+    a: "Language and metaphor",
+    b: "Time and memory",
+    c: "Politics and rebellion",
+    d: "Morality and truth",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

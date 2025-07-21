@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subject Selection Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f7fa, #e3f2fd);
+      color: #333;
+    }
+
+    header {
+      background-color: #0d47a1;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.5em;
+      margin-top: 40px;
+      color: #0d47a1;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 30px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+	
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px 30px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, background 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: #0d47a1;
+      font-weight: bold;
+	    min-width: 150px;
+		max-width: 200px;
+    }
+#subject-selection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px 20px;
+}
+
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: #e3f2fd;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #0d47a1;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Ashif Edu Service – Select Your Subject
+  </header>
+
+  <!-- Step 1: Select Stream -->
+  <div class="section-title">Step 1: Choose Your Stream</div>
+  <div class="container" id="stream-selection">
+    <div class="card" data-stream="science">Science</div>
+    <div class="card" data-stream="arts">Arts</div>
+    <div class="card" data-stream="commerce">Commerce</div>
+  </div>
+
+  <!-- Step 2: Subjects will appear here -->
+  <div class="section-title hidden" id="subject-title">Step 2: Choose Your Subject</div>
+  <div class="container hidden" id="subject-selection">
+    <!-- Subjects will be inserted here -->
+  </div>
+
+  <footer>
+    © 2025 Ashif Edu Service | All Rights Reserved
+  </footer>
+
+  <script>
+    const subjects = {
+      science: ["English","Alt English","Physics", "Chemistry", "Biology", "Mathematics", "Computer "],
+      arts: ["English","Alt English","Political Science", "Education", "Logic & Philosophy", "History", "Sociology"],
+      commerce: ["English","Alt English","Accountancy", "Business Studies", "Economics", "Mathematics", "Entrepreneurship"]
+    };
+
+    $(document).ready(function () {
+      $("#stream-selection .card").click(function () {
+        const stream = $(this).data("stream");
+        const subjectList = subjects[stream];
+
+        if (subjectList) {
+          $("#subject-selection").empty(); // Clear previous subjects
+
+          subjectList.forEach(sub => {
+            let link = "";
+
+            if (sub === "Alt English") {
+              link = "../subject/alt.html"; // Alt English → custom path
+            } else {
+              link = `${sub.toLowerCase().replace(/ /g, "_")}.html`; // Default pattern
+            }
+
+            $("#subject-selection").append(`<a href="${link}" class="card">${sub}</a>`);
+          });
+
+          $("#subject-title").fadeIn();
+          $("#subject-selection").fadeIn();
+          $("html, body").animate({
+            scrollTop: $("#subject-title").offset().top - 50
+          }, 600);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

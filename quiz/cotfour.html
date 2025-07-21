@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What does the little enamel box in the antique shop symbolize in the story?",
+        a: "Rosemary's modesty",
+        b: "Her detachment from materialism",
+        c: "Her obsession with superficial beauty and status",
+        d: "A memory of childhood",
+        correct: "c",
+    },
+    {
+        question: "Why does the story emphasize the weather and setting when Miss Smith appears?",
+        a: "To heighten suspense",
+        b: "To reflect Rosemary’s inner conflict",
+        c: "To create a mysterious atmosphere",
+        d: "To contrast social conditions",
+        correct: "d",
+    },
+    {
+        question: "Which narrative technique is prominently used in *'A Cup of Tea'*?",
+        a: "First-person monologue",
+        b: "Unreliable narrator",
+        c: "Third-person limited with internal monologue",
+        d: "Epistolary structure",
+        correct: "c",
+    },
+    {
+        question: "How does Katherine Mansfield subvert traditional ideas of charity in the story?",
+        a: "By showing that charity helps the giver more than the receiver",
+        b: "By mocking charitable institutions",
+        c: "By showing it as selfish and emotionally shallow",
+        d: "By comparing real and fake charity events",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary’s obsession with beauty reveal about her character?",
+        a: "She values people for their inner qualities",
+        b: "She is free-spirited and artistic",
+        c: "She is emotionally insecure and competitive",
+        d: "She is indifferent to others",
+        correct: "c",
+    },
+    {
+        question: "Why is Miss Smith not given a voice toward the end of the story?",
+        a: "To highlight her insignificance in Rosemary’s world",
+        b: "Because she is too shy to speak",
+        c: "Because she has nothing to say",
+        d: "To focus on Philip’s reaction",
+        correct: "a",
+    },
+    {
+        question: "Which modernist theme is evident in *'A Cup of Tea'*?",
+        a: "Heroism in war",
+        b: "Struggles of the working class",
+        c: "Disillusionment with bourgeois values",
+        d: "Colonial resistance",
+        correct: "c",
+    },
+    {
+        question: "Why does Mansfield avoid a clear resolution in the story?",
+        a: "To maintain suspense for a sequel",
+        b: "To reflect the ambiguity of human motives",
+        c: "Because the story is unfinished",
+        d: "To promote reader empathy for Miss Smith",
+        correct: "b",
+    },
+    {
+        question: "How is the power dynamic between Philip and Rosemary portrayed?",
+        a: "Philip is completely submissive",
+        b: "Rosemary controls Philip entirely",
+        c: "Philip indirectly influences Rosemary’s decisions",
+        d: "There is no power dynamic",
+        correct: "c",
+    },
+    {
+        question: "What deeper conflict does the story subtly expose?",
+        a: "Rich vs. poor in terms of education",
+        b: "Gender vs. class-based privilege",
+        c: "Art vs. commerce",
+        d: "Youth vs. age",
+        correct: "b",
+    },
+    {
+        question: "Why is the story titled *'A Cup of Tea'* when no tea is served?",
+        a: "To highlight Rosemary’s neglect of genuine care",
+        b: "It’s a metaphor for British politeness",
+        c: "It suggests the story’s setting",
+        d: "Tea was actually served off-page",
+        correct: "a",
+    },
+    {
+        question: "What role does Miss Smith play in the development of Rosemary's character?",
+        a: "A symbolic threat to her self-image",
+        b: "A romantic rival",
+        c: "A spiritual guide",
+        d: "Her conscience",
+        correct: "a",
+    },
+    {
+        question: "Which emotion dominates Rosemary by the end of the story?",
+        a: "Pity",
+        b: "Compassion",
+        c: "Insecurity",
+        d: "Joy",
+        correct: "c",
+    },
+    {
+        question: "Why might the reader feel unsettled at the end of the story?",
+        a: "Because of Miss Smith’s disappearance",
+        b: "Due to Rosemary’s return to vanity and Philip’s manipulation",
+        c: "Because the story shifts to a tragic ending",
+        d: "Due to a plot twist",
+        correct: "b",
+    },
+    {
+        question: "What kind of feminism is subtly challenged in the story?",
+        a: "Radical feminism",
+        b: "Material feminism",
+        c: "Superficial, performative feminism of the upper class",
+        d: "Socialist feminism",
+        correct: "c",
+    },
+    {
+        question: "What literary device is used when Rosemary thinks about adopting Miss Smith?",
+        a: "Hyperbole",
+        b: "Allusion",
+        c: "Satire",
+        d: "Flashback",
+        correct: "a",
+    },
+    {
+        question: "Which item remains a symbol of unfulfilled desire and control in the story?",
+        a: "The umbrella",
+        b: "The tea cup",
+        c: "The little box",
+        d: "The hat Rosemary wears",
+        correct: "c",
+    },
+    {
+        question: "How does Mansfield portray materialism in the story?",
+        a: "As liberating for women",
+        b: "As a path to inner peace",
+        c: "As a superficial mask for deeper insecurity",
+        d: "As essential for status",
+        correct: "c",
+    },
+    {
+        question: "What is the effect of Mansfield’s use of dialogue between Rosemary and Philip?",
+        a: "To make them seem affectionate",
+        b: "To highlight their strong ideological differences",
+        c: "To reveal the emotional power imbalance and Rosemary's insecurity",
+        d: "To distract from the main plot",
+        correct: "c",
+    },
+    {
+        question: "Which critical lens best applies to *'A Cup of Tea'*?",
+        a: "Post-colonialism",
+        b: "Eco-criticism",
+        c: "Marxist and Feminist lens",
+        d: "Romanticism",
+        correct: "c",
+    }];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

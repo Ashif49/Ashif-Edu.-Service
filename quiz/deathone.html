@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "Who is the speaker in the poem 'Because I could not stop for Death'?",
+    a: "Emily Dickinson",
+    b: "An angel",
+    c: "A dead woman",
+    d: "A traveler",
+    correct: "c",
+  },
+  {
+    question: "How is Death personified in the poem?",
+    a: "As a thief",
+    b: "As a ghost",
+    c: "As a kind and civil gentleman",
+    d: "As a cruel king",
+    correct: "c",
+  },
+  {
+    question: "What does the carriage ride symbolize?",
+    a: "A vacation",
+    b: "A wedding",
+    c: "The journey from life to death",
+    d: "A dream",
+    correct: "c",
+  },
+  {
+    question: "Why couldn’t the speaker stop for Death?",
+    a: "She was too busy",
+    b: "She was afraid",
+    c: "She didn’t see him",
+    d: "She wanted to live",
+    correct: "a",
+  },
+  {
+    question: "Who was in the carriage besides Death and the speaker?",
+    a: "Her children",
+    b: "Immortality",
+    c: "Her lover",
+    d: "An angel",
+    correct: "b",
+  },
+  {
+    question: "What did they pass during the journey?",
+    a: "A church, a mall, and a park",
+    b: "Fields, a school, and the setting sun",
+    c: "Mountains, rivers, and oceans",
+    d: "A battlefield and a library",
+    correct: "b",
+  },
+  {
+    question: "What does the school in the poem represent?",
+    a: "Old age",
+    b: "Youth and childhood",
+    c: "A place of worship",
+    d: "Heaven",
+    correct: "b",
+  },
+  {
+    question: "What does the setting sun represent?",
+    a: "A new beginning",
+    b: "End of the journey/life",
+    c: "God’s arrival",
+    d: "Hope",
+    correct: "b",
+  },
+  {
+    question: "What is the tone of the poem?",
+    a: "Angry and harsh",
+    b: "Joyful and excited",
+    c: "Calm and reflective",
+    d: "Hopeless and dark",
+    correct: "c",
+  },
+  {
+    question: "How long ago did the carriage ride take place?",
+    a: "A few weeks ago",
+    b: "A day ago",
+    c: "Centuries ago",
+    d: "Hours ago",
+    correct: "c",
+  },
+  {
+    question: "What is the speaker wearing in the carriage?",
+    a: "A white robe",
+    b: "A gown and a tippet made of tulle",
+    c: "A black dress",
+    d: "Armor",
+    correct: "b",
+  },
+  {
+    question: "What is the 'House' mentioned near the end of the poem?",
+    a: "Her family home",
+    b: "A hospital",
+    c: "A grave",
+    d: "Heaven",
+    correct: "c",
+  },
+  {
+    question: "Which poetic device is dominant in the poem?",
+    a: "Simile",
+    b: "Irony",
+    c: "Personification",
+    d: "Alliteration",
+    correct: "c",
+  },
+  {
+    question: "What does Immortality riding with them suggest?",
+    a: "Life after death",
+    b: "Fear of death",
+    c: "An illusion",
+    d: "Hope of rescue",
+    correct: "a",
+  },
+  {
+    question: "Which element suggests the speaker has accepted death?",
+    a: "Her resistance to ride",
+    b: "Her weeping",
+    c: "Her calm tone",
+    d: "Her fight with Death",
+    correct: "c",
+  },
+  {
+    question: "What is the structure of the poem?",
+    a: "Sonnet",
+    b: "Ballad",
+    c: "Free verse",
+    d: "Haiku",
+    correct: "b",
+  },
+  {
+    question: "Why is the poem considered unusual about death?",
+    a: "It glorifies death",
+    b: "It treats death calmly and without fear",
+    c: "It has no emotion",
+    d: "It is humorous",
+    correct: "b",
+  },
+  {
+    question: "What is the rhyme scheme of the poem?",
+    a: "ABAB",
+    b: "AABB",
+    c: "No rhyme",
+    d: "ABCB",
+    correct: "d",
+  },
+  {
+    question: "How does the speaker view the afterlife by the end of the poem?",
+    a: "As frightening",
+    b: "As temporary",
+    c: "As eternal",
+    d: "As confusing",
+    correct: "c",
+  },
+  {
+    question: "What genre does the poem belong to?",
+    a: "Dramatic monologue",
+    b: "Elegy",
+    c: "Narrative poem",
+    d: "Romantic poem",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

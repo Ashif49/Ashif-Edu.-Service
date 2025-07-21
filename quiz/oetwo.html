@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "What poetic form is used in 'Ozymandias'?",
+    a: "Shakespearean sonnet",
+    b: "Italian sonnet",
+    c: "Blank verse",
+    d: "Free verse",
+    correct: "b",
+  },
+  {
+    question: "What is the rhyme scheme of 'Ozymandias'?",
+    a: "ABABCDCDEFEFGG",
+    b: "ABBAABBACDECDE",
+    c: "ABABACDCEDEFEF",
+    d: "ABABBCBCDCDEDE",
+    correct: "b",
+  },
+  {
+    question: "What figure of speech is used in 'The hand that mocked them and the heart that fed'?",
+    a: "Alliteration",
+    b: "Synecdoche",
+    c: "Personification",
+    d: "Metaphor",
+    correct: "c",
+  },
+  {
+    question: "What does the phrase 'trunkless legs of stone' suggest?",
+    a: "The statue was never completed",
+    b: "The king had no body",
+    c: "The statue is broken and ruined",
+    d: "The legs are part of a temple",
+    correct: "c",
+  },
+  {
+    question: "Who might the 'Mighty' refer to in 'Look on my Works, ye Mighty, and despair!'?",
+    a: "Poets and artists",
+    b: "Modern-day rulers",
+    c: "The gods",
+    d: "Other powerful rulers",
+    correct: "d",
+  },
+  {
+    question: "What is ironic about the inscription on the pedestal?",
+    a: "It shows humility",
+    b: "His works are nowhere to be seen now",
+    c: "The words are unclear",
+    d: "It praises another ruler",
+    correct: "b",
+  },
+  {
+    question: "Which of the following is NOT a theme of the poem?",
+    a: "Impermanence of power",
+    b: "Nature's dominance",
+    c: "Romantic love",
+    d: "Human pride",
+    correct: "c",
+  },
+  {
+    question: "How is the sculptor’s skill described in the poem?",
+    a: "Unimpressive",
+    b: "Unable to capture emotion",
+    c: "Able to read and replicate the king's emotions",
+    d: "Unnoticed",
+    correct: "c",
+  },
+  {
+    question: "What is the poetic device in 'Two vast and trunkless legs of stone stand in the desert'?",
+    a: "Assonance",
+    b: "Enjambment",
+    c: "Personification",
+    d: "Hyperbole",
+    correct: "b",
+  },
+  {
+    question: "What is the tone of the traveler as he narrates his discovery?",
+    a: "Angry",
+    b: "Fearful",
+    c: "Objective and reflective",
+    d: "Excited",
+    correct: "c",
+  },
+  {
+    question: "The sculptor 'mocked' the passions. What does this suggest?",
+    a: "He criticized them",
+    b: "He imitated or carved them skillfully",
+    c: "He ignored them",
+    d: "He worshipped them",
+    correct: "b",
+  },
+  {
+    question: "What best describes the desert setting in the poem?",
+    a: "Stormy and full of ruins",
+    b: "Lush and green",
+    c: "Vast, empty, and timeless",
+    d: "Covered in pyramids",
+    correct: "c",
+  },
+  {
+    question: "The phrase 'colossal wreck' is an example of:",
+    a: "Alliteration",
+    b: "Oxymoron",
+    c: "Metaphor",
+    d: "Irony",
+    correct: "a",
+  },
+  {
+    question: "What is the significance of the traveler in the poem?",
+    a: "He represents wisdom",
+    b: "He connects the past to the present",
+    c: "He praises Ozymandias",
+    d: "He builds the statue",
+    correct: "b",
+  },
+  {
+    question: "What does Shelley primarily criticize through the poem?",
+    a: "Artistic ambition",
+    b: "Romantic poets",
+    c: "The arrogance of political power",
+    d: "The fall of Egypt",
+    correct: "c",
+  },
+  {
+    question: "What does the expression 'boundless and bare' describe?",
+    a: "The ocean",
+    b: "The ruins of the city",
+    c: "The statue's remains",
+    d: "The desert around the statue",
+    correct: "d",
+  },
+  {
+    question: "Why is Ozymandias referred to as 'King of Kings'?",
+    a: "He ruled a divine empire",
+    b: "He believed he was superior to all rulers",
+    c: "He helped other kings",
+    d: "He was a humble king",
+    correct: "b",
+  },
+  {
+    question: "What literary device is used in 'The lone and level sands stretch far away'?",
+    a: "Metaphor",
+    b: "Hyperbole",
+    c: "Alliteration",
+    d: "Imagery",
+    correct: "d",
+  },
+  {
+    question: "What does the face of the statue convey?",
+    a: "Cruelty and pride",
+    b: "Hope and compassion",
+    c: "Indifference",
+    d: "Humility and sorrow",
+    correct: "a",
+  },
+  {
+    question: "The poem ultimately reflects on the:",
+    a: "Glory of ancient civilizations",
+    b: "Everlasting legacy of rulers",
+    c: "Futility of human pride and power",
+    d: "Skill of ancient sculptors",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "Why did Rosemary feel excited about helping Miss Smith?",
+        a: "She had always wanted a companion",
+        b: "She believed it was romantic and charming to help the poor",
+        c: "She needed a maid",
+        d: "She was writing a novel on poverty",
+        correct: "b",
+    },
+    {
+        question: "What was Rosemary's initial impression of Miss Smith?",
+        a: "Dirty and unpleasant",
+        b: "Inspiring and bold",
+        c: "Frail and frightened",
+        d: "Arrogant and rude",
+        correct: "c",
+    },
+    {
+        question: "How does the story criticize the elite society?",
+        a: "By portraying their kindness",
+        b: "By showing their generosity",
+        c: "By highlighting their hypocrisy and self-centeredness",
+        d: "By showing their intelligence",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary invite Miss Smith to her house?",
+        a: "To help her start a business",
+        b: "To make herself feel superior and charitable",
+        c: "To offer her a job",
+        d: "To teach her",
+        correct: "b",
+    },
+    {
+        question: "How is Rosemary’s view of charity depicted in the story?",
+        a: "As genuine and consistent",
+        b: "As a duty toward society",
+        c: "As impulsive and self-serving",
+        d: "As part of her religious belief",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary's hesitation after Philip’s comment show?",
+        a: "Her confidence",
+        b: "Her concern for Miss Smith",
+        c: "Her insecurity and possessiveness",
+        d: "Her maturity",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary ultimately give Miss Smith money?",
+        a: "Out of genuine compassion",
+        b: "To get rid of her quickly",
+        c: "To avoid confrontation with Philip",
+        d: "Because Miss Smith asked again",
+        correct: "b",
+    },
+    {
+        question: "How does Mansfield use irony in the story?",
+        a: "Rosemary becomes poor in the end",
+        b: "Rosemary’s charity is undone by jealousy",
+        c: "Philip falls in love with Miss Smith",
+        d: "Miss Smith is a rich girl in disguise",
+        correct: "b",
+    },
+    {
+        question: "What does the antique box symbolize in the story?",
+        a: "A gift for Miss Smith",
+        b: "The poverty of the elite",
+        c: "Materialism and Rosemary's obsession with luxury",
+        d: "The secret of the plot",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary’s question at the end ('Am I pretty?') reflect?",
+        a: "Her interest in fashion",
+        b: "Her insecurity and need for validation",
+        c: "Her hatred for Miss Smith",
+        d: "Her confidence in herself",
+        correct: "b",
+    },
+    {
+        question: "Which element best portrays Rosemary’s changing emotions?",
+        a: "Her interactions with the maid",
+        b: "Her changing tone with Miss Smith",
+        c: "Her jewelry purchases",
+        d: "The shift in setting",
+        correct: "b",
+    },
+    {
+        question: "What role does Philip play in revealing Rosemary's true nature?",
+        a: "He inspires her generosity",
+        b: "He supports her cause",
+        c: "His comment triggers Rosemary's jealousy and insecurity",
+        d: "He offers Miss Smith a job",
+        correct: "c",
+    },
+    {
+        question: "Why is Rosemary described as a ‘modern girl’?",
+        a: "She is educated and independent",
+        b: "She uses technology",
+        c: "She believes in women’s rights",
+        d: "She shops for luxuries and follows trends",
+        correct: "d",
+    },
+    {
+        question: "How does the setting of the story reflect its theme?",
+        a: "It shows war and peace",
+        b: "It contrasts wealth and poverty starkly",
+        c: "It explains Rosemary’s childhood",
+        d: "It glorifies the upper class",
+        correct: "b",
+    },
+    {
+        question: "How does Rosemary treat Miss Smith once they reach home?",
+        a: "With warmth and respect",
+        b: "Like a guest of honor",
+        c: "As an object of her fantasy",
+        d: "As her equal",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary offer Miss Smith at her home?",
+        a: "New clothes",
+        b: "A book",
+        c: "A job",
+        d: "A cup of tea and food",
+        correct: "d",
+    },
+    {
+        question: "Which statement best describes the story's ending?",
+        a: "Miss Smith is adopted by Rosemary",
+        b: "Rosemary becomes poor",
+        c: "Rosemary removes Miss Smith due to jealousy",
+        d: "Philip leaves Rosemary",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary’s treatment of Miss Smith suggest?",
+        a: "She is kind-hearted to the core",
+        b: "She lacks true empathy and is superficial",
+        c: "She is generous and selfless",
+        d: "She wants to help others secretly",
+        correct: "b",
+    },
+    {
+        question: "What internal conflict does Rosemary face?",
+        a: "Helping Miss Smith vs. impressing Philip",
+        b: "Shopping vs. cooking",
+        c: "Manners vs. mischief",
+        d: "Past vs. present",
+        correct: "a",
+    },
+    {
+        question: "Which emotion dominates Rosemary by the end of the story?",
+        a: "Relief",
+        b: "Envy",
+        c: "Joy",
+        d: "Peace",
+        correct: "b",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

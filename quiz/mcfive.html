@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+     {
+    question: "What does the erasure of Hari's presence from the corner symbolize in the broader sociopolitical context?",
+    a: "The city’s economic growth",
+    b: "Collective guilt of the public",
+    c: "Marginalization of individual struggles in favor of public spectacle",
+    d: "Fear of rebellion",
+    correct: "c",
+  },
+  {
+    question: "Which critical theme does R.K. Narayan touch upon subtly through the martyr's anonymity?",
+    a: "Celebration of unsung heroes",
+    b: "Deliberate manipulation of public memory",
+    c: "Unity through loss",
+    d: "The fading relevance of history",
+    correct: "b",
+  },
+  {
+    question: "Which literary device is central to the emotional impact of Hari’s displacement?",
+    a: "Hyperbole",
+    b: "Understatement",
+    c: "Foreshadowing",
+    d: "Symbolism",
+    correct: "d",
+  },
+  {
+    question: "How does the narrative structure of the story aid in delivering a critique of bureaucracy?",
+    a: "By focusing only on police action",
+    b: "Through non-linear storytelling",
+    c: "By juxtaposing official decisions with individual suffering",
+    d: "Through comedic dialogues",
+    correct: "c",
+  },
+  {
+    question: "In the context of the story, how is the word 'martyr' problematized?",
+    a: "By questioning the true cause of death",
+    b: "By challenging the criteria for martyrdom",
+    c: "By contrasting symbolic honor with real-world loss",
+    d: "By mocking patriotism",
+    correct: "c",
+  },
+  {
+    question: "Why is Hari’s character left relatively underdeveloped emotionally?",
+    a: "To emphasize the universality of such victims",
+    b: "Because the story focuses on the martyr",
+    c: "To maintain suspense",
+    d: "To make readers sympathize with the martyr",
+    correct: "a",
+  },
+  {
+    question: "How is spatial displacement used as a metaphor in the story?",
+    a: "To show class mobility",
+    b: "To represent bureaucratic neglect",
+    c: "To depict the erasure of the poor from public spaces",
+    d: "To argue for decentralization",
+    correct: "c",
+  },
+  {
+    question: "What does the indifference of the crowd after the incident imply?",
+    a: "Normalcy resumes quickly",
+    b: "Public empathy is temporary and selective",
+    c: "People feared further violence",
+    d: "They were told to forget",
+    correct: "b",
+  },
+  {
+    question: "Which unseen force drives the transformation of the corner into a memorial?",
+    a: "Political motivation to control narratives",
+    b: "Spiritual sentiments of the public",
+    c: "Hari’s persistence",
+    d: "Martyr's family demands",
+    correct: "a",
+  },
+  {
+    question: "How does the story portray the cost of political violence?",
+    a: "Through legal consequences",
+    b: "Through infrastructural damage",
+    c: "Through the silent suffering of the powerless",
+    d: "Through civil unrest",
+    correct: "c",
+  },
+  {
+    question: "Which narrative limitation adds realism to the story?",
+    a: "Omniscient narration",
+    b: "Linear chronology",
+    c: "Limited focus on state response",
+    d: "Over-dramatization",
+    correct: "c",
+  },
+  {
+    question: "What does the lack of a name or background for the martyr reflect?",
+    a: "Intentional ambiguity to question meaning",
+    b: "Loss of documentation",
+    c: "Fear of retaliation",
+    d: "Respect for the unknown",
+    correct: "a",
+  },
+  {
+    question: "Which dualities does the story challenge?",
+    a: "Peace vs. war",
+    b: "Truth vs. propaganda",
+    c: "Commemoration vs. dispossession",
+    d: "Religion vs. secularism",
+    correct: "c",
+  },
+  {
+    question: "How does the title ‘The Martyr’s Corner’ reinforce irony when compared with the narrative?",
+    a: "It reveals Hari’s political ambitions",
+    b: "It mocks the idea of silent corners",
+    c: "It honors someone unknown at the expense of the known sufferer",
+    d: "It celebrates justice",
+    correct: "c",
+  },
+  {
+    question: "Which aspect of the story most aligns with postcolonial critique?",
+    a: "Western influence on food habits",
+    b: "Police brutality",
+    c: "Neglect of native working-class voices in national narratives",
+    d: "Traditional attire symbolism",
+    correct: "c",
+  },
+  {
+    question: "What does Hari’s silence at the end most signify?",
+    a: "Fear of arrest",
+    b: "Internalized grief and forced resilience",
+    c: "Hope for relocation",
+    d: "Ignorance of the situation",
+    correct: "b",
+  },
+  {
+    question: "How does the story use minimalism to enhance its critique?",
+    a: "By avoiding graphic details",
+    b: "By focusing on food rather than people",
+    c: "By simplifying the plot and letting symbols speak",
+    d: "By excluding dialogue",
+    correct: "c",
+  },
+  {
+    question: "How does the community's failure to support Hari mirror real-world apathy?",
+    a: "It shows moral decay",
+    b: "It represents collective helplessness",
+    c: "It reflects shifting values in urban life",
+    d: "It reveals public fatigue with social issues",
+    correct: "d",
+  },
+  {
+    question: "What is the ultimate message regarding memorials in this story?",
+    a: "They are essential to national identity",
+    b: "They are often built over the erasure of personal histories",
+    c: "They protect citizens’ rights",
+    d: "They improve local economy",
+    correct: "b",
+  },
+  {
+    question: "How does Narayan achieve social critique without overtly politicizing the story?",
+    a: "By focusing on a food vendor’s human experience",
+    b: "By praising the government",
+    c: "By omitting any references to real events",
+    d: "By glorifying street protests",
+    correct: "a",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

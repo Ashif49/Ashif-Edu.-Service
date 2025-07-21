@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "What is the significance of the phrase 'monarch of all I survey' in the poem?",
+    a: "Literal ownership of the island",
+    b: "An expression of freedom",
+    c: "Irony showing loneliness despite authority",
+    d: "A boast about his leadership skills",
+    correct: "c"
+  },
+  {
+    question: "Which emotion dominates Selkirk’s thoughts throughout the poem?",
+    a: "Anger",
+    b: "Nostalgia",
+    c: "Pride",
+    d: "Despair",
+    correct: "d"
+  },
+  {
+    question: "What theme is conveyed by Selkirk’s reflection on ‘man formed for society’?",
+    a: "The role of religion",
+    b: "Human dependence on nature",
+    c: "The necessity of human connection",
+    d: "The value of exploration",
+    correct: "c"
+  },
+  {
+    question: "How does Selkirk view the sea creatures and birds?",
+    a: "As friends offering comfort",
+    b: "As reminders of nature’s indifference",
+    c: "As divine messengers",
+    d: "As his subjects",
+    correct: "b"
+  },
+  {
+    question: "How is irony used in the poem’s opening stanza?",
+    a: "Selkirk describes himself as happy when he is sad",
+    b: "He praises isolation but later laments it",
+    c: "He calls himself a king, yet he’s lonely",
+    d: "He jokes about survival",
+    correct: "c"
+  },
+  {
+    question: "What does the poem suggest about material wealth and human contentment?",
+    a: "Wealth ensures happiness",
+    b: "Isolation brings peace",
+    c: "Human company outweighs material comfort",
+    d: "Treasure brings companionship",
+    correct: "c"
+  },
+  {
+    question: "Why does Selkirk feel his cries are in vain?",
+    a: "Because the animals ignore him",
+    b: "Because his prayers are unanswered",
+    c: "Because no human hears or responds",
+    d: "Because storms drown them out",
+    correct: "c"
+  },
+  {
+    question: "Which literary device is used in describing the echo of Selkirk’s voice?",
+    a: "Oxymoron",
+    b: "Personification",
+    c: "Alliteration",
+    d: "Onomatopoeia",
+    correct: "b"
+  },
+  {
+    question: "How is the wilderness portrayed in the poem?",
+    a: "Friendly and supportive",
+    b: "Tame and welcoming",
+    c: "Beautiful but indifferent",
+    d: "Terrifying and hostile",
+    correct: "c"
+  },
+  {
+    question: "What do the references to 'the sound of the church-going bell' symbolize?",
+    a: "Selkirk's past sins",
+    b: "A call to civilization and memory of society",
+    c: "Time passing",
+    d: "Peaceful isolation",
+    correct: "b"
+  },
+  {
+    question: "What mood is created by the line 'I am out of humanity’s reach'?",
+    a: "Humor",
+    b: "Resentment",
+    c: "Melancholy",
+    d: "Determination",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk miss most about human society?",
+    a: "Wealth and luxury",
+    b: "Debates and politics",
+    c: "Love and emotional connection",
+    d: "Food and shelter",
+    correct: "c"
+  },
+  {
+    question: "What best describes the poem’s rhyme scheme?",
+    a: "Free verse",
+    b: "Couplets (AABB)",
+    c: "Alternate rhyme (ABAB)",
+    d: "Blank verse",
+    correct: "b"
+  },
+  {
+    question: "What does the ‘echoing rock’ represent in the poem?",
+    a: "The voice of the island",
+    b: "Selkirk’s own voice mocking him",
+    c: "A reminder of nature’s cruelty",
+    d: "His only listener in solitude",
+    correct: "d"
+  },
+  {
+    question: "How does Cowper use contrast in the poem?",
+    a: "To show day and night cycles",
+    b: "To compare Selkirk’s freedom and suffering",
+    c: "To highlight political views",
+    d: "To show age and youth",
+    correct: "b"
+  },
+  {
+    question: "What does Selkirk’s reign lack, making it meaningless?",
+    a: "Servants",
+    b: "Fame",
+    c: "Followers or companions",
+    d: "Gold",
+    correct: "c"
+  },
+  {
+    question: "What best describes the tone in the middle stanzas of the poem?",
+    a: "Hopeful",
+    b: "Humorous",
+    c: "Wistful and yearning",
+    d: "Aggressive",
+    correct: "c"
+  },
+  {
+    question: "What idea about civilization does the poem reinforce?",
+    a: "It is filled with corruption",
+    b: "It brings false hopes",
+    c: "It is essential to human happiness",
+    d: "It traps the free spirit",
+    correct: "c"
+  },
+  {
+    question: "Which of the following lines shows Selkirk’s emotional sensitivity?",
+    a: "I am monarch of all I survey",
+    b: "I am out of humanity’s reach",
+    c: "But the sound of the church-going bell",
+    d: "Better dwell in the midst of alarms",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk’s longing reveal about human nature?",
+    a: "Desire for adventure",
+    b: "Need for dominance",
+    c: "Craving for emotional connection",
+    d: "Urge for silence",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

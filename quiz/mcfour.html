@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+    question: "What narrative technique is primarily used in 'The Martyr’s Corner'?",
+    a: "First-person narration",
+    b: "Stream of consciousness",
+    c: "Third-person limited with ironic detachment",
+    d: "Omniscient narration",
+    correct: "c",
+  },
+  {
+    question: "Which emotion best captures Hari’s internal state after losing his corner?",
+    a: "Bitterness",
+    b: "Resigned sorrow",
+    c: "Joyful acceptance",
+    d: "Anger",
+    correct: "b",
+  },
+  {
+    question: "What does the story imply about the permanence of public memorials?",
+    a: "They’re deeply respected by all",
+    b: "They offer economic benefits to vendors",
+    c: "They overshadow everyday lives they displace",
+    d: "They foster public unity",
+    correct: "c",
+  },
+  {
+    question: "What element of irony is present in the title 'The Martyr’s Corner'?",
+    a: "It celebrates sacrifice that didn't occur",
+    b: "It mislabels a random place of violence",
+    c: "It honors an unknown cause at the cost of the known sufferer",
+    d: "It refers to a food stall, not a battlefield",
+    correct: "c",
+  },
+  {
+    question: "What is suggested by the lack of attention to Hari after the incident?",
+    a: "He moved to another city",
+    b: "He became a politician",
+    c: "Ordinary people are forgotten in state narratives",
+    d: "He was blamed for the incident",
+    correct: "c",
+  },
+  {
+    question: "How does the story subtly critique urban planning?",
+    a: "By showing that poor vendors get free space",
+    b: "By suggesting the poor aren’t considered in official changes",
+    c: "By advocating for cleanliness",
+    d: "By encouraging public protests",
+    correct: "b",
+  },
+  {
+    question: "What characterizes the change in the corner after the incident?",
+    a: "It became cleaner",
+    b: "It was turned into a shopping plaza",
+    c: "It was taken over by local criminals",
+    d: "It was transformed into a revered but lifeless monument",
+    correct: "d",
+  },
+  {
+    question: "What is a central theme in 'The Martyr’s Corner'?",
+    a: "Justice always prevails",
+    b: "Food is sacred",
+    c: "Institutional remembrance often silences individual pain",
+    d: "We should avoid political gatherings",
+    correct: "c",
+  },
+  {
+    question: "Why is the martyr not given a backstory in the narrative?",
+    a: "To reflect how public attention often lacks depth",
+    b: "Because his identity was lost in the riots",
+    c: "Because he never existed",
+    d: "To keep the story ambiguous",
+    correct: "a",
+  },
+  {
+    question: "What kind of tone dominates the story’s conclusion?",
+    a: "Triumphant",
+    b: "Reflective and subtly accusatory",
+    c: "Celebratory",
+    d: "Humorous",
+    correct: "b",
+  },
+  {
+    question: "How does the story reflect the disposability of the working class?",
+    a: "By showing how Hari quickly finds another stall",
+    b: "By portraying Hari’s identity as erased post-riot",
+    c: "By emphasizing Hari’s legal victory",
+    d: "By romanticizing his lifestyle",
+    correct: "b",
+  },
+  {
+    question: "What kind of commentary does Narayan offer on nationalism?",
+    a: "It always uplifts the poor",
+    b: "It is disconnected from the people it claims to honor",
+    c: "It thrives on economic development",
+    d: "It is always inclusive",
+    correct: "b",
+  },
+  {
+    question: "How is the phrase 'Martyr’s Corner' used satirically?",
+    a: "It attracts more snack vendors",
+    b: "It symbolizes glorification without real empathy",
+    c: "It refers to political loyalty",
+    d: "It becomes a tourism slogan",
+    correct: "b",
+  },
+  {
+    question: "Why is Hari’s story important to the reader but not to the officials?",
+    a: "Officials fear a lawsuit",
+    b: "Officials view such people as expendable",
+    c: "Officials did not know about him",
+    d: "He rejected state compensation",
+    correct: "b",
+  },
+  {
+    question: "What does Narayan highlight through the crowd’s transformation?",
+    a: "The discipline of Indian protests",
+    b: "How chaos is followed by forgetfulness",
+    c: "The support the crowd offers Hari",
+    d: "Their loyalty to food vendors",
+    correct: "b",
+  },
+  {
+    question: "What literary device is used to critique the state’s role in the story?",
+    a: "Allegory",
+    b: "Paradox",
+    c: "Irony",
+    d: "Pun",
+    correct: "c",
+  },
+  {
+    question: "What quality does Hari's quiet acceptance demonstrate?",
+    a: "Ambition",
+    b: "Stoic resilience",
+    c: "Ignorance",
+    d: "Aggression",
+    correct: "b",
+  },
+  {
+    question: "What does the story subtly suggest about historical memory?",
+    a: "It is shaped from above and often ignores those below",
+    b: "It is always accurate and fair",
+    c: "It is fixed in truth",
+    d: "It does not affect daily life",
+    correct: "a",
+  },
+  {
+    question: "Which best explains the lasting impact of 'The Martyr’s Corner'?",
+    a: "It romanticizes sacrifice",
+    b: "It critiques the exploitation of public emotion",
+    c: "It advocates government reform",
+    d: "It promotes economic policies",
+    correct: "b",
+  },
+  {
+    question: "How is Hari symbolically represented in the story?",
+    a: "As a warrior",
+    b: "As a revolutionary",
+    c: "As the silent sufferer behind political drama",
+    d: "As a martyr",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

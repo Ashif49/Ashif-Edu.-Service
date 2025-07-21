@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "Who is the author of 'A Cup of Tea'?",
+        a: "William Somerset Maugham",
+        b: "Virginia Woolf",
+        c: "Katherine Mansfield",
+        d: "Agatha Christie",
+        correct: "c",
+    },
+    {
+        question: "What initially attracts Rosemary to Miss Smith?",
+        a: "Miss Smith’s beauty",
+        b: "Her desperate situation and frailty",
+        c: "Her knowledge about literature",
+        d: "Her background in music",
+        correct: "b",
+    },
+    {
+        question: "Why does Rosemary consider helping Miss Smith a 'thrilling adventure'?",
+        a: "She wants to prove her bravery",
+        b: "She finds joy in rebellion",
+        c: "She sees it as something romantic and different from her daily life",
+        d: "She wants to adopt her",
+        correct: "c",
+    },
+    {
+        question: "Which item is Rosemary tempted to buy at the antique shop?",
+        a: "A book",
+        b: "A brooch",
+        c: "A little enamel box",
+        d: "A mirror",
+        correct: "c",
+    },
+    {
+        question: "How much does the antique item cost?",
+        a: "Five guineas",
+        b: "Two pounds",
+        c: "Three guineas",
+        d: "Four pounds",
+        correct: "a",
+    },
+    {
+        question: "What is Rosemary’s social status in the story?",
+        a: "Middle-class",
+        b: "Working-class",
+        c: "Poor",
+        d: "Upper-class",
+        correct: "d",
+    },
+    {
+        question: "How does Philip react when he sees Miss Smith?",
+        a: "He ignores her",
+        b: "He is indifferent",
+        c: "He compliments her appearance",
+        d: "He offers her a job",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary suddenly want Miss Smith to leave?",
+        a: "She realizes she’s being rude",
+        b: "Philip compliments Miss Smith’s looks",
+        c: "She has another guest coming",
+        d: "Miss Smith becomes demanding",
+        correct: "b",
+    },
+    {
+        question: "What does Rosemary give Miss Smith before sending her away?",
+        a: "A cup of tea",
+        b: "A scarf",
+        c: "Three pounds",
+        d: "A letter of recommendation",
+        correct: "c",
+    },
+    {
+        question: "Which theme is central to the story?",
+        a: "Poverty and hard work",
+        b: "Jealousy and superficial charity",
+        c: "Revenge and justice",
+        d: "Love and betrayal",
+        correct: "b",
+    },
+    {
+        question: "What is ironic about Rosemary’s charitable act?",
+        a: "She ends up asking Miss Smith for help",
+        b: "She does it for social gain",
+        c: "It ends due to jealousy, not compassion",
+        d: "Philip marries Miss Smith",
+        correct: "c",
+    },
+    {
+        question: "How does Rosemary view Miss Smith at first?",
+        a: "As a friend",
+        b: "As someone to rescue",
+        c: "As a rival",
+        d: "As a servant",
+        correct: "b",
+    },
+    {
+        question: "What does Rosemary ask Philip at the end of the story?",
+        a: "Did she do the right thing?",
+        b: "Was Miss Smith grateful?",
+        c: "Am I pretty?",
+        d: "Should I adopt her?",
+        correct: "c",
+    },
+    {
+        question: "Which literary technique is used when Rosemary glamorizes helping the poor?",
+        a: "Symbolism",
+        b: "Personification",
+        c: "Irony",
+        d: "Hyperbole",
+        correct: "c",
+    },
+    {
+        question: "What is Miss Smith’s reaction to being invited home?",
+        a: "She is frightened and hesitant",
+        b: "She is excited and confident",
+        c: "She refuses flatly",
+        d: "She asks for more money",
+        correct: "a",
+    },
+    {
+        question: "What kind of tea is served to Miss Smith?",
+        a: "Green tea",
+        b: "No tea is actually served",
+        c: "Earl Grey",
+        d: "Chamomile",
+        correct: "b",
+    },
+    {
+        question: "How is Rosemary’s relationship with Philip portrayed?",
+        a: "Dominated by Rosemary",
+        b: "Balanced and respectful",
+        c: "Superficial and status-driven",
+        d: "Based on love and support",
+        correct: "c",
+    },
+    {
+        question: "How is Miss Smith characterized physically?",
+        a: "Tall and beautiful",
+        b: "Strong and cheerful",
+        c: "Pale and thin",
+        d: "Elegant and wealthy",
+        correct: "c",
+    },
+    {
+        question: "What is the tone of the story?",
+        a: "Tragic and sorrowful",
+        b: "Comedic and absurd",
+        c: "Satirical and ironic",
+        d: "Adventurous and dramatic",
+        correct: "c",
+    },
+    {
+        question: "How does Mansfield critique upper-class charity?",
+        a: "By showing how they truly transform lives",
+        b: "By emphasizing their genuine sympathy",
+        c: "By exposing their emotional shallowness and ego",
+        d: "By comparing them to working class heroes",
+        correct: "c",
+    }];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

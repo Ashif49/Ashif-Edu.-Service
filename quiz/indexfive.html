@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+	
+	
+	const quizData = [
+    {
+        question: "Why was Foreman removed from his position as verger?",
+        a: "He was caught stealing from the church",
+        b: "He refused to attend church regularly",
+        c: "He could not read or write",
+        d: "He disrespected the new vicar",
+        correct: "c",
+    },
+    {
+        question: "What job did Foreman hold before starting his business?",
+        a: "A clerk",
+        b: "A cook",
+        c: "A church verger",
+        d: "A driver",
+        correct: "c",
+    },
+    {
+        question: "What does Foreman's story suggest about formal education?",
+        a: "It is the only key to success",
+        b: "It can be replaced by common sense and hard work",
+        c: "It is mandatory for all jobs",
+        d: "It guarantees moral superiority",
+        correct: "b",
+    },
+    {
+        question: "What business did Foreman start after leaving the church?",
+        a: "A restaurant",
+        b: "A tobacconist and newsagent shop",
+        c: "A bookshop",
+        d: "A tailoring store",
+        correct: "b",
+    },
+    {
+        question: "Why did the bank manager want to see Foreman?",
+        a: "To congratulate him on his success",
+        b: "To offer him a church job",
+        c: "To warn him about taxes",
+        d: "To inquire about his lack of education",
+        correct: "a",
+    },
+    {
+        question: "How did Foreman react to losing his job as verger?",
+        a: "He was devastated and begged to stay",
+        b: "He left quietly and with dignity",
+        c: "He threatened the vicar",
+        d: "He cried in front of the congregation",
+        correct: "b",
+    },
+    {
+        question: "What does the term 'verger' refer to in the story?",
+        a: "A church cleaner",
+        b: "A layperson assisting in the church",
+        c: "A type of priest",
+        d: "A bishop",
+        correct: "b",
+    },
+    {
+        question: "Which literary device is prominently used in 'The Verger'?",
+        a: "Metaphor",
+        b: "Irony",
+        c: "Allusion",
+        d: "Hyperbole",
+        correct: "b",
+    },
+    {
+        question: "Foreman's new life after losing his job represents which theme?",
+        a: "Revenge",
+        b: "Transformation through adversity",
+        c: "Religious repentance",
+        d: "Moral failure",
+        correct: "b",
+    },
+    {
+        question: "How did Foreman grow his business empire?",
+        a: "By copying others",
+        b: "By reading business books",
+        c: "By opening shops in new residential areas",
+        d: "By inheriting money",
+        correct: "c",
+    },
+    {
+        question: "The character of Foreman is best described as:",
+        a: "Lazy and dependent",
+        b: "Uneducated but clever and enterprising",
+        c: "Highly educated and refined",
+        d: "Dishonest and rude",
+        correct: "b",
+    },
+    {
+        question: "What was the new vicar’s main issue with Foreman?",
+        a: "He didn’t dress appropriately",
+        b: "He didn’t follow orders",
+        c: "He couldn't read or write",
+        d: "He didn’t come to church on time",
+        correct: "c",
+    },
+    {
+        question: "How many shops did Foreman eventually own?",
+        a: "Two",
+        b: "Five",
+        c: "Ten",
+        d: "Multiple across London",
+        correct: "d",
+    },
+    {
+        question: "What quality helped Foreman succeed in business?",
+        a: "Fluency in English",
+        b: "Ability to memorize prayers",
+        c: "Practical intelligence and discipline",
+        d: "Support from family",
+        correct: "c",
+    },
+    {
+        question: "What surprised the bank manager about Foreman?",
+        a: "His generosity",
+        b: "His church background",
+        c: "His illiteracy despite his wealth",
+        d: "His appearance",
+        correct: "c",
+    },
+    {
+        question: "Which best describes the tone of the story?",
+        a: "Tragic",
+        b: "Humorous and ironic",
+        c: "Melancholic",
+        d: "Romantic",
+        correct: "b",
+    },
+    {
+        question: "What does Foreman’s bank account signify?",
+        a: "Religious dedication",
+        b: "Support from the church",
+        c: "His financial success and discipline",
+        d: "Poverty and struggle",
+        correct: "c",
+    },
+    {
+        question: "What lesson can be learned from 'The Verger'?",
+        a: "Only educated people succeed",
+        b: "Pride leads to failure",
+        c: "Hard work and insight can overcome educational barriers",
+        d: "Religion should control business",
+        correct: "c",
+    },
+    {
+        question: "The vicar insisted on literacy because:",
+        a: "It was a law in England",
+        b: "He thought a verger must read church rules",
+        c: "He disliked Foreman personally",
+        d: "He wanted to replace Foreman with a friend",
+        correct: "b",
+    },
+    {
+        question: "How long had Foreman served as a verger before being removed?",
+        a: "5 years",
+        b: "10 years",
+        c: "16 years",
+        d: "25 years",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s dismissal by the vicar reflects:",
+        a: "Personal revenge",
+        b: "A shift in institutional values",
+        c: "A family dispute",
+        d: "An act of kindness",
+        correct: "b",
+    },
+    {
+        question: "The success of Foreman’s shops was due to:",
+        a: "An investor's support",
+        b: "Publicity",
+        c: "Strategic business sense and location choice",
+        d: "Luck",
+        correct: "c",
+    },
+    {
+        question: "What emotion best describes Foreman’s mood when he walks out of the church?",
+        a: "Despair",
+        b: "Anger",
+        c: "Bitterness",
+        d: "Calm resignation",
+        correct: "d",
+    },
+    {
+        question: "Why is Foreman’s story inspiring?",
+        a: "He challenged the vicar publicly",
+        b: "He rose from humble beginnings through self-effort",
+        c: "He became a bishop later",
+        d: "He opened a literacy school",
+        correct: "b",
+    },
+    {
+        question: "The primary theme of *The Verger* is:",
+        a: "Justice and revenge",
+        b: "Love and loss",
+        c: "Practical wisdom over formal education",
+        d: "Blind faith",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	</script>
+  </body>
+</html>

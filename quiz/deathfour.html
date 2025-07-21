@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "How does the poem use the motif of a journey to explore mortality?",
+    a: "To suggest a literal trip to a physical place",
+    b: "To metaphorically represent the passage from life to afterlife",
+    c: "To compare death to travel for leisure",
+    d: "To escape the pains of reality",
+    correct: "b"
+  },
+  {
+    question: "Which line reveals the speaker's awareness of her own death?",
+    a: "Because I could not stop for Death –",
+    b: "The Carriage held but just Ourselves – And Immortality.",
+    c: "We passed the Setting Sun –",
+    d: "I first surmised the Horses' Heads / Were toward Eternity –",
+    correct: "d"
+  },
+  {
+    question: "What function does the 'School' in the poem serve symbolically?",
+    a: "A place of punishment",
+    b: "A marker of learning and career",
+    c: "A metaphor for childhood and early life",
+    d: "A memory from the speaker’s life",
+    correct: "c"
+  },
+  {
+    question: "How does Dickinson blur the line between life and death in the poem?",
+    a: "By narrating death as a dream",
+    b: "By portraying death as a continuation rather than an end",
+    c: "By removing emotional content",
+    d: "By showing religious overtones",
+    correct: "b"
+  },
+  {
+    question: "What impact does the poem’s irregular meter and slant rhyme have?",
+    a: "It emphasizes the disorder of death",
+    b: "It makes the poem sound unnatural",
+    c: "It destabilizes the reader and reflects uncertainty about death",
+    d: "It reinforces religious faith",
+    correct: "c"
+  },
+  {
+    question: "How is the carriage ride paradoxical in nature?",
+    a: "It’s both peaceful and unsettling",
+    b: "It moves backward in time",
+    c: "It is noisy and calm at the same time",
+    d: "It never actually happens",
+    correct: "a"
+  },
+  {
+    question: "Why is Immortality personified but never speaks?",
+    a: "To represent the silence of eternity",
+    b: "To show he is an observer",
+    c: "To emphasize only Death has agency",
+    d: "To create confusion",
+    correct: "a"
+  },
+  {
+    question: "What literary device is used in 'We passed the Setting Sun – Or rather – He passed Us'?",
+    a: "Apostrophe",
+    b: "Synecdoche",
+    c: "Irony",
+    d: "Paradox",
+    correct: "d"
+  },
+  {
+    question: "The phrase 'The Dews drew quivering and chill' conveys:",
+    a: "Warmth and comfort",
+    b: "Pleasant scenery",
+    c: "A sense of decay and impending death",
+    d: "Confusion",
+    correct: "c"
+  },
+  {
+    question: "How is eternity depicted in the poem?",
+    a: "As something unreachable",
+    b: "As a burden",
+    c: "As abstract but inevitable",
+    d: "As a gift",
+    correct: "c"
+  },
+  {
+    question: "What does the 'Gossamer' gown represent?",
+    a: "Spiritual freedom",
+    b: "Luxury",
+    c: "A wedding dress",
+    d: "A burial shroud, symbolizing vulnerability in death",
+    correct: "d"
+  },
+  {
+    question: "How does the poem treat the fear of death?",
+    a: "It intensifies it",
+    b: "It mocks it",
+    c: "It neutralizes it through a calm tone",
+    d: "It denies death exists",
+    correct: "c"
+  },
+  {
+    question: "Why might Dickinson place children, grain, and sunset sequentially?",
+    a: "To indicate innocence, productivity, and decline — a life cycle",
+    b: "To confuse the reader with symbols",
+    c: "To describe a countryside",
+    d: "To show her memory fading",
+    correct: "a"
+  },
+  {
+    question: "What does the phrase 'A Swelling of the Ground' likely indicate?",
+    a: "A bump in the road",
+    b: "Uneven terrain",
+    c: "A grave mound",
+    d: "A rise in spiritual power",
+    correct: "c"
+  },
+  {
+    question: "Dickinson’s use of capitalized abstractions (like Death and Immortality) serves to:",
+    a: "Add grammatical emphasis",
+    b: "Make the text visually striking",
+    c: "Personify abstract concepts and give them weight",
+    d: "Create confusion",
+    correct: "c"
+  },
+  {
+    question: "What tone does the speaker exhibit throughout the poem?",
+    a: "Anxious and hurried",
+    b: "Detached and fearful",
+    c: "Calm and accepting",
+    d: "Frustrated and cynical",
+    correct: "c"
+  },
+  {
+    question: "Why does the speaker use the word 'Civility' to describe Death’s behavior?",
+    a: "To critique societal norms",
+    b: "To highlight irony — death being polite",
+    c: "To emphasize spiritual grace",
+    d: "To show cultural formality",
+    correct: "b"
+  },
+  {
+    question: "How does the speaker’s perception of time change after death?",
+    a: "It becomes slower and more vivid",
+    b: "It ceases to matter altogether",
+    c: "It becomes confusing and painful",
+    d: "It increases in pace",
+    correct: "b"
+  },
+  {
+    question: "What poetic technique is seen in the use of dashes throughout the poem?",
+    a: "Hyperbole",
+    b: "Enjambment to reflect hesitation or transition",
+    c: "Alliteration",
+    d: "Caesura for abruptness",
+    correct: "d"
+  },
+  {
+    question: "What does the poem ultimately suggest about the afterlife?",
+    a: "It is unknown and should be feared",
+    b: "It is an eternal presence subtly awaiting all",
+    c: "It is a reward for virtue",
+    d: "It brings suffering",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+     {
+        question: "Which metaphor best represents the central theme of 'The Voyage'?",
+        a: "A race against time",
+        b: "A battle of survival",
+        c: "A journey toward self-realization",
+        d: "A search for material success",
+        correct: "c",
+    },
+    {
+        question: "In the poem, what does the 'oar' most likely symbolize?",
+        a: "The poet's companions",
+        b: "Control over life's direction",
+        c: "The poet's physical strength",
+        d: "Obstacles in life",
+        correct: "b",
+    },
+    {
+        question: "What can be inferred about the poet's emotional state during the voyage?",
+        a: "He is anxious and overwhelmed",
+        b: "He is detached but contemplative",
+        c: "He is regretful and bitter",
+        d: "He is excited and hopeful",
+        correct: "b",
+    },
+    {
+        question: "The ‘unknown shore’ is a symbolic reference to—",
+        a: "A foreign country",
+        b: "Unexplored ambitions",
+        c: "Afterlife or death",
+        d: "Dreams yet to be fulfilled",
+        correct: "c",
+    },
+    {
+        question: "Why is the voyage described as 'silent'?",
+        a: "Because the poet cannot speak",
+        b: "Because solitude defines it",
+        c: "Because it is a dream",
+        d: "Because it lacks meaning",
+        correct: "b",
+    },
+    {
+        question: "The poet’s decision to continue alone signifies—",
+        a: "Stubbornness",
+        b: "Inner strength and acceptance",
+        c: "Desire to escape",
+        d: "Loss of memory",
+        correct: "b",
+    },
+    {
+        question: "How does Bhupen Hazarika view life’s progression in the poem?",
+        a: "As chaotic and random",
+        b: "As predictable and fixed",
+        c: "As a purposeful and lonely voyage",
+        d: "As controlled by destiny only",
+        correct: "c",
+    },
+    {
+        question: "What does the poet let go of in the poem?",
+        a: "His wealth",
+        b: "His oar",
+        c: "His companions",
+        d: "His dreams",
+        correct: "c",
+    },
+    {
+        question: "What poetic technique is used in portraying the boat and sea?",
+        a: "Hyperbole",
+        b: "Irony",
+        c: "Symbolism",
+        d: "Metonymy",
+        correct: "c",
+    },
+    {
+        question: "What role does time play in the poem?",
+        a: "It is ignored",
+        b: "It is a source of stress",
+        c: "It flows with the journey",
+        d: "It represents the past",
+        correct: "c",
+    },
+    {
+        question: "The repetitive tone in the poem most likely emphasizes—",
+        a: "Indecision",
+        b: "Hopelessness",
+        c: "Endurance and inevitability",
+        d: "Joyful nostalgia",
+        correct: "c",
+    },
+    {
+        question: "How is Bhupen Hazarika’s cultural identity reflected in the poem?",
+        a: "Through Assamese idioms",
+        b: "Through regional metaphors",
+        c: "Through local folklore",
+        d: "Through universal symbolism",
+        correct: "d",
+    },
+    {
+        question: "What inner conflict does the poet hint at?",
+        a: "Between love and duty",
+        b: "Between life and materialism",
+        c: "Between companionship and solitude",
+        d: "Between reason and faith",
+        correct: "c",
+    },
+    {
+        question: "Why is the journey not reversed or paused by the poet?",
+        a: "He is forced by others",
+        b: "He is lost",
+        c: "He has accepted its course",
+        d: "He has no option",
+        correct: "c",
+    },
+    {
+        question: "How does the poem portray the idea of impermanence?",
+        a: "Through changing seasons",
+        b: "Through fading relationships",
+        c: "Through political metaphors",
+        d: "Through imagery of wealth",
+        correct: "b",
+    },
+    {
+        question: "The silence of the voyage enhances the poet’s—",
+        a: "Desire for music",
+        b: "Spiritual understanding",
+        c: "Isolation",
+        d: "Attachment to home",
+        correct: "b",
+    },
+    {
+        question: "Why are the companions no longer with the poet?",
+        a: "They left by choice",
+        b: "They reached their own destinations",
+        c: "They fell out with the poet",
+        d: "They betrayed him",
+        correct: "b",
+    },
+    {
+        question: "What is the emotional effect of the poem’s ending?",
+        a: "Peace and relief",
+        b: "Tension and mystery",
+        c: "Resolution and quiet strength",
+        d: "Joy and celebration",
+        correct: "c",
+    },
+    {
+        question: "The journey in the poem also reflects—",
+        a: "A spiritual pilgrimage",
+        b: "A circular trap",
+        c: "A lifelong pursuit of meaning",
+        d: "A romantic adventure",
+        correct: "c",
+    },
+    {
+        question: "The poet’s imagery mainly appeals to—",
+        a: "Taste and smell",
+        b: "Sound and sight",
+        c: "Touch and taste",
+        d: "Sight and feeling",
+        correct: "d",
+    }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

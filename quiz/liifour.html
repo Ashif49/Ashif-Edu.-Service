@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "What philosophical idea does 'The Lake Isle of Innisfree' most deeply reflect?",
+    a: "Existential dread",
+    b: "Transcendentalism and harmony with nature",
+    c: "Religious salvation",
+    d: "Political rebellion",
+    correct: "b"
+  },
+  {
+    question: "How does Yeats employ auditory imagery in the final stanza?",
+    a: "To echo the city’s noise",
+    b: "To intensify isolation",
+    c: "To suggest inner peace through nature’s sounds",
+    d: "To describe loud birds",
+    correct: "c"
+  },
+  {
+    question: "Which poetic device is used in 'peace comes dropping slow'?",
+    a: "Alliteration",
+    b: "Personification",
+    c: "Anaphora",
+    d: "Onomatopoeia",
+    correct: "b"
+  },
+  {
+    question: "What is the deeper implication of 'I hear it in the deep heart's core'?",
+    a: "An emotional connection with modernity",
+    b: "A spiritual calling to nature",
+    c: "A rejection of family",
+    d: "An apathy towards rural life",
+    correct: "b"
+  },
+  {
+    question: "How does the poem challenge the artificiality of modern life?",
+    a: "By presenting a political argument",
+    b: "By glorifying city wealth",
+    c: "By contrasting it with nature’s enduring calm",
+    d: "By using violent imagery",
+    correct: "c"
+  },
+  {
+    question: "Why is the use of future tense 'I will arise and go now' significant?",
+    a: "It shows the poet is unsure",
+    b: "It reflects a determined spiritual vision or intention",
+    c: "It’s meant sarcastically",
+    d: "It refers to his physical past",
+    correct: "b"
+  },
+  {
+    question: "The phrase 'evening full of the linnet’s wings' indicates:",
+    a: "The visual beauty and sound of birds",
+    b: "A threat from wildlife",
+    c: "Pollution in nature",
+    d: "Supernatural elements",
+    correct: "a"
+  },
+  {
+    question: "Which interpretation best explains the symbolism of Innisfree?",
+    a: "A political prison",
+    b: "An imaginative escape and internal sanctuary",
+    c: "A place of suffering",
+    d: "A colony for the elite",
+    correct: "b"
+  },
+  {
+    question: "What poetic meter is dominant in the poem?",
+    a: "Trochaic tetrameter",
+    b: "Anapestic trimeter",
+    c: "Iambic pentameter with variations",
+    d: "Dactylic hexameter",
+    correct: "c"
+  },
+  {
+    question: "What does 'purple glow' in 'noon a purple glow' symbolize?",
+    a: "Violence and anger",
+    b: "Richness and mystical beauty of the natural world",
+    c: "Sickness and decay",
+    d: "Evening darkness",
+    correct: "b"
+  },
+  {
+    question: "How does Yeats contrast urban and rural life subtly?",
+    a: "Through direct criticism",
+    b: "Through historical events",
+    c: "By emphasizing the absence of peace in cities and presence in nature",
+    d: "By glorifying technology",
+    correct: "c"
+  },
+  {
+    question: "Why is 'dropping from the veils of the morning' considered symbolic?",
+    a: "It refers to rain and weather",
+    b: "It represents the birth of a peaceful day",
+    c: "It implies disaster is coming",
+    d: "It refers to hidden truths of society",
+    correct: "b"
+  },
+  {
+    question: "The expression 'bee-loud glade' contributes to the poem’s mood by:",
+    a: "Disrupting peace",
+    b: "Suggesting a chaotic wilderness",
+    c: "Emphasizing a natural symphony of calm sounds",
+    d: "Introducing tension",
+    correct: "c"
+  },
+  {
+    question: "Which element conveys the poem’s spiritual dimension?",
+    a: "Use of classical allusions",
+    b: "References to city life",
+    c: "The ‘deep heart’s core’ phrase indicating soul-level yearning",
+    d: "Rhyme scheme consistency",
+    correct: "c"
+  },
+  {
+    question: "Why does Yeats not describe any human figures in the poem?",
+    a: "To suggest loneliness",
+    b: "To highlight nature’s purity without societal interference",
+    c: "To show disdain for rural people",
+    d: "To remove context",
+    correct: "b"
+  },
+  {
+    question: "What is the effect of placing natural sounds in a city setting (like 'roadway' and 'pavements')?",
+    a: "To symbolize fear",
+    b: "To contrast imagination with industrial reality",
+    c: "To show acceptance of urban noise",
+    d: "To indicate loneliness",
+    correct: "b"
+  },
+  {
+    question: "Why is the number ‘nine’ significant in 'nine bean-rows'?",
+    a: "Represents magical elements",
+    b: "Arbitrary gardening number",
+    c: "Symbolizes spiritual completeness and rhythm",
+    d: "Represents his age",
+    correct: "c"
+  },
+  {
+    question: "The poem’s emotional tone can best be described as:",
+    a: "Bitter and regretful",
+    b: "Detached and clinical",
+    c: "Nostalgic and yearning",
+    d: "Ironic and mocking",
+    correct: "c"
+  },
+  {
+    question: "What role does memory play in the speaker's imagery?",
+    a: "It offers a rational critique",
+    b: "It triggers a fantasy disconnected from nature",
+    c: "It fuels a profound emotional desire for harmony with nature",
+    d: "It confuses the narrator",
+    correct: "c"
+  },
+  {
+    question: "Why is the speaker's connection to Innisfree considered spiritual rather than physical?",
+    a: "He has only visited once",
+    b: "He is unable to travel",
+    c: "Innisfree exists more vividly in his soul than in physical space",
+    d: "It’s a political metaphor",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

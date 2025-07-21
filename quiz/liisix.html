@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "Who is the poet of 'The Lake Isle of Innisfree'?",
+    a: "Robert Frost",
+    b: "W. B. Yeats",
+    c: "John Keats",
+    d: "Wilfred Owen",
+    correct: "b"
+  },
+  {
+    question: "What does the speaker plan to build at Innisfree?",
+    a: "A mansion",
+    b: "A school",
+    c: "A small cabin of clay and wattles",
+    d: "A church",
+    correct: "c"
+  },
+  {
+    question: "The phrase 'peace comes dropping slow' suggests:",
+    a: "Immediate peace",
+    b: "Peace descends gradually",
+    c: "No peace at all",
+    d: "Violent peace",
+    correct: "b"
+  },
+  {
+    question: "What type of bees does the poet mention?",
+    a: "Red bees",
+    b: "Brown bees",
+    c: "Honey-bees",
+    d: "Giant bees",
+    correct: "c"
+  },
+  {
+    question: "Which of the following best describes the tone of the poem?",
+    a: "Angry",
+    b: "Sarcastic",
+    c: "Peaceful and meditative",
+    d: "Humorous",
+    correct: "c"
+  },
+  {
+    question: "Where is the speaker when he expresses his longing for Innisfree?",
+    a: "In the city",
+    b: "In the countryside",
+    c: "At the lake",
+    d: "On a ship",
+    correct: "a"
+  },
+  {
+    question: "The word 'Innisfree' most likely represents:",
+    a: "A real village in England",
+    b: "A metaphor for spiritual retreat",
+    c: "A place of war",
+    d: "A marketplace",
+    correct: "b"
+  },
+  {
+    question: "Which poetic device is used in 'midnight's all a glimmer'?",
+    a: "Onomatopoeia",
+    b: "Hyperbole",
+    c: "Imagery",
+    d: "Metaphor",
+    correct: "c"
+  },
+  {
+    question: "The poem’s focus on natural time—'midnight', 'noon', and 'evening'—serves to:",
+    a: "Depict confusion",
+    b: "Highlight cosmic disturbance",
+    c: "Present the calm rhythm of nature",
+    d: "Show the narrator's sleeplessness",
+    correct: "c"
+  },
+  {
+    question: "How many bean-rows does the speaker plan to have?",
+    a: "Five",
+    b: "Nine",
+    c: "Seven",
+    d: "Twelve",
+    correct: "b"
+  },
+  {
+    question: "What does the speaker hear in the 'deep heart’s core'?",
+    a: "Voices of ancestors",
+    b: "The sound of bees",
+    c: "The lake water lapping",
+    d: "City noises",
+    correct: "c"
+  },
+  {
+    question: "The speaker's yearning reflects which broader literary movement?",
+    a: "Victorian Realism",
+    b: "Romanticism",
+    c: "Surrealism",
+    d: "Postmodernism",
+    correct: "b"
+  },
+  {
+    question: "What does the word 'wattles' refer to?",
+    a: "Bees",
+    b: "Types of leaves",
+    c: "Twigs used for building",
+    d: "Poetic instruments",
+    correct: "c"
+  },
+  {
+    question: "Which of the following best captures the central theme of the poem?",
+    a: "Urban superiority",
+    b: "Desire for fame",
+    c: "Escape and longing for nature",
+    d: "Fear of solitude",
+    correct: "c"
+  },
+  {
+    question: "How does the speaker imagine his time at Innisfree?",
+    a: "Filled with conflict",
+    b: "Boring and uneventful",
+    c: "Peaceful and self-sufficient",
+    d: "Surrounded by crowds",
+    correct: "c"
+  },
+  {
+    question: "Which poetic technique dominates the structure of the poem?",
+    a: "Blank verse",
+    b: "Free verse",
+    c: "Traditional rhyme with rich imagery",
+    d: "Haiku form",
+    correct: "c"
+  },
+  {
+    question: "Why might the speaker’s desire be considered escapist?",
+    a: "He seeks to flee his debts",
+    b: "He imagines peace away from industrial life",
+    c: "He wants to dominate nature",
+    d: "He is angry with society",
+    correct: "b"
+  },
+  {
+    question: "What kind of mood does the line 'I will arise and go now' establish?",
+    a: "Defeated",
+    b: "Violent",
+    c: "Resolute and hopeful",
+    d: "Careless",
+    correct: "c"
+  },
+  {
+    question: "Which critical interpretation sees Innisfree as symbolic of internal spiritual balance?",
+    a: "Formalism",
+    b: "Ecocriticism",
+    c: "Psychoanalysis",
+    d: "Modernism",
+    correct: "c"
+  },
+  {
+    question: "What does the lapping of lake water symbolize?",
+    a: "The confusion in life",
+    b: "The voice of imagination",
+    c: "The calm persistence of natural peace",
+    d: "The fear of change",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

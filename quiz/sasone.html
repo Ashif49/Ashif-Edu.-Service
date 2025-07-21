@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "Who is the speaker in 'The Solitude of Alexander Selkirk'?",
+    a: "A sailor",
+    b: "Alexander Selkirk himself",
+    c: "A merchant",
+    d: "A pirate",
+    correct: "b"
+  },
+  {
+    question: "What is Alexander Selkirk's main emotion in the poem?",
+    a: "Joy",
+    b: "Pride",
+    c: "Loneliness",
+    d: "Excitement",
+    correct: "c"
+  },
+  {
+    question: "Where is Alexander Selkirk stranded?",
+    a: "In a desert",
+    b: "In a forest",
+    c: "On a lonely island",
+    d: "On a mountain",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk miss the most?",
+    a: "Gold and treasures",
+    b: "Fame",
+    c: "Human companionship",
+    d: "His ship",
+    correct: "c"
+  },
+  {
+    question: "How does Selkirk describe the birds?",
+    a: "Companions in his solitude",
+    b: "Noisy and annoying",
+    c: "Hunters of the sea",
+    d: "Dangerous",
+    correct: "a"
+  },
+  {
+    question: "What kind of life did Selkirk live before being marooned?",
+    a: "A rich and noble life",
+    b: "A sailor’s life on a ship",
+    c: "A merchant's life",
+    d: "A quiet life in a village",
+    correct: "b"
+  },
+  {
+    question: "What lesson does Selkirk learn in solitude?",
+    a: "The value of books",
+    b: "The harshness of nature",
+    c: "The importance of human society",
+    d: "The strength of silence",
+    correct: "c"
+  },
+  {
+    question: "Which natural element does Selkirk fear most?",
+    a: "The sun",
+    b: "The waves",
+    c: "The night",
+    d: "The wind",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk long for?",
+    a: "Adventure",
+    b: "Food",
+    c: "Company and conversation",
+    d: "A new ship",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk compare his solitude to?",
+    a: "Royalty",
+    b: "A rich man’s estate",
+    c: "Imprisonment",
+    d: "Freedom",
+    correct: "c"
+  },
+  {
+    question: "What literary device is most used in the poem?",
+    a: "Satire",
+    b: "Imagery",
+    c: "Metaphor",
+    d: "Parody",
+    correct: "b"
+  },
+  {
+    question: "What is the tone of the poem?",
+    a: "Cheerful and lively",
+    b: "Ironic and humorous",
+    c: "Melancholic and reflective",
+    d: "Sarcastic",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk say about beasts?",
+    a: "They keep him entertained",
+    b: "They are loyal",
+    c: "They do not replace human company",
+    d: "They attack him often",
+    correct: "c"
+  },
+  {
+    question: "What wish does Selkirk express?",
+    a: "To become king of the island",
+    b: "To find treasure",
+    c: "To return to society",
+    d: "To live in the wild forever",
+    correct: "c"
+  },
+  {
+    question: "How does Selkirk describe the ocean?",
+    a: "As calm and peaceful",
+    b: "As the only way back to life",
+    c: "As his enemy",
+    d: "As a mirror to his soul",
+    correct: "b"
+  },
+  {
+    question: "What does Selkirk realize about man?",
+    a: "He is born to be alone",
+    b: "He thrives in solitude",
+    c: "He needs society to be happy",
+    d: "He should rule over nature",
+    correct: "c"
+  },
+  {
+    question: "What kind of animals does Selkirk mention?",
+    a: "Lions and bears",
+    b: "Wolves and snakes",
+    c: "Parrots and goats",
+    d: "Cows and sheep",
+    correct: "c"
+  },
+  {
+    question: "Why is the poem titled 'The Solitude of Alexander Selkirk'?",
+    a: "To show his isolation and inner thoughts",
+    b: "To highlight a naval victory",
+    c: "To describe his childhood",
+    d: "To glorify his journey",
+    correct: "a"
+  },
+  {
+    question: "What genre best fits the poem?",
+    a: "Adventure",
+    b: "Historical fiction",
+    c: "Reflective monologue",
+    d: "Drama",
+    correct: "c"
+  },
+  {
+    question: "Which of the following best describes the poem?",
+    a: "A celebration of nature",
+    b: "A warning about greed",
+    c: "A meditation on isolation",
+    d: "A guide to island survival",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

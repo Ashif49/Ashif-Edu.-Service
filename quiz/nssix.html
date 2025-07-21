@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "Who stung the poet's mother in 'Night of the Scorpion'?",
+    a: "Snake",
+    b: "Scorpion",
+    c: "Spider",
+    d: "Bee",
+    correct: "b"
+  },
+  {
+    question: "What did the villagers do after the sting?",
+    a: "Called a doctor",
+    b: "Lit candles and prayed",
+    c: "Left her alone",
+    d: "Took her to hospital",
+    correct: "b"
+  },
+  {
+    question: "How does the poet describe his mother's pain?",
+    a: "Mild and brief",
+    b: "Fiery and severe",
+    c: "Non-existent",
+    d: "Funny",
+    correct: "b"
+  },
+  {
+    question: "What was the father’s reaction to the sting?",
+    a: "Calm and scientific",
+    b: "Panic and superstition",
+    c: "Indifference",
+    d: "Ignored her",
+    correct: "a"
+  },
+  {
+    question: "How did the scorpion escape?",
+    a: "Under a sack of rice",
+    b: "Into a hole",
+    c: "Under the bed",
+    d: "Behind the door",
+    correct: "a"
+  },
+  {
+    question: "What does the poem mainly explore?",
+    a: "Love and friendship",
+    b: "Superstition versus rationality",
+    c: "War and peace",
+    d: "Nature’s beauty",
+    correct: "b"
+  },
+  {
+    question: "Which literary device is used in 'peasants came like swarms of flies'?",
+    a: "Simile",
+    b: "Metaphor",
+    c: "Personification",
+    d: "Alliteration",
+    correct: "a"
+  },
+  {
+    question: "What is the tone of the poem’s ending?",
+    a: "Joyful",
+    b: "Ironic and tender",
+    c: "Angry",
+    d: "Sarcastic",
+    correct: "b"
+  },
+  {
+    question: "The villagers’ prayers symbolize:",
+    a: "Scientific knowledge",
+    b: "Human helplessness and hope",
+    c: "Mockery",
+    d: "Fearlessness",
+    correct: "b"
+  },
+  {
+    question: "What does the mother express about her children?",
+    a: "She is angry at them",
+    b: "She is glad the scorpion stung her and not them",
+    c: "She fears them",
+    d: "She ignores them",
+    correct: "b"
+  },
+  {
+    question: "The father’s scientific approach is shown by:",
+    a: "Burning the sting with a flame",
+    b: "Praying",
+    c: "Ignoring the situation",
+    d: "Calling the villagers",
+    correct: "a"
+  },
+  {
+    question: "How does the poem reflect rural Indian culture?",
+    a: "Shows the clash between superstition and reason",
+    b: "Glorifies superstition",
+    c: "Denies modern medicine",
+    d: "Ignores tradition",
+    correct: "a"
+  },
+  {
+    question: "What is the significance of the poet’s narrative perspective?",
+    a: "It balances sympathy with critical observation",
+    b: "It mocks the villagers",
+    c: "It is detached and cold",
+    d: "It praises superstition",
+    correct: "a"
+  },
+  {
+    question: "The mother’s endurance symbolizes:",
+    a: "Weakness",
+    b: "Strength and self-sacrifice",
+    c: "Ignorance",
+    d: "Fear",
+    correct: "b"
+  },
+  {
+    question: "The poem’s straightforward language makes it:",
+    a: "Confusing",
+    b: "Relatable and poignant",
+    c: "Funny",
+    d: "Difficult to understand",
+    correct: "b"
+  },
+  {
+    question: "How is irony used in the poem?",
+    a: "In the villagers’ prayers that don’t cure her",
+    b: "In the mother’s pain",
+    c: "In the scorpion’s death",
+    d: "In the father’s panic",
+    correct: "a"
+  },
+  {
+    question: "The scorpion hiding under a sack of rice shows:",
+    a: "Danger lurking in daily life",
+    b: "Wealth of the family",
+    c: "The scorpion’s size",
+    d: "The villagers’ carelessness",
+    correct: "a"
+  },
+  {
+    question: "What does the line 'I watched the flame feeding on my hand' signify?",
+    a: "Physical pain and treatment attempt",
+    b: "Fire festival",
+    c: "Poet’s anger",
+    d: "Celebration",
+    correct: "a"
+  },
+  {
+    question: "What does the community’s involvement during the crisis show?",
+    a: "Solidarity despite superstition",
+    b: "Ignorance",
+    c: "Mockery",
+    d: "Indifference",
+    correct: "a"
+  },
+  {
+    question: "The poem’s ending highlights:",
+    a: "Maternal love and irony",
+    b: "Hatred",
+    c: "Fear",
+    d: "Confusion",
+    correct: "a"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

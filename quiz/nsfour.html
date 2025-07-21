@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "How does 'Night of the Scorpion' address the theme of superstition versus modernity?",
+    a: "By showing the villagers’ reliance on superstition contrasting with the father’s rationality",
+    b: "By portraying all characters as superstitious",
+    c: "By advocating abandonment of all beliefs",
+    d: "By ignoring the conflict entirely",
+    correct: "a"
+  },
+  {
+    question: "What does the scorpion symbolize beyond its physical sting?",
+    a: "Social change",
+    b: "Fear, suffering, and human vulnerability",
+    c: "Wealth and prosperity",
+    d: "Freedom and joy",
+    correct: "b"
+  },
+  {
+    question: "In what way does the poet use irony in the villagers’ reaction?",
+    a: "They use effective medicine",
+    b: "Their prayers have no real effect but highlight their helplessness",
+    c: "They laugh at the mother",
+    d: "They immediately call a doctor",
+    correct: "b"
+  },
+  {
+    question: "How does the poem reflect postcolonial Indian rural life?",
+    a: "Through depiction of traditional beliefs and practices persisting alongside modern influences",
+    b: "By showing urban sophistication",
+    c: "By glorifying colonial rulers",
+    d: "By portraying a city scene",
+    correct: "a"
+  },
+  {
+    question: "What literary device is dominant in 'And the peasants came like swarms of flies'?",
+    a: "Simile",
+    b: "Metaphor",
+    c: "Personification",
+    d: "Alliteration",
+    correct: "a"
+  },
+  {
+    question: "How does the poet portray the mother’s suffering as heroic?",
+    a: "By emphasizing her endurance and concern for her children despite the pain",
+    b: "By showing her fainting",
+    c: "By describing her anger",
+    d: "By ignoring her pain",
+    correct: "a"
+  },
+  {
+    question: "What is the significance of the line 'I watched the flame feeding on my hand'?",
+    a: "It shows physical pain and the father’s attempt to cure scientifically",
+    b: "It is a metaphor for passion",
+    c: "It describes a fire festival",
+    d: "It shows the poet burning the house",
+    correct: "a"
+  },
+  {
+    question: "What tone does the poem maintain throughout?",
+    a: "Skeptical yet compassionate",
+    b: "Joyful",
+    c: "Sarcastic",
+    d: "Detached and clinical",
+    correct: "a"
+  },
+  {
+    question: "Why does the poet highlight the community’s involvement during the crisis?",
+    a: "To criticize them",
+    b: "To show solidarity despite superstition",
+    c: "To mock their ignorance",
+    d: "To praise their knowledge",
+    correct: "b"
+  },
+  {
+    question: "What is the effect of the poem ending with the mother’s selfless statement?",
+    a: "It adds irony and highlights maternal love",
+    b: "It confuses the reader",
+    c: "It shows bitterness",
+    d: "It changes the poem’s theme",
+    correct: "a"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

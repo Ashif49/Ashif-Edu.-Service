@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "Which narrative device primarily shapes the story of 'Bina Kutir'?",
+    a: "Third-person omniscient narration",
+    b: "Real-time narration",
+    c: "Stream of consciousness mixed with imagined reconstruction",
+    d: "Dialogue-heavy exposition",
+    correct: "c",
+  },
+  {
+    question: "How does the narrator justify his imaginary details about the family of Bina Kutir?",
+    a: "He interviewed neighbors",
+    b: "He read a journal found in the house",
+    c: "He bases it on common patterns of urban family life",
+    d: "He remembers the family from childhood",
+    correct: "c",
+  },
+  {
+    question: "What ironic contrast does the narrator point out between the house and the city around it?",
+    a: "The house is luxurious while the city is poor",
+    b: "The house stands still in time while the city grows chaotic",
+    c: "The house is modern while the city is ancient",
+    d: "The house is haunted, but the city is lively",
+    correct: "b",
+  },
+  {
+    question: "What does the narrator’s speculation about the elder son symbolize?",
+    a: "Lack of faith",
+    b: "Escape from responsibility",
+    c: "Preservation of heritage through tradition",
+    d: "Political ambitions",
+    correct: "c",
+  },
+  {
+    question: "What does the ‘faded Coca-Cola bottle’ metaphorically represent in the story?",
+    a: "Colonial history",
+    b: "Rebellion of youth and foreign influence",
+    c: "Poverty",
+    d: "Religious devotion",
+    correct: "b",
+  },
+  {
+    question: "Why does the narrator assume the family left Bina Kutir permanently?",
+    a: "Due to financial crisis",
+    b: "Because the children’s ideologies diverged too much",
+    c: "Because of legal disputes",
+    d: "The house was unsafe",
+    correct: "b",
+  },
+  {
+    question: "What element gives the story its philosophical depth?",
+    a: "Descriptive scenery",
+    b: "Witty dialogue",
+    c: "Contemplation of permanence vs. impermanence",
+    d: "Historical facts",
+    correct: "c",
+  },
+  {
+    question: "What does the story suggest about memories tied to abandoned homes?",
+    a: "They are dangerous to revisit",
+    b: "They fade quickly without photographs",
+    c: "They create timeless emotional landscapes",
+    d: "They remain irrelevant",
+    correct: "c",
+  },
+  {
+    question: "Why might the author have deliberately avoided naming any character in the house?",
+    a: "To focus on architecture",
+    b: "To universalize the story of loss",
+    c: "He forgot the names",
+    d: "To reflect his indifference",
+    correct: "b",
+  },
+  {
+    question: "How does the narrator view the impact of western consumer goods?",
+    a: "As a mark of success",
+    b: "As corrupting and symbolic of lost identity",
+    c: "As spiritual objects",
+    d: "As irrelevant to tradition",
+    correct: "b",
+  },
+  {
+    question: "The silence of the house is metaphorically linked to what theme?",
+    a: "Peace and solitude",
+    b: "Spiritual awakening",
+    c: "Suppressed memories and untold stories",
+    d: "Pride and honour",
+    correct: "c",
+  },
+  {
+    question: "What literary style does the story mostly reflect?",
+    a: "Detective fiction",
+    b: "Lyric poetry in prose form",
+    c: "Modernist introspection with speculative realism",
+    d: "Sci-fi futurism",
+    correct: "c",
+  },
+  {
+    question: "What internal conflict is revealed through the narrator’s musings?",
+    a: "His dislike for his family",
+    b: "His guilt for abandoning his village",
+    c: "His struggle between romanticising the past and accepting reality",
+    d: "His inability to adapt to technology",
+    correct: "c",
+  },
+  {
+    question: "Why might the author have named the house 'Bina Kutir'?",
+    a: "To hint at the absence of a central figure",
+    b: "It was a real house in his life",
+    c: "It’s a religious reference",
+    d: "It refers to a musical instrument",
+    correct: "a",
+  },
+  {
+    question: "Which idea can be drawn from the symbolic decay of the house?",
+    a: "New beginnings",
+    b: "A critique of political systems",
+    c: "Cultural amnesia and societal neglect",
+    d: "Hope for revolution",
+    correct: "c",
+  },
+  {
+    question: "Which emotion dominates the tone of the story?",
+    a: "Joy",
+    b: "Awe",
+    c: "Melancholy",
+    d: "Suspense",
+    correct: "c",
+  },
+  {
+    question: "Why does the narrator's reconstruction feel convincing despite being fictional?",
+    a: "Because he uses real names",
+    b: "Because he balances imagination with logic and observation",
+    c: "Because he researched the area thoroughly",
+    d: "Because of old photographs",
+    correct: "b",
+  },
+  {
+    question: "Which of these best describes the narrator’s attitude toward tradition?",
+    a: "Mocking",
+    b: "Reverent but realistic",
+    c: "Indifferent",
+    d: "Revolutionary",
+    correct: "b",
+  },
+  {
+    question: "What does the contrasting image of old houses and glass buildings imply?",
+    a: "Technological progress",
+    b: "Economic boom",
+    c: "The erasure of history and cultural roots",
+    d: "Global cooperation",
+    correct: "c",
+  },
+  {
+    question: "In which language was the original story 'Bina Kutir' written?",
+    a: "Bengali",
+    b: "Assamese",
+    c: "Hindi",
+    d: "English",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

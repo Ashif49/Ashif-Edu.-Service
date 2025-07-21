@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "In what way is Selkirk’s 'monarchy' ironic?",
+    a: "He is wealthy yet miserable",
+    b: "He has absolute power but no subjects",
+    c: "He chooses to live alone",
+    d: "He is respected by the animals",
+    correct: "b"
+  },
+  {
+    question: "Which classical theme does Cowper allude to in Selkirk’s condition?",
+    a: "Fate and prophecy",
+    b: "The fall from glory",
+    c: "The noble savage",
+    d: "The hubris of man",
+    correct: "d"
+  },
+  {
+    question: "Which literary movement does this poem *prefigure* despite being pre-Romantic?",
+    a: "Victorian realism",
+    b: "Romanticism",
+    c: "Modernism",
+    d: "Transcendentalism",
+    correct: "b"
+  },
+  {
+    question: "What deeper symbolism lies in the line 'I am out of humanity’s reach'?",
+    a: "His death",
+    b: "Physical remoteness only",
+    c: "A complete severance from social identity and human values",
+    d: "His hatred for mankind",
+    correct: "c"
+  },
+  {
+    question: "Why might Cowper’s personal history with mental illness be significant in reading this poem?",
+    a: "It adds autobiographical emotion to Selkirk's despair",
+    b: "It explains the religious themes",
+    c: "It highlights Cowper’s political views",
+    d: "It adds a humorous contrast",
+    correct: "a"
+  },
+  {
+    question: "How does Cowper use antithesis in the poem?",
+    a: "To show the power of nature",
+    b: "To glorify solitude",
+    c: "To contrast society’s imperfections with its necessity",
+    d: "To celebrate heroic solitude",
+    correct: "c"
+  },
+  {
+    question: "What is emphasized through the repeated references to ‘man’ and ‘men’?",
+    a: "The cruelty of mankind",
+    b: "The sociability and collective nature of humans",
+    c: "Masculinity",
+    d: "Religious dominance",
+    correct: "b"
+  },
+  {
+    question: "Why is the poem sometimes seen as a religious allegory?",
+    a: "Because of Selkirk's church references",
+    b: "Because it contrasts sin and redemption",
+    c: "Because it reflects spiritual exile and longing for salvation",
+    d: "Because Cowper was a clergyman",
+    correct: "c"
+  },
+  {
+    question: "What does the poem imply about the value of suffering?",
+    a: "It is meaningless",
+    b: "It leads to madness",
+    c: "It builds inner strength",
+    d: "It reveals the need for society and reflection",
+    correct: "d"
+  },
+  {
+    question: "Which poetic technique intensifies Selkirk’s emotional isolation?",
+    a: "Oxymoron",
+    b: "Alliteration",
+    c: "Enjambment",
+    d: "Caesura",
+    correct: "d"
+  },
+  {
+    question: "What is the function of nature in the poem’s philosophical argument?",
+    a: "A symbol of hope",
+    b: "A spiritual companion",
+    c: "A neutral and indifferent backdrop to human suffering",
+    d: "A metaphor for adventure",
+    correct: "c"
+  },
+  {
+    question: "How does Cowper subtly critique imperialism through Selkirk?",
+    a: "By showing the violence of colonization",
+    b: "By revealing the emptiness of conquering without community",
+    c: "By rejecting European culture",
+    d: "By promoting native wisdom",
+    correct: "b"
+  },
+  {
+    question: "Which rhetorical strategy makes Selkirk's suffering universal?",
+    a: "Use of specific names and dates",
+    b: "Lack of detail",
+    c: "First-person narration and moral generalizations",
+    d: "Sarcastic tone",
+    correct: "c"
+  },
+  {
+    question: "Why does Selkirk feel less human on the island?",
+    a: "He forgets language",
+    b: "He becomes animalistic",
+    c: "He is cut off from all social relationships, which define humanity",
+    d: "He no longer believes in God",
+    correct: "c"
+  },
+  {
+    question: "What kind of tone dominates the poem?",
+    a: "Satirical and mocking",
+    b: "Melancholic and introspective",
+    c: "Optimistic and serene",
+    d: "Angry and critical",
+    correct: "b"
+  },
+  {
+    question: "Which of these best describes the structure of the poem?",
+    a: "Series of narrative events",
+    b: "Philosophical meditation on solitude",
+    c: "Dramatic dialogue",
+    d: "Epic confrontation",
+    correct: "b"
+  },
+  {
+    question: "What is the poetic function of the phrase 'but the sound of the church-going bell'?",
+    a: "Expresses nostalgia and spiritual longing",
+    b: "Adds a musical element",
+    c: "Reminds Selkirk of danger",
+    d: "Signals time passing",
+    correct: "a"
+  },
+  {
+    question: "How does Cowper universalize Selkirk’s feelings?",
+    a: "By including biblical allusions",
+    b: "By focusing on historical accuracy",
+    c: "By linking individual solitude to all human experience",
+    d: "By presenting Selkirk as a national hero",
+    correct: "c"
+  },
+  {
+    question: "What line best suggests existential angst?",
+    a: "I am monarch of all I survey",
+    b: "I am out of humanity’s reach",
+    c: "Man is made for society",
+    d: "Better dwell in the midst of alarms",
+    correct: "b"
+  },
+  {
+    question: "What effect does the poem’s rhyme scheme have on its message?",
+    a: "It makes it sound childlike",
+    b: "It emphasizes the contrast between order and emotional chaos",
+    c: "It distracts from the meaning",
+    d: "It supports humor",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

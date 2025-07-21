@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+	
+	
+	const quizData = [
+    {
+        question: "What internal conflict does Foreman experience after his dismissal?",
+        a: "Fear of poverty",
+        b: "Shame of being illiterate",
+        c: "Loss of dignity",
+        d: "Reluctance to abandon his identity as verger",
+        correct: "d",
+    },
+    {
+        question: "What literary device is most prominent in the story’s ending?",
+        a: "Simile",
+        b: "Allegory",
+        c: "Irony",
+        d: "Allusion",
+        correct: "c",
+    },
+    {
+        question: "What emotion is subtly expressed by Foreman when he removes his gown for the last time?",
+        a: "Relief",
+        b: "Indifference",
+        c: "Sentimentality",
+        d: "Regret",
+        correct: "d",
+    },
+    {
+        question: "The narrative point of view in 'The Verger' is best described as:",
+        a: "First-person limited",
+        b: "Third-person omniscient",
+        c: "Third-person limited",
+        d: "First-person subjective",
+        correct: "b",
+    },
+    {
+        question: "Which of the following best reflects the theme of conformity vs individuality?",
+        a: "Foreman refusing to learn to read",
+        b: "Vicar enforcing reading skills",
+        c: "Foreman’s decision to start a business",
+        d: "Foreman’s acceptance of dismissal",
+        correct: "a",
+    },
+    {
+        question: "Why does the author mention Foreman's meticulous care for church responsibilities?",
+        a: "To contrast with his illiteracy",
+        b: "To show his intelligence",
+        c: "To praise his fashion sense",
+        d: "To question the church’s standards",
+        correct: "a",
+    },
+    {
+        question: "What does the story suggest about the role of formal education in success?",
+        a: "It is crucial",
+        b: "It is helpful but not mandatory",
+        c: "It is irrelevant",
+        d: "It is a moral obligation",
+        correct: "b",
+    },
+    {
+        question: "Which social issue does the story subtly critique?",
+        a: "Religious intolerance",
+        b: "Economic inequality",
+        c: "Education-based discrimination",
+        d: "Colonial exploitation",
+        correct: "c",
+    },
+    {
+        question: "What does Foreman’s success imply about self-learning?",
+        a: "It is a waste without literacy",
+        b: "It often leads to failure",
+        c: "It can compensate for lack of formal education",
+        d: "It is less respected than formal learning",
+        correct: "c",
+    },
+    {
+        question: "The church's insistence on Foreman's literacy is an example of:",
+        a: "Progressive thinking",
+        b: "Outdated tradition",
+        c: "Institutional rigidity",
+        d: "Emotional concern",
+        correct: "c",
+    },
+    {
+        question: "How does the setting of Neville Square contribute to the story?",
+        a: "It adds humor",
+        b: "It represents a symbol of prestige",
+        c: "It shows rural simplicity",
+        d: "It emphasizes spiritual atmosphere",
+        correct: "b",
+    },
+    {
+        question: "What narrative technique is used to present the backstory of Foreman's tenure?",
+        a: "Dialogue",
+        b: "Flashback",
+        c: "Stream of consciousness",
+        d: "Direct exposition",
+        correct: "b",
+    },
+    {
+        question: "Which character quality of Foreman is central to his transformation?",
+        a: "Religious devotion",
+        b: "Obedience",
+        c: "Business acumen",
+        d: "Pragmatism",
+        correct: "d",
+    },
+    {
+        question: "Why is Foreman's illiteracy not seen as a flaw by him?",
+        a: "He hides it well",
+        b: "He considers it irrelevant to success",
+        c: "He plans to learn eventually",
+        d: "He sees it as spiritual purity",
+        correct: "b",
+    },
+    {
+        question: "What does the story imply about class and occupation?",
+        a: "Only the educated rise in class",
+        b: "Lower-class jobs restrict potential",
+        c: "Occupation does not limit potential for success",
+        d: "Class is permanent and fixed",
+        correct: "c",
+    },
+    {
+        question: "Which moment in the story serves as a major plot twist?",
+        a: "Foreman’s hiring at the church",
+        b: "The opening of the second shop",
+        c: "The bank manager learning Foreman is illiterate",
+        d: "The vicar’s resignation",
+        correct: "c",
+    },
+    {
+        question: "Why is the bank manager’s reaction to Foreman’s illiteracy important?",
+        a: "It adds comic relief",
+        b: "It shows disbelief at societal norms",
+        c: "It shows a reversal of expectations",
+        d: "It reveals financial anxiety",
+        correct: "c",
+    },
+    {
+        question: "Which of the following best defines the tone of the story?",
+        a: "Melancholic",
+        b: "Ironic and humorous",
+        c: "Tragic",
+        d: "Celebratory",
+        correct: "b",
+    },
+    {
+        question: "Why is Foreman’s character development considered unconventional?",
+        a: "He never changes roles",
+        b: "He becomes rich by accident",
+        c: "He defies traditional success norms",
+        d: "He loses everything in the end",
+        correct: "c",
+    },
+    {
+        question: "What does the vestry symbolize in the story?",
+        a: "Freedom",
+        b: "Status and tradition",
+        c: "Commerce",
+        d: "Religious hypocrisy",
+        correct: "b",
+    },
+    {
+        question: "Which theme is illustrated by the vicar’s demand?",
+        a: "Mercy",
+        b: "Pride",
+        c: "Conformity",
+        d: "Faith",
+        correct: "c",
+    },
+    {
+        question: "What does the ending suggest about fate and self-reliance?",
+        a: "Fate always controls success",
+        b: "Education is more powerful than fate",
+        c: "Self-reliance can turn fate in one’s favor",
+        d: "Religious faith determines fate",
+        correct: "c",
+    },
+    {
+        question: "How does the title 'The Verger' reflect irony?",
+        a: "Foreman dies a verger",
+        b: "He remains a verger in all ways",
+        c: "He gains success only after leaving the post",
+        d: "It refers to someone else",
+        correct: "c",
+    },
+    {
+        question: "What characteristic of Foreman contrasts sharply with the vicar's?",
+        a: "Kindness vs Cruelty",
+        b: "Wealth vs Poverty",
+        c: "Experience vs Formal education",
+        d: "Spirituality vs Worldliness",
+        correct: "c",
+    },
+    {
+        question: "The author uses Foreman's story primarily to:",
+        a: "Condemn church politics",
+        b: "Mock the British class system",
+        c: "Illustrate practical intelligence and irony",
+        d: "Encourage religious faith",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	</script>
+  </body>
+</html>

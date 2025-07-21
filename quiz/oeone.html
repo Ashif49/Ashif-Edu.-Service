@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "Who is the poet of 'Ozymandias'?",
+    a: "William Wordsworth",
+    b: "John Keats",
+    c: "Percy Bysshe Shelley",
+    d: "Lord Byron",
+    correct: "c",
+  },
+  {
+    question: "What does the traveler describe in the poem?",
+    a: "A battlefield",
+    b: "A ruined statue",
+    c: "A palace",
+    d: "A forest",
+    correct: "b",
+  },
+  {
+    question: "Where is the statue of Ozymandias found?",
+    a: "In a city",
+    b: "In a jungle",
+    c: "In the desert",
+    d: "On a mountain",
+    correct: "c",
+  },
+  {
+    question: "What was written on the pedestal of the statue?",
+    a: "Ozymandias the Kind",
+    b: "Beware of my kingdom",
+    c: "Look on my Works, ye Mighty, and despair!",
+    d: "Glory to the past",
+    correct: "c",
+  },
+  {
+    question: "What is the condition of the statue?",
+    a: "Perfect and untouched",
+    b: "Broken and half-buried",
+    c: "Shining and golden",
+    d: "Covered in vines",
+    correct: "b",
+  },
+  {
+    question: "Who narrates the poem?",
+    a: "Shelley himself",
+    b: "A traveler met by the speaker",
+    c: "Ozymandias",
+    d: "A pharaoh",
+    correct: "b",
+  },
+  {
+    question: "What emotion does the face of the statue show?",
+    a: "Laughter",
+    b: "Terror",
+    c: "Pride and arrogance",
+    d: "Sadness",
+    correct: "c",
+  },
+  {
+    question: "What message does the poem convey about power?",
+    a: "Power lasts forever",
+    b: "True power is kindness",
+    c: "Even great power fades over time",
+    d: "Statues symbolize immortality",
+    correct: "c",
+  },
+  {
+    question: "What remains of Ozymandias's empire?",
+    a: "Huge cities",
+    b: "A large army",
+    c: "Nothing but ruins",
+    d: "His writings",
+    correct: "c",
+  },
+  {
+    question: "The poem is a reflection on:",
+    a: "Victory in war",
+    b: "The beauty of nature",
+    c: "The impermanence of human achievements",
+    d: "A personal journey",
+    correct: "c",
+  },
+  {
+    question: "What type of poem is 'Ozymandias'?",
+    a: "Epic",
+    b: "Sonnet",
+    c: "Ballad",
+    d: "Elegy",
+    correct: "b",
+  },
+  {
+    question: "What do the 'shattered visage' and 'trunkless legs' symbolize?",
+    a: "Strength of the king",
+    b: "Decay of once mighty power",
+    c: "Victory of nature",
+    d: "The cruelty of the ruler",
+    correct: "b",
+  },
+  {
+    question: "The poem is written in which point of view?",
+    a: "First-person",
+    b: "Second-person",
+    c: "Third-person limited",
+    d: "Third-person reported speech",
+    correct: "d",
+  },
+  {
+    question: "The sculptor's art captured what emotion?",
+    a: "Love and passion",
+    b: "Despair and fear",
+    c: "Cold command",
+    d: "Hope and trust",
+    correct: "c",
+  },
+  {
+    question: "What does 'colossal wreck' refer to?",
+    a: "The desert",
+    b: "The fallen statue",
+    c: "Ozymandias's army",
+    d: "A broken palace",
+    correct: "b",
+  },
+  {
+    question: "What does 'the lone and level sands stretch far away' imply?",
+    a: "Crowded cities nearby",
+    b: "The vast emptiness around the ruins",
+    c: "People still live there",
+    d: "A nearby oasis",
+    correct: "b",
+  },
+  {
+    question: "Which literary device is found in 'Look on my Works, ye Mighty, and despair!'?",
+    a: "Simile",
+    b: "Metaphor",
+    c: "Irony",
+    d: "Onomatopoeia",
+    correct: "c",
+  },
+  {
+    question: "What kind of ruler was Ozymandias, based on the poem?",
+    a: "Humble",
+    b: "Generous",
+    c: "Proud and arrogant",
+    d: "Kind-hearted",
+    correct: "c",
+  },
+  {
+    question: "Which country is the traveler said to have come from?",
+    a: "An ancient land",
+    b: "India",
+    c: "Egypt",
+    d: "Persia",
+    correct: "a",
+  },
+  {
+    question: "What is the tone of the poem?",
+    a: "Joyful",
+    b: "Satirical",
+    c: "Reflective and ironic",
+    d: "Romantic",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

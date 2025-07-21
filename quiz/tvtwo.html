@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What does the poem ‘The Voyage’ primarily explore?",
+        a: "Love and heartbreak",
+        b: "The materialistic world",
+        c: "Life as a continuous journey",
+        d: "Political corruption",
+        correct: "c",
+    },
+    {
+        question: "In ‘The Voyage’, what does the poet suggest about human companionship?",
+        a: "It lasts forever",
+        b: "It fades away with time",
+        c: "It is burdensome",
+        d: "It is irrelevant",
+        correct: "b",
+    },
+    {
+        question: "Why does the poet not complain about his solitary journey?",
+        a: "He prefers solitude",
+        b: "He believes it's natural",
+        c: "He fears society",
+        d: "He does not understand loneliness",
+        correct: "b",
+    },
+    {
+        question: "What does the 'unknown shore' symbolize in the poem?",
+        a: "Fear of water",
+        b: "Lost dreams",
+        c: "End of life or death",
+        d: "New adventure",
+        correct: "c",
+    },
+    {
+        question: "How does the poet describe his boat?",
+        a: "Luxurious",
+        b: "Wooden and fragile",
+        c: "Large and powerful",
+        d: "Empty and lonely",
+        correct: "d",
+    },
+    {
+        question: "What is the tone of the poem when discussing parting from companions?",
+        a: "Joyful",
+        b: "Indifferent",
+        c: "Melancholic",
+        d: "Hopeful",
+        correct: "c",
+    },
+    {
+        question: "Which concept is NOT directly addressed in the poem?",
+        a: "Mortality",
+        b: "Spiritual enlightenment",
+        c: "Solitude",
+        d: "Human connection",
+        correct: "b",
+    },
+    {
+        question: "The journey in the poem can be seen as a metaphor for—",
+        a: "A literal boat ride",
+        b: "Global migration",
+        c: "The personal struggles of life",
+        d: "War and peace",
+        correct: "c",
+    },
+    {
+        question: "What does the line ‘those who were with me have gone’ indicate?",
+        a: "Physical separation only",
+        b: "A social gathering",
+        c: "Emotional detachment over time",
+        d: "All companions have betrayed him",
+        correct: "c",
+    },
+    {
+        question: "How is silence portrayed in the poem?",
+        a: "As destructive",
+        b: "As peaceful and accepted",
+        c: "As a punishment",
+        d: "As noise in disguise",
+        correct: "b",
+    },
+    {
+        question: "What feeling is dominant as the poet reflects on the voyage?",
+        a: "Joyful expectation",
+        b: "Bitterness",
+        c: "Contemplative resignation",
+        d: "Restlessness",
+        correct: "c",
+    },
+    {
+        question: "The repeated image of the voyage most clearly suggests—",
+        a: "Physical dislocation",
+        b: "An emotional journey",
+        c: "An endless loop",
+        d: "The futility of life",
+        correct: "b",
+    },
+    {
+        question: "Which line reflects the poet’s acceptance of fate?",
+        a: "I will return to the shore",
+        b: "I row with broken oars",
+        c: "I travel where destiny takes me",
+        d: "I wait for my turn",
+        correct: "c",
+    },
+    {
+        question: "What can be inferred about the poet's view of death?",
+        a: "It is terrifying",
+        b: "It is confusing",
+        c: "It is inevitable and natural",
+        d: "It is to be avoided",
+        correct: "c",
+    },
+    {
+        question: "Which of the following best captures the message of the poem?",
+        a: "No man is an island",
+        b: "Life is a lonely voyage toward an unknown end",
+        c: "Faith can conquer all",
+        d: "Materialism ruins human values",
+        correct: "b",
+    },
+    {
+        question: "How does the poet deal with loss in the poem?",
+        a: "He grieves endlessly",
+        b: "He expresses it through anger",
+        c: "He embraces it as part of life",
+        d: "He avoids the topic",
+        correct: "c",
+    },
+    {
+        question: "Which of these best describes the poet’s mood throughout the voyage?",
+        a: "Aggressive and rebellious",
+        b: "Reflective and passive",
+        c: "Playful and carefree",
+        d: "Sarcastic and mocking",
+        correct: "b",
+    },
+    {
+        question: "What is the ultimate destination in ‘The Voyage’?",
+        a: "Material wealth",
+        b: "A safe land",
+        c: "The end of life or fulfillment of purpose",
+        d: "A successful career",
+        correct: "c",
+    },
+    {
+        question: "The decreasing number of companions reflects—",
+        a: "Friendship is fake",
+        b: "Human mortality and detachment",
+        c: "The poet's selfishness",
+        d: "Fading memories",
+        correct: "b",
+    },
+    {
+        question: "What does the poet hope to retain through the journey?",
+        a: "Luxury and pleasure",
+        b: "His cultural identity and values",
+        c: "Power and authority",
+        d: "Youthfulness",
+        correct: "b",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

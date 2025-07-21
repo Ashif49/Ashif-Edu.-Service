@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "Why does Selkirk feel 'monarch of all he surveys'?",
+    a: "Because he owns the island",
+    b: "Because he is alone and has no rivals",
+    c: "Because he controls the animals",
+    d: "Because he built a kingdom",
+    correct: "b"
+  },
+  {
+    question: "Which poetic device is used in the phrase 'monarch of all I survey'?",
+    a: "Simile",
+    b: "Personification",
+    c: "Metaphor",
+    d: "Irony",
+    correct: "c"
+  },
+  {
+    question: "What contrast does Selkirk often make in the poem?",
+    a: "Between land and sea",
+    b: "Between nature and civilization",
+    c: "Between solitude and companionship",
+    d: "Between wealth and poverty",
+    correct: "c"
+  },
+  {
+    question: "How does the poem reflect Selkirk's inner conflict?",
+    a: "Through his changing moods",
+    b: "Through images of war",
+    c: "Through the voices of animals",
+    d: "Through storms and tempests",
+    correct: "a"
+  },
+  {
+    question: "Which of the following lines best represents Selkirk’s despair?",
+    a: "I am out of humanity’s reach",
+    b: "I am the king of the island",
+    c: "The sun rises for me alone",
+    d: "Nature is my only friend",
+    correct: "a"
+  },
+  {
+    question: "Why does Selkirk describe silence as 'dreadful'?",
+    a: "Because it calms him too much",
+    b: "Because it reminds him of peace",
+    c: "Because it reminds him of his isolation",
+    d: "Because it drowns out nature",
+    correct: "c"
+  },
+  {
+    question: "How does Selkirk view the creatures on the island?",
+    a: "As loyal companions",
+    b: "As indifferent beings",
+    c: "As enemies",
+    d: "As kings of the wild",
+    correct: "b"
+  },
+  {
+    question: "Why does Selkirk say 'society is needed for man'?",
+    a: "To reflect Cowper’s religious beliefs",
+    b: "To affirm human interdependence",
+    c: "To reject isolation as punishment",
+    d: "To criticize city life",
+    correct: "b"
+  },
+  {
+    question: "Which of these best describes the poem’s structure?",
+    a: "Free verse with no rhyme",
+    b: "Heroic couplets",
+    c: "Blank verse",
+    d: "Limericks",
+    correct: "b"
+  },
+  {
+    question: "What makes the island feel like a prison to Selkirk?",
+    a: "Its wildlife",
+    b: "Its lack of food",
+    c: "His emotional loneliness",
+    d: "Its darkness",
+    correct: "c"
+  },
+  {
+    question: "Why is Selkirk’s 'reign' ironic?",
+    a: "Because he is not truly powerful",
+    b: "Because he controls everything",
+    c: "Because he is feared by all",
+    d: "Because he is loved by animals",
+    correct: "a"
+  },
+  {
+    question: "What theme is central in the poem?",
+    a: "War and peace",
+    b: "Love and betrayal",
+    c: "Isolation and human need for society",
+    d: "Adventure and heroism",
+    correct: "c"
+  },
+  {
+    question: "Which quality of Selkirk is highlighted most in the poem?",
+    a: "His physical strength",
+    b: "His cunning survival tactics",
+    c: "His emotional vulnerability",
+    d: "His wisdom",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk compare his cries to?",
+    a: "The roars of lions",
+    b: "The ocean’s waves",
+    c: "The howls of beasts",
+    d: "Echoes in a tomb",
+    correct: "d"
+  },
+  {
+    question: "What kind of solitude is Selkirk experiencing?",
+    a: "Temporary and chosen",
+    b: "Adventurous and exciting",
+    c: "Forced and overwhelming",
+    d: "Spiritual and uplifting",
+    correct: "c"
+  },
+  {
+    question: "What is the tone in most of the poem?",
+    a: "Celebratory",
+    b: "Joyful",
+    c: "Regretful",
+    d: "Satirical",
+    correct: "c"
+  },
+  {
+    question: "How does the poem portray nature?",
+    a: "As nurturing and motherly",
+    b: "As a teacher",
+    c: "As indifferent to man’s emotions",
+    d: "As cruel and punishing",
+    correct: "c"
+  },
+  {
+    question: "What is the meaning behind Selkirk’s cries 'in vain'?",
+    a: "They are answered by the gods",
+    b: "They echo back but bring no response",
+    c: "They stir the animals to action",
+    d: "They attract help from ships",
+    correct: "b"
+  },
+  {
+    question: "Why does Selkirk reflect on ‘men in cities’?",
+    a: "To compare his condition with theirs",
+    b: "To make fun of their soft life",
+    c: "To blame them for his misfortune",
+    d: "To inspire courage",
+    correct: "a"
+  },
+  {
+    question: "What kind of life does Selkirk yearn for?",
+    a: "Warlike",
+    b: "Solitary",
+    c: "Companionship-filled",
+    d: "Sailor’s again",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

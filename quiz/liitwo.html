@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "What poetic device is used in the line 'peace comes dropping slow'?",
+    a: "Simile",
+    b: "Metaphor",
+    c: "Alliteration",
+    d: "Personification",
+    correct: "d"
+  },
+  {
+    question: "What does the 'bee-loud glade' represent?",
+    a: "A field full of flowers",
+    b: "An escape from noise",
+    c: "Nature's vibrant soundscape",
+    d: "A garden",
+    correct: "c"
+  },
+  {
+    question: "Why does the poet feel a sense of unrest in the city?",
+    a: "Because of poverty",
+    b: "Because of physical illness",
+    c: "Because of the absence of nature and peace",
+    d: "Because of traffic",
+    correct: "c"
+  },
+  {
+    question: "What does 'deep heart's core' metaphorically imply?",
+    a: "His brain",
+    b: "His emotional longing",
+    c: "A physical place",
+    d: "His childhood memory",
+    correct: "b"
+  },
+  {
+    question: "Which of the following is NOT a time of day mentioned in the poem?",
+    a: "Morning",
+    b: "Noon",
+    c: "Midnight",
+    d: "Evening",
+    correct: "b"
+  },
+  {
+    question: "What does Innisfree symbolize in the poem?",
+    a: A place to hide from enemies",
+    b: "Materialistic success",
+    c: "The poet’s inner peace and spiritual retreat",
+    d: "A travel destination",
+    correct: "c"
+  },
+  {
+    question: "What kind of life does the poet wish to live at Innisfree?",
+    a: "Luxurious",
+    b: "Adventurous",
+    c: "Simple and self-sustained",
+    d: "Religious",
+    correct: "c"
+  },
+  {
+    question: "What does the phrase 'I will arise and go now' express?",
+    a: "Determination",
+    b: "Doubt",
+    c: "Regret",
+    d: "Confusion",
+    correct: "a"
+  },
+  {
+    question: "What is the tone of the poem?",
+    a: "Bitter and aggressive",
+    b: "Nostalgic and peaceful",
+    c: "Fearful and mysterious",
+    d: "Joyous and humorous",
+    correct: "b"
+  },
+  {
+    question: "Why does the poet repeat 'I will arise and go now'?",
+    a: "For rhythm",
+    b: "For grammatical structure",
+    c: "To emphasize his deep desire",
+    d: "For dramatic effect",
+    correct: "c"
+  },
+  {
+    question: "What type of poem is 'The Lake Isle of Innisfree'?",
+    a: "A dramatic monologue",
+    b: "A satirical poem",
+    c: "A lyric poem",
+    d: "An epic",
+    correct: "c"
+  },
+  {
+    question: "How does the poem reflect Romantic ideals?",
+    a: "By discussing war",
+    b: "By glorifying modern life",
+    c: "By emphasizing nature and individual emotion",
+    d: "By showing political themes",
+    correct: "c"
+  },
+  {
+    question: "Where does the poet physically stand while thinking of Innisfree?",
+    a: "In a garden",
+    b: "On a city road",
+    c: "On a mountain",
+    d: "Beside the lake",
+    correct: "b"
+  },
+  {
+    question: "Which phrase shows the poet’s wish to be close to nature?",
+    a: "A small cabin of clay and wattles made",
+    b: "A rose-filled garden",
+    c: "High walls and towers",
+    d: "Crowded cafes",
+    correct: "a"
+  },
+  {
+    question: "The line 'I hear it in the deep heart's core' suggests:",
+    a: "The sound of his thoughts",
+    b: "The lake's physical noise",
+    c: "An emotional connection to Innisfree",
+    d: "His heartbeat",
+    correct: "c"
+  },
+  {
+    question: "What role do sound images play in the poem?",
+    a: "To disturb the tone",
+    b: "To evoke nature’s liveliness",
+    c: "To create musical rhythm only",
+    d: "To emphasize fear",
+    correct: "b"
+  },
+  {
+    question: "What is the form of the poem?",
+    a: "Shakespearean sonnet",
+    b: "Haiku",
+    c: "Three quatrains",
+    d: "Blank verse",
+    correct: "c"
+  },
+  {
+    question: "Which best explains the mood of the poem?",
+    a: "Lively and festive",
+    b: "Reflective and tranquil",
+    c: "Conflicted and angry",
+    d: "Cold and indifferent",
+    correct: "b"
+  },
+  {
+    question: "Innisfree is located in which country?",
+    a: "England",
+    b: "France",
+    c: "Ireland",
+    d: "Scotland",
+    correct: "c"
+  },
+  {
+    question: "The poem ends on what kind of note?",
+    a: "Melancholy",
+    b: "Philosophical",
+    c: "Serene and resolved",
+    d: "Anxious",
+    correct: "c"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

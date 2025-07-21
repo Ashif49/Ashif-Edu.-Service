@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "What poetic structure does Shelley deviate from in 'Ozymandias'?",
+    a: "Typical Petrarchan octave-sestet division",
+    b: "Limerick pattern",
+    c: "Haiku arrangement",
+    d: "Ballad stanza format",
+    correct: "a",
+  },
+  {
+    question: "Which line contains a clear example of enjambment?",
+    a: "'Two vast and trunkless legs of stone...'",
+    b: "'My name is Ozymandias, king of kings...'",
+    c: "'Tell that its sculptor well those passions read...'",
+    d: "'The lone and level sands stretch far away.'",
+    correct: "c",
+  },
+  {
+    question: "What role does irony play in the poem?",
+    a: "It enhances the traveler's credibility",
+    b: "It emphasizes the narrator’s emotions",
+    c: "It highlights the contrast between Ozymandias's claim and his ruin",
+    d: "It glorifies Ozymandias's past",
+    correct: "c",
+  },
+  {
+    question: "The fragmented statue is a metaphor for:",
+    a: "The limits of artistic skill",
+    b: "Human resilience",
+    c: "The decay of political power",
+    d: "Lost civilizations",
+    correct: "c",
+  },
+  {
+    question: "Why is the use of second-hand narration important in the poem?",
+    a: "To provide historical context",
+    b: "To remove personal bias",
+    c: "To highlight distance from Ozymandias’s time",
+    d: "To increase narrative pace",
+    correct: "c",
+  },
+  {
+    question: "The traveler’s tale contributes to the poem’s:",
+    a: "Dramatic irony",
+    b: "Mythical setting",
+    c: "Frame narrative",
+    d: "Lyric tone",
+    correct: "c",
+  },
+  {
+    question: "Shelley’s use of diction like 'colossal' and 'wreck' best illustrates:",
+    a: "Hyperbole and satire",
+    b: "Imagery and irony",
+    c: "Symbolism and fear",
+    d: "Elegy and allegory",
+    correct: "b",
+  },
+  {
+    question: "The 'wrinkled lip and sneer of cold command' imply that the king was:",
+    a: "Indecisive",
+    b: "Sympathetic",
+    c: "Arrogant and oppressive",
+    d: "Quiet and mysterious",
+    correct: "c",
+  },
+  {
+    question: "Which literary element is strengthened by the image of ruins in the desert?",
+    a: "Suspense",
+    b: "Conflict",
+    c: "Theme of impermanence",
+    d: "Foreshadowing",
+    correct: "c",
+  },
+  {
+    question: "The 'hand that mocked them' most likely refers to:",
+    a: "Ozymandias’s hand",
+    b: "The traveler’s hand",
+    c: "The sculptor’s hand",
+    d: "A divine hand",
+    correct: "c",
+  },
+  {
+    question: "Why does Shelley avoid naming the traveler?",
+    a: "To create mystery",
+    b: "To universalize the message",
+    c: "To critique historical sources",
+    d: "To emphasize fiction",
+    correct: "b",
+  },
+  {
+    question: "The word 'pedestal' in the poem refers to:",
+    a: "The base of the broken statue",
+    b: "A stone thrown by the traveler",
+    c: "A platform used by the king to speak",
+    d: "A ruined building",
+    correct: "a",
+  },
+  {
+    question: "What contrast lies at the core of 'Ozymandias'?",
+    a: "Hope vs. despair",
+    b: "Art vs. reality",
+    c: "Permanence vs. transience",
+    d: "Power vs. freedom",
+    correct: "c",
+  },
+  {
+    question: "Which word best describes the atmosphere created by the poem’s setting?",
+    a: "Hopeful",
+    b: "Melancholic",
+    c: "Romantic",
+    d: "Festive",
+    correct: "b",
+  },
+  {
+    question: "The survival of the statue’s expression shows:",
+    a: "Art’s ability to transcend time",
+    b: "Sculptor’s hatred for Ozymandias",
+    c: "The traveler’s illusion",
+    d: "Inaccurate representation",
+    correct: "a",
+  },
+  {
+    question: "Shelley's portrayal of Ozymandias can best be described as:",
+    a: "Tragic heroism",
+    b: "Subtle reverence",
+    c: "Ironical destruction of hubris",
+    d: "Romantic nostalgia",
+    correct: "c",
+  },
+  {
+    question: "Which phrase suggests complete isolation in the scene?",
+    a: "'King of Kings'",
+    b: "'Half sunk, a shattered visage lies'",
+    c: "'The lone and level sands stretch far away'",
+    d: "'Tell that its sculptor well those passions read'",
+    correct: "c",
+  },
+  {
+    question: "Which emotion is most prominently critiqued in the poem?",
+    a: "Joy",
+    b: "Grief",
+    c: "Pride",
+    d: "Hope",
+    correct: "c",
+  },
+  {
+    question: "How does Shelley use setting to reinforce his theme?",
+    a: "He uses urban imagery",
+    b: "He creates contrast with the ocean",
+    c: "He places ruins in a desolate desert",
+    d: "He sets the statue in a temple",
+    correct: "c",
+  },
+  {
+    question: "The phrase 'king of kings' is a possible allusion to:",
+    a: "Biblical reference to God",
+    b: "Julius Caesar",
+    c: "Alexander the Great",
+    d: "The sculptor himself",
+    correct: "a",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

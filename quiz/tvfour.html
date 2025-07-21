@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What does the diminishing company on the voyage metaphorically represent?",
+        a: "Incompetent sailors",
+        b: "Life’s increasing isolation with age",
+        c: "The poet’s fame fading",
+        d: "An economic crisis",
+        correct: "b",
+    },
+    {
+        question: "The poet's continued journey despite solitude implies—",
+        a: "Desperation",
+        b: "Ignorance of danger",
+        c: "Resilience and acceptance of destiny",
+        d: "Greed for more",
+        correct: "c",
+    },
+    {
+        question: "What do the ‘sails’ in the poem metaphorically represent?",
+        a: "Desire to escape",
+        b: "Progress or movement in life",
+        c: "War and victory",
+        d: "Misguided plans",
+        correct: "b",
+    },
+    {
+        question: "Bhupen Hazarika's use of voyage as a metaphor is deeply rooted in—",
+        a: "Colonial literature",
+        b: "Assamese folklore",
+        c: "Existential philosophy",
+        d: "Historical adventure",
+        correct: "c",
+    },
+    {
+        question: "How is the idea of fate handled in ‘The Voyage’?",
+        a: "As something to resist",
+        b: "As a divine punishment",
+        c: "As an inevitable companion",
+        d: "As an illusion",
+        correct: "c",
+    },
+    {
+        question: "What does the line ‘the boat goes on’ suggest?",
+        a: "Loss of direction",
+        b: "Continuity of life's journey",
+        c: "Accidental travel",
+        d: "Rebellion against society",
+        correct: "b",
+    },
+    {
+        question: "In the poem, 'the oars are broken' likely symbolizes—",
+        a: "A sudden accident",
+        b: "Abandonment of effort",
+        c: "Loss of control and helplessness",
+        d: "Mechanical failure",
+        correct: "c",
+    },
+    {
+        question: "What does the ‘mist’ or ‘fog’ imply in the context of the poem?",
+        a: "Lack of ambition",
+        b: "Blurriness of vision",
+        c: "Uncertainty of destination and life’s meaning",
+        d: "The presence of ghosts",
+        correct: "c",
+    },
+    {
+        question: "Which of the following best reflects Bhupen Hazarika’s philosophical undertone in the poem?",
+        a: "The past must be forgotten",
+        b: "Solitude is unnatural",
+        c: "The journey of life is individual and uncertain",
+        d: "Struggle is meaningless",
+        correct: "c",
+    },
+    {
+        question: "The poem uses minimalism in imagery to express—",
+        a: "Boredom in life",
+        b: "Clarity of thought",
+        c: "Depth of emotional and existential struggle",
+        d: "Celebration of nature",
+        correct: "c",
+    },
+    {
+        question: "Bhupen Hazarika’s personal tone in the poem reveals his—",
+        a: "Political beliefs",
+        b: "Spiritual awakening",
+        c: "Emotional vulnerability and inner strength",
+        d: "Artistic superiority",
+        correct: "c",
+    },
+    {
+        question: "‘The Voyage’ reflects a transition from—",
+        a: "Ignorance to enlightenment",
+        b: "Youth to adulthood",
+        c: "Society to solitude",
+        d: "Reality to illusion",
+        correct: "c",
+    },
+    {
+        question: "Which of the following would best describe the structure of the poem?",
+        a: "Narrative with dialogues",
+        b: "Chronological life events",
+        c: "Lyrical with metaphorical depth",
+        d: "Autobiographical prose",
+        correct: "c",
+    },
+    {
+        question: "The image of an ‘empty boat’ at the end suggests—",
+        a: "Emptiness of the world",
+        b: "Completion of a spiritual quest",
+        c: "Death or transcendence",
+        d: "Return to land",
+        correct: "c",
+    },
+    {
+        question: "How does the poet view the past companions of his voyage?",
+        a: "With indifference",
+        b: "With betrayal",
+        c: "With nostalgic reverence",
+        d: "With anger",
+        correct: "c",
+    },
+    {
+        question: "The silence in the poem conveys—",
+        a: "Apathy",
+        b: "Freedom",
+        c: "Inner reflection and unresolved emotion",
+        d: "Relief",
+        correct: "c",
+    },
+    {
+        question: "‘The stars above are blind to my course’ most likely means—",
+        a: "He’s lost at sea",
+        b: "He feels unnoticed or unsupported by fate",
+        c: "It’s nighttime",
+        d: "The sky is cloudy",
+        correct: "b",
+    },
+    {
+        question: "What literary device is dominant in the line: ‘my soul is the mast in this ocean of despair’?",
+        a: "Alliteration",
+        b: "Hyperbole",
+        c: "Metaphor",
+        d: "Irony",
+        correct: "c",
+    },
+    {
+        question: "In the context of Bhupen Hazarika's musical background, this poem reflects—",
+        a: "Lyrical philosophy",
+        b: "Scientific rationality",
+        c: "Cultural satire",
+        d: "Nationalist pride",
+        correct: "a",
+    },
+    {
+        question: "The central conflict in the poem is between—",
+        a: "Love and duty",
+        b: "Society and solitude",
+        c: "Man’s desire to belong and fate’s plan to isolate",
+        d: "War and peace",
+        correct: "c",
+    }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

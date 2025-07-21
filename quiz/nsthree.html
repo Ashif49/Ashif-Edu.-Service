@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "What cultural practice is highlighted by the villagers’ response to the scorpion sting?",
+    a: "Scientific healing methods",
+    b: "Traditional superstitions and rituals",
+    c: "Modern medicine",
+    d: "Urban myths",
+    correct: "b"
+  },
+  {
+    question: "How does the poem contrast the villagers and the father?",
+    a: "Villagers are logical, father is superstitious",
+    b: "Villagers rely on faith, father relies on reason",
+    c: "Both rely on superstition",
+    d: "Both rely on science",
+    correct: "b"
+  },
+  {
+    question: "What does the poet imply about the mother’s pain and endurance?",
+    a: "She is weak and fearful",
+    b: "She is brave and self-sacrificing",
+    c: "She exaggerates her pain",
+    d: "She is indifferent",
+    correct: "b"
+  },
+  {
+    question: "How is the scorpion described in terms of its physical presence?",
+    a: "Large and menacing",
+    b: "Small and hidden",
+    c: "Brightly colored",
+    d: "Friendly",
+    correct: "b"
+  },
+  {
+    question: "Why does the poet mention the villagers lighting candles and chanting prayers?",
+    a: "To indicate their superstition and helplessness",
+    b: "To show their medical knowledge",
+    c: "To highlight their indifference",
+    d: "To describe a religious festival",
+    correct: "a"
+  },
+  {
+    question: "What role does irony play in the poem?",
+    a: "The mother’s suffering contrasts with the villagers’ prayers",
+    b: "The villagers’ prayers have immediate effect",
+    c: "The father ignores the situation",
+    d: "The scorpion is harmless",
+    correct: "a"
+  },
+  {
+    question: "What does the mother’s statement, 'Thank God the scorpion picked on me and not my children,' reveal?",
+    a: "Her selfishness",
+    b: "Her selflessness and maternal love",
+    c: "Her anger",
+    d: "Her fear",
+    correct: "b"
+  },
+  {
+    question: "How does the poet describe the villagers’ attitude towards the scorpion’s sting?",
+    a: "Rational and calm",
+    b: "Fearful and superstitious",
+    c: "Indifferent",
+    d: "Mocking",
+    correct: "b"
+  },
+  {
+    question: "What is the significance of the scorpion hiding 'beneath a sack of rice'?",
+    a: "It shows how danger lurks in everyday places",
+    b: "It emphasizes the size of the scorpion",
+    c: "It symbolizes wealth",
+    d: "It shows the villagers’ carelessness",
+    correct: "a"
+  },
+  {
+    question: "What is the overall mood of the poem?",
+    a: "Joyful and celebratory",
+    b: "Tense but compassionate",
+    c: "Humorous and lighthearted",
+    d: "Angry and aggressive",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+     {
+    question: "Who is the protagonist of the story 'The Martyr’s Corner'?",
+    a: "Hari",
+    b: "The Vicar",
+    c: "Ramu",
+    d: "Raghunath",
+    correct: "a",
+  },
+  {
+    question: "What was Hari’s profession?",
+    a: "Temple priest",
+    b: "Street vendor",
+    c: "Rickshaw puller",
+    d: "Tailor",
+    correct: "b",
+  },
+  {
+    question: "Where did Hari conduct his business?",
+    a: "In front of a shop",
+    b: "Under a bridge",
+    c: "At a corner near the market",
+    d: "In a municipal stall",
+    correct: "c",
+  },
+  {
+    question: "What kind of food did Hari sell?",
+    a: "South Indian meals",
+    b: "Sweets and snacks",
+    c: "Hot and spicy snacks like dosai and chutney",
+    d: "Boiled rice and vegetables",
+    correct: "c",
+  },
+  {
+    question: "Why was Hari forced to leave his spot?",
+    a: "He was arrested",
+    b: "A political rally caused violence there",
+    c: "He wanted a better location",
+    d: "He fell ill",
+    correct: "b",
+  },
+  {
+    question: "What happened at the corner that changed everything for Hari?",
+    a: "A protest was held there",
+    b: "Someone was martyred",
+    c: "It was turned into a monument",
+    d: "All of the above",
+    correct: "d",
+  },
+  {
+    question: "What is the irony in the story 'The Martyr’s Corner'?",
+    a: "Hari became rich after losing his corner",
+    b: "The martyr was honored, while Hari lost his livelihood",
+    c: "The government compensated Hari",
+    d: "Hari forgot about the incident quickly",
+    correct: "b",
+  },
+  {
+    question: "What does the story mainly critique?",
+    a: "Fast food habits",
+    b: "Urban cleanliness",
+    c: "Bureaucratic indifference and public memory",
+    d: "Politics in school systems",
+    correct: "c",
+  },
+  {
+    question: "How does R.K. Narayan portray the common man’s suffering?",
+    a: "Through humor",
+    b: "Through a symbolic loss of space and identity",
+    c: "Through supernatural elements",
+    d: "By focusing on Hari's emotional strength",
+    correct: "b",
+  },
+  {
+    question: "Which emotion best describes Hari’s condition after losing the corner?",
+    a: "Excitement",
+    b: "Revenge",
+    c: "Silent suffering",
+    d: "Joy",
+    correct: "c",
+  },
+  {
+    question: "What replaced Hari’s stall at the corner?",
+    a: "A shopping kiosk",
+    b: "A new food stall",
+    c: "A martyr’s memorial",
+    d: "A streetlight",
+    correct: "c",
+  },
+  {
+    question: "Why was the place called 'The Martyr’s Corner'?",
+    a: "Someone important died there",
+    b: "Someone unknown was killed in political violence",
+    c: "A freedom fighter lived there",
+    d: "A school was nearby",
+    correct: "b",
+  },
+  {
+    question: "What is implied about society in the story?",
+    a: "It forgets the living while glorifying the dead",
+    b: "It always supports the poor",
+    c: "It preserves every history carefully",
+    d: "It is fair to street vendors",
+    correct: "a",
+  },
+  {
+    question: "Which of these is a dominant literary device used in the story?",
+    a: "Fantasy",
+    b: "Satire",
+    c: "Irony",
+    d: "Alliteration",
+    correct: "c",
+  },
+  {
+    question: "Which class of people does Hari represent?",
+    a: "Upper class",
+    b: "Middle class bureaucrats",
+    c: "Working-class poor",
+    d: "Revolutionaries",
+    correct: "c",
+  },
+  {
+    question: "What emotion does the story evoke most in the reader?",
+    a: "Laughter",
+    b: "Joy",
+    c: "Empathy",
+    d: "Fear",
+    correct: "c",
+  },
+  {
+    question: "What do we learn about the martyr in the story?",
+    a: "He was Hari’s friend",
+    b: "He was a known leader",
+    c: "Very little or nothing",
+    d: "He had a family",
+    correct: "c",
+  },
+  {
+    question: "What does the story suggest about political remembrance?",
+    a: "It’s always genuine",
+    b: "It can be superficial and symbolic",
+    c: "It helps all citizens equally",
+    d: "It brings people joy",
+    correct: "b",
+  },
+  {
+    question: "How is the corner described after the incident?",
+    a: "It becomes a clean, organized space",
+    b: "It remains unchanged",
+    c: "It is turned into a neat shrine for the martyr",
+    d: "It is filled with vendors again",
+    correct: "c",
+  },
+  {
+    question: "What happened to Hari’s life after the incident?",
+    a: "He got rich",
+    b: "He found another stall",
+    c: "He faded into obscurity, displaced and forgotten",
+    d: "He became a politician",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

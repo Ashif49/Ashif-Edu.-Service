@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "What prompts the narrator's reflection on the house ‘Bina Kutir’?",
+    a: "He wants to rent it",
+    b: "He passes it daily and notices it stands unchanged",
+    c: "He is researching for a book",
+    d: "It is being demolished",
+    correct: "b",
+  },
+  {
+    question: "Which recurring object from modern consumer culture triggers the narrator's imagination?",
+    a: "A television set",
+    b: "A Pepsi bottle",
+    c: "A Coca-Cola bottle",
+    d: "A packet of chips",
+    correct: "c",
+  },
+  {
+    question: "How does the narrator describe the expansion of the city around Bina Kutir?",
+    a: "As organized and modern",
+    b: "As chaotic and haphazard",
+    c: "As spiritual and serene",
+    d: "As ideal and futuristic",
+    correct: "b",
+  },
+  {
+    question: "What does the imagined father figure in Bina Kutir do for a living?",
+    a: "A Sanskrit teacher",
+    b: "A forest officer",
+    c: "An engineer",
+    d: "A small-time businessman",
+    correct: "a",
+  },
+  {
+    question: "Which idea best defines the narrator’s reflections on Bina Kutir?",
+    a: "An effort to rewrite history",
+    b: "An imaginative reconstruction of forgotten lives",
+    c: "A political commentary",
+    d: "A scientific investigation",
+    correct: "b",
+  },
+  {
+    question: "What kind of change does Bina Kutir represent in the narrator’s eyes?",
+    a: "Religious conversion",
+    b: "Educational reform",
+    c: "Transition from traditional simplicity to urban chaos",
+    d: "Moral decay",
+    correct: "c",
+  },
+  {
+    question: "What literary device is most prominent in the story?",
+    a: "Flashback",
+    b: "Hyperbole",
+    c: "Stream of consciousness and speculation",
+    d: "Satirical dialogue",
+    correct: "c",
+  },
+  {
+    question: "What emotion dominates the narrator’s perspective?",
+    a: "Hope",
+    b: "Pride",
+    c: "Nostalgia mixed with melancholy",
+    d: "Anger",
+    correct: "c",
+  },
+  {
+    question: "Why does the house remain empty, according to local accounts?",
+    a: "It’s haunted",
+    b: "Family conflicts over property",
+    c: "The children have left and no one returned",
+    d: "It is under government dispute",
+    correct: "c",
+  },
+  {
+    question: "What does the narrator imagine the elder son’s life is like?",
+    a: "He is a politician",
+    b: "He lives abroad",
+    c: "He is a successful Sanskrit scholar",
+    d: "He became a priest",
+    correct: "c",
+  },
+  {
+    question: "Why does the narrator associate Coca-Cola with the younger son?",
+    a: "It represents rebellion",
+    b: "It’s a symbol of his modern outlook",
+    c: "He used to sell soft drinks",
+    d: "It was left behind in the house",
+    correct: "b",
+  },
+  {
+    question: "What do the two imagined sons disagree over regarding the house?",
+    a: "Religion",
+    b: "Their sister’s marriage",
+    c: "How to modernize or develop the house",
+    d: "Education choices",
+    correct: "c",
+  },
+  {
+    question: "What kind of tone does the narrator adopt in the story?",
+    a: "Sarcastic",
+    b: "Detached and academic",
+    c: "Intimate and reflective",
+    d: "Aggressive and polemic",
+    correct: "c",
+  },
+  {
+    question: "What does Bina Kutir come to symbolize in the larger context?",
+    a: "A place of worship",
+    b: "An educational center",
+    c: "The slow fading of tradition amidst urbanization",
+    d: "The growth of the modern middle class",
+    correct: "c",
+  },
+  {
+    question: "What storytelling technique is used to contrast reality with imagination?",
+    a: "Flash-forward",
+    b: "Suspense building",
+    c: "Juxtaposition of imagined narratives with current facts",
+    d: "Monologue",
+    correct: "c",
+  },
+  {
+    question: "What effect does modernization have on the narrator's memory?",
+    a: "It enhances it",
+    b: "It distorts it",
+    c: "It weakens his nostalgia",
+    d: "It sharpens his cultural analysis",
+    correct: "b",
+  },
+  {
+    question: "Why is the house called 'Bina Kutir' despite no character named Bina?",
+    a: "It's a mystery the narrator can't resolve",
+    b: "The name represents a symbolic presence of someone",
+    c: "It was painted on the gate",
+    d: "A girl named Bina visited it often",
+    correct: "b",
+  },
+  {
+    question: "Which part of the story contrasts the narrator’s imagination the most with reality?",
+    a: "When he enters the house",
+    b: "When he meets the family",
+    c: "When he reflects on Coca-Cola and imagined arguments between the sons",
+    d: "When he reads a diary",
+    correct: "c",
+  },
+  {
+    question: "Which of the following best describes the genre of ‘Bina Kutir’?",
+    a: "Historical fiction",
+    b: "Memoir",
+    c: "Speculative narrative with social commentary",
+    d: "Fantasy",
+    correct: "c",
+  },
+  {
+    question: "What conclusion does the narrator draw about the fate of such houses?",
+    a: "They will be turned into museums",
+    b: "They hold secrets of a lost time",
+    c: "They must be destroyed",
+    d: "They can be sold to outsiders",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

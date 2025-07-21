@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "Which literary device is predominantly used in the personification of Death?",
+    a: "Metaphor",
+    b: "Simile",
+    c: "Personification",
+    d: "Irony",
+    correct: "c"
+  },
+  {
+    question: "Why is Death described as having 'kindly stopped'?",
+    a: "To create irony about death's inevitability",
+    b: "To show it was unexpected",
+    c: "To present a religious view of death",
+    d: "To reflect anger",
+    correct: "a"
+  },
+  {
+    question: "What does the speaker mean by saying 'I had put away / My labor and my leisure too'?",
+    a: "She had stopped working for a day",
+    b: "She has paused all earthly duties in surrender to death",
+    c: "She is on a holiday",
+    d: "She is dreaming",
+    correct: "b"
+  },
+  {
+    question: "What is ironic about the speaker's ride with Death?",
+    a: "It is humorous and light-hearted",
+    b: "She finds joy in death",
+    c: "She is unaware that she has died",
+    d: "Death is shown as friendly, not fearsome",
+    correct: "d"
+  },
+  {
+    question: "The 'House' described in the poem likely represents:",
+    a: "An abandoned cottage",
+    b: "A funeral home",
+    c: "A metaphor for a grave",
+    d: "A family estate",
+    correct: "c"
+  },
+  {
+    question: "How does Emily Dickinson challenge conventional views on death in the poem?",
+    a: "By glorifying death with celebration",
+    b: "By portraying it as kind and inevitable",
+    c: "By rejecting death entirely",
+    d: "By treating it with fear",
+    correct: "b"
+  },
+  {
+    question: "Which figure accompanies Death in the carriage?",
+    a: "Time",
+    b: "Faith",
+    c: "Immortality",
+    d: "Hope",
+    correct: "c"
+  },
+  {
+    question: "What does the image of children playing represent?",
+    a: "A longing for youth",
+    b: "Innocence and the early stages of life",
+    c: "Lost opportunities",
+    d: "A religious allusion",
+    correct: "b"
+  },
+  {
+    question: "The setting sun in the poem serves as a symbol of:",
+    a: "Rebirth",
+    b: "God’s judgment",
+    c: "The end of life",
+    d: "The start of a new journey",
+    correct: "c"
+  },
+  {
+    question: "What is the rhyme scheme of the poem?",
+    a: "ABBA",
+    b: "Free verse",
+    c: "ABCB",
+    d: "AABB",
+    correct: "c"
+  },
+  {
+    question: "Why does the speaker refer to the centuries as feeling 'shorter than the Day'?",
+    a: "She has lost sense of time",
+    b: "Eternity is relative and feels brief in retrospect",
+    c: "She’s dreaming",
+    d: "She dislikes eternity",
+    correct: "b"
+  },
+  {
+    question: "What role does ambiguity play in the poem?",
+    a: "It confuses the reader intentionally",
+    b: "It creates room for personal interpretation of death",
+    c: "It obscures the meaning entirely",
+    d: "It serves as poetic error",
+    correct: "b"
+  },
+  {
+    question: "How is nature presented in the poem?",
+    a: "Detached and uncaring",
+    b: "As an active part of the speaker’s journey",
+    c: "Symbolic of the chaos of life",
+    d: "Vividly terrifying",
+    correct: "b"
+  },
+  {
+    question: "How does Dickinson’s use of capitalization affect the reading of the poem?",
+    a: "It highlights important abstract concepts",
+    b: "It follows old grammar rules",
+    c: "It adds rhythm",
+    d: "It represents confusion",
+    correct: "a"
+  },
+  {
+    question: "The calm tone of the speaker throughout the poem suggests:",
+    a: "She has accepted her death",
+    b: "She is unaware she’s dead",
+    c: "She is under a spell",
+    d: "She is being forced",
+    correct: "a"
+  },
+  {
+    question: "Why does the poem have no defined ending?",
+    a: "It represents the eternity of the afterlife",
+    b: "The poet forgot to finish it",
+    c: "It ends abruptly like death itself",
+    d: "It reflects an incomplete thought",
+    correct: "a"
+  },
+  {
+    question: "How does the poem personify Immortality?",
+    a: "As a driver",
+    b: "As a silent presence accompanying the journey",
+    c: "As a judge",
+    d: "As a narrator",
+    correct: "b"
+  },
+  {
+    question: "What does the Gossamer and Tippet symbolize?",
+    a: "Social status",
+    b: "Religious faith",
+    c: "Fragility of life and burial attire",
+    d: "Luxury",
+    correct: "c"
+  },
+  {
+    question: "What poetic tradition is Dickinson challenging by writing on death in such a tone?",
+    a: "Romanticism",
+    b: "Victorian mourning tradition",
+    c: "Modernism",
+    d: "Symbolism",
+    correct: "b"
+  },
+  {
+    question: "Why is the speaker’s journey told in past tense?",
+    a: "To reflect on her life from beyond the grave",
+    b: "She is writing a memoir",
+    c: "To make it more fictional",
+    d: "To confuse the reader",
+    correct: "a"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

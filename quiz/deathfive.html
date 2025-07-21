@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+    question: "What philosophical stance does the poem take regarding the inevitability of death?",
+    a: "It denies death’s importance",
+    b: "It portrays death as an unwelcome interruption",
+    c: "It accepts death as a natural and calm transition",
+    d: "It glorifies death as a heroic act",
+    correct: "c"
+  },
+  {
+    question: "Which interpretation best reflects the role of ‘Immortality’ riding in the carriage?",
+    a: "An ironic gesture, as immortality contradicts death",
+    b: "A passive observer reinforcing the eternal aspect of death",
+    c: "A divine presence that guides the soul",
+    d: "A metaphor for memory",
+    correct: "b"
+  },
+  {
+    question: "How does Dickinson’s treatment of time in the poem challenge conventional narrative structure?",
+    a: "She uses past tense throughout",
+    b: "She avoids all temporal markers",
+    c: "She condenses vast time into a singular moment of reflection",
+    d: "She uses chronological order strictly",
+    correct: "c"
+  },
+  {
+    question: "Why is Death personified as a suitor in the poem?",
+    a: "To critique Victorian courtship norms",
+    b: "To romanticize the notion of dying",
+    c: "To make the approach of death more intimate and familiar",
+    d: "To portray the speaker’s fear of death",
+    correct: "c"
+  },
+  {
+    question: "What is the effect of the poem’s calm and polite tone when discussing death?",
+    a: "It exaggerates the fear of death",
+    b: "It emphasizes detachment and spiritual transcendence",
+    c: "It shows resentment toward life",
+    d: "It introduces humor",
+    correct: "b"
+  },
+  {
+    question: "How does the poem challenge the reader’s perception of immortality?",
+    a: "By treating it as a passive force rather than redemptive",
+    b: "By declaring it non-existent",
+    c: "By comparing it to pain",
+    d: "By showing it as the goal of life",
+    correct: "a"
+  },
+  {
+    question: "In what way does Dickinson’s use of enjambment reflect the subject of death?",
+    a: "It portrays mental confusion",
+    b: "It mirrors the uncontrollable flow of life into death",
+    c: "It breaks up the poem’s rhythm to annoy the reader",
+    d: "It mimics conversation",
+    correct: "b"
+  },
+  {
+    question: "What does the 'House that seemed / A Swelling of the Ground' represent?",
+    a: "A childhood home",
+    b: "A dreamscape",
+    c: "A metaphor for the final resting place (grave)",
+    d: "An illusion created by the narrator",
+    correct: "c"
+  },
+  {
+    question: "Why is the journey described as a carriage ride instead of a walk or flight?",
+    a: "To suggest a slow, inevitable, and formal passage",
+    b: "To evoke nostalgia",
+    c: "To honor Dickinson’s own travels",
+    d: "To confuse the literal and metaphorical",
+    correct: "a"
+  },
+  {
+    question: "How does Dickinson portray memory in relation to death?",
+    a: "As fading",
+    b: "As eternal",
+    c: "As irrelevant",
+    d: "As immortalized",
+    correct: "d"
+  },
+  {
+    question: "Why does the speaker refer to the carriage as holding ‘Ourselves – and Immortality’?",
+    a: "To show companionship",
+    b: "To highlight mortality’s contradiction with eternal life",
+    c: "To contrast life and afterlife within the same frame",
+    d: "To include all passengers literally",
+    correct: "c"
+  },
+  {
+    question: "What is the function of the slow pacing of the journey described?",
+    a: "To lull the reader",
+    b: "To delay emotional impact",
+    c: "To mirror the gradual transition from life to death",
+    d: "To create suspense",
+    correct: "c"
+  },
+  {
+    question: "Why does Dickinson likely place the grave image near the end?",
+    a: "To shock the reader",
+    b: "To symbolize the final destination",
+    c: "To end with hope",
+    d: "To focus on rituals",
+    correct: "b"
+  },
+  {
+    question: "What is the effect of Dickinson’s minimalistic diction?",
+    a: "It adds ambiguity and room for interpretation",
+    b: "It simplifies the poem for all readers",
+    c: "It creates musicality",
+    d: "It avoids emotional depth",
+    correct: "a"
+  },
+  {
+    question: "How does the poem complicate the concept of eternity?",
+    a: "By showing it as immediate",
+    b: "By questioning its value",
+    c: "By combining it with calm finality",
+    d: "By dismissing it entirely",
+    correct: "c"
+  },
+  {
+    question: "Why might Dickinson end the poem with the word 'Eternity'?",
+    a: "To reflect the never-ending aspect of death",
+    b: "To end with a dramatic effect",
+    c: "To show ambiguity",
+    d: "To introduce a new theme",
+    correct: "a"
+  },
+  {
+    question: "How does the speaker’s tone evolve from the beginning to the end of the poem?",
+    a: "From confusion to anger",
+    b: "From acceptance to fear",
+    c: "From calmness to transcendence",
+    d: "From silence to loud resistance",
+    correct: "c"
+  },
+  {
+    question: "What deeper meaning is suggested by the 'Setting Sun' passing the carriage?",
+    a: "That the speaker is immortal",
+    b: "That time is irrelevant after death",
+    c: "That the world moves on without the speaker",
+    d: "That death is a new sunrise",
+    correct: "b"
+  },
+  {
+    question: "What does Dickinson suggest about the moment of death?",
+    a: "It is sudden and violent",
+    b: "It is long and torturous",
+    c: "It is gentle, even courteous",
+    d: "It is avoidable",
+    correct: "c"
+  },
+  {
+    question: "How does the poem's ambiguity strengthen its philosophical themes?",
+    a: "It makes the poem harder to interpret",
+    b: "It forces the reader to reflect on their own beliefs about death",
+    c: "It distracts from its message",
+    d: "It obscures poetic technique",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

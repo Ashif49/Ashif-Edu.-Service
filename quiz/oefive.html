@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+ {
+    question: "Which literary technique is used in the line 'Nothing beside remains' to emphasize desolation?",
+    a: "Hyperbole",
+    b: "Litotes",
+    c: "Irony",
+    d: "Juxtaposition",
+    correct: "d",
+  },
+  {
+    question: "The broken statue serves as a metaphor for:",
+    a: "The strength of art",
+    b: "Eternal fame",
+    c: "The transient nature of political power",
+    d: "The beauty of sculpture",
+    correct: "c",
+  },
+  {
+    question: "The layered narrative perspective (poet → traveler → statue) adds to the theme of:",
+    a: "Political satire",
+    b: "Time’s distortion of memory",
+    c: "Religious ambiguity",
+    d: "Heroic idealism",
+    correct: "b",
+  },
+  {
+    question: "What is paradoxical about Ozymandias’s claim of being 'king of kings'?",
+    a: "His enemies feared him",
+    b: "His empire still thrives underground",
+    c: "He is now forgotten and powerless",
+    d: "He was not a real king",
+    correct: "c",
+  },
+  {
+    question: "How does Shelley use diction to contrast the king’s ambition with his fate?",
+    a: "By repeating powerful verbs",
+    b: "Through regal tone in the inscription versus imagery of ruin",
+    c: "By including modern slang",
+    d: "Using euphemisms for failure",
+    correct: "b",
+  },
+  {
+    question: "In what way does the sculptor act as a subtle commentator on Ozymandias?",
+    a: "He praises his rule",
+    b: "He mocks his arrogance through expression",
+    c: "He writes poetry on the base",
+    d: "He hides secret symbols",
+    correct: "b",
+  },
+  {
+    question: "Which device is used when Shelley writes, 'The lone and level sands stretch far away'?",
+    a: "Paradox",
+    b: "Imagery",
+    c: "Synecdoche",
+    d: "Anaphora",
+    correct: "b",
+  },
+  {
+    question: "What makes the statue’s 'visage' particularly haunting in its description?",
+    a: "Its cheerful expression",
+    b: "The intensity of emotion captured in stone",
+    c: "Its fresh sculpting",
+    d: "Its golden decoration",
+    correct: "b",
+  },
+  {
+    question: "The poem criticizes those who believe:",
+    a: "Art can never die",
+    b: "Power is everlasting",
+    c: "Time is predictable",
+    d: "Nature is secondary",
+    correct: "b",
+  },
+  {
+    question: "What deeper irony lies in the sculptor's success?",
+    a: "He outlasts the king by capturing his failure",
+    b: "He was forgotten by all",
+    c: "He was hired to build a castle",
+    d: "His art was destroyed first",
+    correct: "a",
+  },
+  {
+    question: "How is time personified in the poem?",
+    a: "As a nurturing mother",
+    b: "As an indifferent destroyer",
+    c: "As a grieving widow",
+    d: "As a wise teacher",
+    correct: "b",
+  },
+  {
+    question: "Shelley’s primary philosophical concern in 'Ozymandias' is:",
+    a: "The ethics of rulership",
+    b: "The spiritual legacy of kings",
+    c: "The futility of pride and permanence",
+    d: "The artistry of ancient sculptures",
+    correct: "c",
+  },
+  {
+    question: "The reference to 'trunkless legs' mainly emphasizes:",
+    a: "The aesthetic structure",
+    b: "The fragmented nature of history",
+    c: "The durability of stone",
+    d: "A surreal artistic style",
+    correct: "b",
+  },
+  {
+    question: "The phrase 'boundless and bare' reflects:",
+    a: "A sense of opportunity",
+    b: "Limitless imagination",
+    c: "Desolation and emptiness",
+    d: "Geographical richness",
+    correct: "c",
+  },
+  {
+    question: "Why might Shelley have chosen a fictional traveler to describe the statue?",
+    a: "To ensure historical accuracy",
+    b: "To introduce subjectivity and distance",
+    c: "To praise British exploration",
+    d: "To dramatize the king’s glory",
+    correct: "b",
+  },
+  {
+    question: "The sculptor’s role in the poem shows that:",
+    a: "Art can distort memory",
+    b: "Art records truth better than words",
+    c: "Artists served only powerful patrons",
+    d: "Sculpture was a dying art",
+    correct: "b",
+  },
+  {
+    question: "The crumbling statue ironically immortalizes:",
+    a: "Ozymandias's victories",
+    b: "The emperor's legacy",
+    c: "The decay of pride",
+    d: "The architectural genius",
+    correct: "c",
+  },
+  {
+    question: "How does the poem's structure (sonnet) contrast with its theme?",
+    a: "The strict form contradicts the chaos of content",
+    b: "It adds historical context",
+    c: "It reinforces romantic ideals",
+    d: "It emphasizes rebellion",
+    correct: "a",
+  },
+  {
+    question: "What does 'mocked' suggest about the sculptor’s view of Ozymandias?",
+    a: "He admired his greatness",
+    b: "He disapproved subtly through his work",
+    c: "He was hired under threat",
+    d: "He was indifferent",
+    correct: "b",
+  },
+  {
+    question: "The ultimate 'message' from the ruins of Ozymandias is best captured by:",
+    a: "‘Art preserves truth’",
+    b: "‘Time spares none’",
+    c: "‘Legacy is eternal’",
+    d: "‘Kings will rise again’",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+  {
+    question: "Who wrote the poem 'Ozymandias'?",
+    a: "John Keats",
+    b: "William Wordsworth",
+    c: "Percy Bysshe Shelley",
+    d: "Lord Byron",
+    correct: "c",
+  },
+  {
+    question: "What is the central theme of 'Ozymandias'?",
+    a: "Nature’s beauty",
+    b: "The power of love",
+    c: "The impermanence of power and pride",
+    d: "Scientific progress",
+    correct: "c",
+  },
+  {
+    question: "The line 'Look on my Works, ye Mighty, and despair!' is an example of:",
+    a: "Alliteration",
+    b: "Irony",
+    c: "Onomatopoeia",
+    d: "Personification",
+    correct: "b",
+  },
+  {
+    question: "The phrase 'Two vast and trunkless legs of stone' implies:",
+    a: "The statue was incomplete",
+    b: "The artist gave up midway",
+    c: "The king had small feet",
+    d: "The legs were not carved properly",
+    correct: "a",
+  },
+  {
+    question: "What lies near the shattered statue in the desert?",
+    a: "A tomb",
+    b: "A city",
+    c: "A half-sunk visage",
+    d: "A pyramid",
+    correct: "c",
+  },
+  {
+    question: "Which literary device is used in 'The lone and level sands stretch far away'?",
+    a: "Simile",
+    b: "Alliteration",
+    c: "Hyperbole",
+    d: "Irony",
+    correct: "b",
+  },
+  {
+    question: "What emotion is carved into the 'visage' of the statue?",
+    a: "Joy",
+    b: "Fear",
+    c: "Cold command",
+    d: "Sadness",
+    correct: "c",
+  },
+  {
+    question: "Who tells the story of the statue in the poem?",
+    a: "Shelley himself",
+    b: "Ozymandias",
+    c: "A traveller",
+    d: "The sculptor",
+    correct: "c",
+  },
+  {
+    question: "What remains of Ozymandias’s kingdom?",
+    a: "Temples",
+    b: "Sand and ruins",
+    c: "Thriving cities",
+    d: "A bustling civilization",
+    correct: "b",
+  },
+  {
+    question: "The sculptor is praised for capturing Ozymandias’s:",
+    a: "Political ideas",
+    b: "Religious beliefs",
+    c: "Pride and arrogance",
+    d: "Kindness",
+    correct: "c",
+  },
+  {
+    question: "How is the traveler’s tale used as a narrative device?",
+    a: "To connect two poems",
+    b: "To distance Shelley from judgment",
+    c: "To glorify historical Egypt",
+    d: "To criticize British Empire",
+    correct: "b",
+  },
+  {
+    question: "Which of the following best reflects the poem’s tone?",
+    a: "Celebratory and romantic",
+    b: "Mournful and nostalgic",
+    c: "Cynical and reflective",
+    d: "Joyful and adventurous",
+    correct: "c",
+  },
+  {
+    question: "What does the word 'colossal' in the poem emphasize?",
+    a: "The arrogance of the sculptor",
+    b: "The size of the empire",
+    c: "The physical and symbolic grandeur of Ozymandias",
+    d: "The desert landscape",
+    correct: "c",
+  },
+  {
+    question: "The use of a ruined statue in a barren desert symbolizes:",
+    a: "The revival of monarchy",
+    b: "Man's conquest over nature",
+    c: "Decay of human ambition and legacy",
+    d: "The importance of art",
+    correct: "c",
+  },
+  {
+    question: "Why does Shelley refer to the sands as 'boundless and bare'?",
+    a: "To describe freedom",
+    b: "To show artistic creativity",
+    c: "To emphasize isolation and desolation",
+    d: "To reflect the vastness of the empire",
+    correct: "c",
+  },
+  {
+    question: "Which form is used to compose 'Ozymandias'?",
+    a: "Free verse",
+    b: "Ode",
+    c: "Ballad",
+    d: "Sonnet",
+    correct: "d",
+  },
+  {
+    question: "What is ironic about the inscription on the statue?",
+    a: "It boasts of greatness, but nothing remains",
+    b: "It honors a god, not a man",
+    c: "It’s been translated incorrectly",
+    d: "It was written in an unknown language",
+    correct: "a",
+  },
+  {
+    question: "The phrase 'sneer of cold command' reflects:",
+    a: "Wisdom",
+    b: "Compassion",
+    c: "Cruel authority",
+    d: "Artistic flaw",
+    correct: "c",
+  },
+  {
+    question: "What does the traveler actually see in the desert?",
+    a: "A museum",
+    b: "A temple to the gods",
+    c: "Ruins of a broken statue",
+    d: "An army camp",
+    correct: "c",
+  },
+  {
+    question: "What might Shelley be warning future rulers through this poem?",
+    a: "To build stronger monuments",
+    b: "To value legacy over ego",
+    c: "To avoid sculptors",
+    d: "To focus on war over poetry",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

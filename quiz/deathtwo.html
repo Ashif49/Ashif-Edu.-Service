@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "How does the speaker describe Death's demeanor in the poem?",
+    a: "Aggressive and loud",
+    b: "Quiet and forceful",
+    c: "Kind and courteous",
+    d: "Mysterious and silent",
+    correct: "c",
+  },
+  {
+    question: "What is the symbolic meaning of the 'School' the speaker passes?",
+    a: "Formal education",
+    b: "Start of the afterlife",
+    c: "Childhood and innocence",
+    d: "End of learning",
+    correct: "c",
+  },
+  {
+    question: "Why does the speaker refer to the grave as a 'House'?",
+    a: "It’s a metaphor for her eternal resting place",
+    b: "It was a literal house",
+    c: "She was buried in a mansion",
+    d: "She was confused about the journey",
+    correct: "a",
+  },
+  {
+    question: "What poetic device is used in the phrase 'the dews drew quivering and chill'?",
+    a: "Simile",
+    b: "Alliteration",
+    c: "Metaphor",
+    d: "Personification",
+    correct: "b",
+  },
+  {
+    question: "What does the speaker's clothing suggest about her state?",
+    a: "She is unprepared for the afterlife",
+    b: "She is wealthy",
+    c: "She was buried in royal attire",
+    d: "She is going to a party",
+    correct: "a",
+  },
+  {
+    question: "The poem’s journey moves from which direction?",
+    a: North to south",
+    b: Present to past",
+    c: Life to eternity",
+    d: Death to life",
+    correct: "c",
+  },
+  {
+    question: "Which of the following best describes the central theme of the poem?",
+    a: Struggle for survival",
+    b: Immortality and acceptance of death",
+    c: Tragedy of life",
+    d: Pain of separation",
+    correct: "b",
+  },
+  {
+    question: "What emotion is most dominant in the poem?",
+    a: Panic",
+    b: Nostalgia",
+    c: Peacefulness",
+    d: Horror",
+    correct: "c",
+  },
+  {
+    question: "How is the setting sun described in the poem?",
+    a: Fierce and blazing",
+    b: Following the carriage",
+    c: Passing the carriage",
+    d: Ignored by the speaker",
+    correct: "c",
+  },
+  {
+    question: "How does the speaker realize the passage of time?",
+    a: Through the ticking of a clock",
+    b: By looking at her reflection",
+    c: She states that centuries have passed",
+    d: By the movement of stars",
+    correct: "c",
+  },
+  {
+    question: "What does the term 'Civility' imply in context to Death’s behavior?",
+    a: His indifference",
+    b: His politeness",
+    c: His coldness",
+    d: His unpredictability",
+    correct: "b",
+  },
+  {
+    question: "What is significant about the speaker giving up her 'labor and leisure'?",
+    a: She is going on vacation",
+    b: It symbolizes her acceptance of death",
+    c: She is tired of working",
+    d: She was forced into retirement",
+    correct: "b",
+  },
+  {
+    question: "What role does 'Immortality' play in the carriage ride?",
+    a: It drives the carriage",
+    b: It protects the speaker",
+    c: It is a silent companion representing the afterlife",
+    d: It offers a second chance",
+    correct: "c",
+  },
+  {
+    question: "How does the structure of the poem affect its meaning?",
+    a: It creates confusion",
+    b: It gives a sense of monotony",
+    c: It supports the calm, inevitable passage of time",
+    d: It intensifies suspense",
+    correct: "c",
+  },
+  {
+    question: "What does the 'Gossamer' represent in the poem?",
+    a: Warmth",
+    b: Delicacy of life",
+    c: Royalty",
+    d: Chains of death",
+    correct: "b",
+  },
+  {
+    question: "Which line reveals the poem’s shift from present to reflection?",
+    a: 'Because I could not stop for Death'",
+    b: 'We paused before a House that seemed'",
+    c: 'Since then – 'tis Centuries – and yet'",
+    d: 'He kindly stopped for me'",
+    correct: "c",
+  },
+  {
+    question: "How is the passage of time shown to be deceptive in the poem?",
+    a: The speaker mentions clocks",
+    b: The speaker realizes that centuries felt like a day",
+    c: By rapid change of scenes",
+    d: Through sunset",
+    correct: "b",
+  },
+  {
+    question: "What is the poetic form used in the poem?",
+    a: Petrarchan sonnet",
+    b: Blank verse",
+    c: Ballad with quatrains",
+    d: Limerick",
+    correct: "c",
+  },
+  {
+    question: "What makes the speaker’s tone unusual for a poem about death?",
+    a: It is humorous",
+    b: It is panicked",
+    c: It is calm and composed",
+    d: It is accusatory",
+    correct: "c",
+  },
+  {
+    question: "Why is the carriage a powerful metaphor?",
+    a: It represents travel luxury",
+    b: It is a symbol of class",
+    c: It symbolizes the transition from life to afterlife",
+    d: It refers to her marriage",
+    correct: "c",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+	
+	
+	const quizData = [
+    {
+        question: "Which narrative perspective is used in 'The Verger'?",
+        a: "First-person",
+        b: "Second-person",
+        c: "Third-person limited",
+        d: "Third-person omniscient",
+        correct: "d",
+    },
+    {
+        question: "What symbolic significance does the church hold in Foreman's life?",
+        a: "A source of financial gain",
+        b: "A symbol of tradition and service",
+        c: "An obstacle to his success",
+        d: "A representation of bureaucracy",
+        correct: "b",
+    },
+    {
+        question: "What is the irony behind the vicar’s decision to dismiss Foreman?",
+        a: "The vicar unknowingly motivates Foreman's financial success",
+        b: "The vicar later joins Foreman’s business",
+        c: "The church hires Foreman back",
+        d: "Foreman becomes a priest",
+        correct: "a",
+    },
+    {
+        question: "Which aspect of Foreman’s character contrasts with the vicar's ideals?",
+        a: "Religious knowledge",
+        b: "Spoken English",
+        c: "Practical intelligence vs. academic formality",
+        d: "Attendance at prayers",
+        correct: "c",
+    },
+    {
+        question: "How does Maugham subtly critique social systems in the story?",
+        a: "By glorifying illiteracy",
+        b: "By highlighting the rigidity of institutional expectations",
+        c: "By mocking religious practices",
+        d: "By promoting rebellion",
+        correct: "b",
+    },
+    {
+        question: "What literary technique is used when Foreman asks, 'What would I have been if I could read and write?'",
+        a: "Foreshadowing",
+        b: "Rhetorical question with irony",
+        c: "Alliteration",
+        d: "Metaphor",
+        correct: "b",
+    },
+    {
+        question: "What role does chance play in Foreman’s journey?",
+        a: "It is central to his failure",
+        b: "It provides him constant luck",
+        c: "It pushes him into unexplored opportunity",
+        d: "It has no role in the story",
+        correct: "c",
+    },
+    {
+        question: "Which theme is most strongly implied but not explicitly stated?",
+        a: "Love and betrayal",
+        b: "Faith and spirituality",
+        c: "Meritocracy and self-determination",
+        d: "Education as moral virtue",
+        correct: "c",
+    },
+    {
+        question: "What message does Maugham convey about traditional vs. modern values?",
+        a: "Modern values are always superior",
+        b: "Tradition holds back innovation",
+        c: "Both can conflict but lead to unintended outcomes",
+        d: "Only religious institutions succeed",
+        correct: "c",
+    },
+    {
+        question: "Which of the following best describes the irony of Foreman’s success?",
+        a: "He became successful through education",
+        b: "He succeeded due to connections",
+        c: "His illiteracy became the foundation of his business sense",
+        d: "He failed after being educated",
+        correct: "c",
+    },
+    {
+        question: "How does the new vicar represent modern bureaucracy?",
+        a: "He is indifferent to faith",
+        b: "He prioritizes form over substance",
+        c: "He supports illiterate workers",
+        d: "He ignores institutional values",
+        correct: "b",
+    },
+    {
+        question: "Why is the setting important in 'The Verger'?",
+        a: "It romanticizes rural England",
+        b: "It reflects the class and institutional structure of British society",
+        c: "It focuses on historical events",
+        d: "It is not significant",
+        correct: "b",
+    },
+    {
+        question: "What contradiction lies at the heart of the bank manager’s reaction?",
+        a: "He scolds Foreman for being rich",
+        b: "He is both impressed and shocked by Foreman's illiteracy",
+        c: "He fires Foreman",
+        d: "He warns Foreman to educate others",
+        correct: "b",
+    },
+    {
+        question: "Which character trait is most central to Foreman’s success?",
+        a: "Stubbornness",
+        b: "Emotional detachment",
+        c: "Adaptability and foresight",
+        d: "Strict discipline",
+        correct: "c",
+    },
+    {
+        question: "What tone does Maugham adopt in 'The Verger'?",
+        a: "Highly emotional and dramatic",
+        b: "Mocking and aggressive",
+        c: "Understated and ironic",
+        d: "Romantic and dreamy",
+        correct: "c",
+    },
+    {
+        question: "The ending line of the story highlights:",
+        a: "Comic irony and self-reflection",
+        b: "Despair and regret",
+        c: "Revenge on the vicar",
+        d: "Hope and reconciliation",
+        correct: "a",
+    },
+    {
+        question: "How does Maugham portray social mobility in the story?",
+        a: "As impossible for the lower class",
+        b: "As achievable through education only",
+        c: "As attainable through individual enterprise and adaptability",
+        d: "As random and illogical",
+        correct: "c",
+    },
+    {
+        question: "Why is Foreman’s success a paradox?",
+        a: "He relies on government support",
+        b: "He failed many times before succeeding",
+        c: "He is successful despite lacking basic skills",
+        d: "He was dishonest in business",
+        correct: "c",
+    },
+    {
+        question: "Which philosophical question is implied in the story?",
+        a: "Does power corrupt?",
+        b: "Is religion necessary for success?",
+        c: "Can institutional rejection lead to personal freedom?",
+        d: "Does literacy guarantee intelligence?",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s shops are metaphorically described as:",
+        a: "Seeds of knowledge",
+        b: "Temples of hope",
+        c: "Monuments to working-class resilience",
+        d: "Examples of greed",
+        correct: "c",
+    },
+    {
+        question: "What is most ironic about the church’s decision?",
+        a: "It ultimately benefits Foreman more than the church",
+        b: "They never replace him",
+        c: "They rehire him later",
+        d: "They praise him in public",
+        correct: "a",
+    },
+    {
+        question: "Why does Foreman refuse to learn reading and writing even after success?",
+        a: "Pride and superstition",
+        b: "Lack of time",
+        c: "He had a disability",
+        d: "He feared losing his wealth",
+        correct: "a",
+    },
+    {
+        question: "How is class consciousness portrayed in the story?",
+        a: "Negatively and with resentment",
+        b: "Subtly through Foreman’s manner and decisions",
+        c: "By Foreman mocking upper classes",
+        d: "As a central conflict",
+        correct: "b",
+    },
+    {
+        question: "How does Maugham subtly criticize the vicar’s worldview?",
+        a: "By making the vicar lose his job",
+        b: "By showing his plan backfire through Foreman’s success",
+        c: "By having him fail in business",
+        d: "By narrating his downfall",
+        correct: "b",
+    },
+    {
+        question: "What lesson can educators draw from Foreman’s story?",
+        a: "Focus on exams only",
+        b: "Only literate students have value",
+        c: "Real-life skills and attitudes matter as much as academics",
+        d: "Illiteracy should be ignored",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	</script>
+  </body>
+</html>

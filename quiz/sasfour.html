@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "What underlying paradox does the phrase 'I am monarch of all I survey' highlight?",
+    a: "That he rules over a vast empire",
+    b: "That he is both powerful and powerless in solitude",
+    c: "That he enjoys being alone",
+    d: "That he desires more land",
+    correct: "b"
+  },
+  {
+    question: "How does Cowper’s use of diction reinforce Selkirk’s despair?",
+    a: "By using archaic vocabulary",
+    b: "Through gentle, lyrical language",
+    c: "With words emphasizing loss, absence, and emptiness",
+    d: "By describing tropical beauty",
+    correct: "c"
+  },
+  {
+    question: "Which poetic technique is central to the structure and rhythm of the poem?",
+    a: "Blank verse",
+    b: "Iambic pentameter in heroic couplets",
+    c: "Trochaic tetrameter",
+    d: "Free verse",
+    correct: "b"
+  },
+  {
+    question: "What is the symbolic meaning of Selkirk's isolation on the island?",
+    a: "A punishment for arrogance",
+    b: "A metaphor for emotional detachment in society",
+    c: "A celebration of independence",
+    d: "An allegory of colonialism",
+    correct: "b"
+  },
+  {
+    question: "How does the poem critique the Romantic ideal of nature?",
+    a: "By glorifying nature’s beauty",
+    b: "By showing nature as unfeeling and indifferent",
+    c: "By showing man’s dominion over nature",
+    d: "By celebrating solitude",
+    correct: "b"
+  },
+  {
+    question: "Which line reflects Selkirk’s recognition of human interdependence?",
+    a: "I am monarch of all I survey",
+    b: "But the sound of the church-going bell",
+    c: "Man is made for society",
+    d: "I am out of humanity's reach",
+    correct: "c"
+  },
+  {
+    question: "What emotional contrast is evident in Selkirk’s reflection on life at sea versus the island?",
+    a: "Peace vs. war",
+    b: "Adventure vs. slavery",
+    c: "Danger vs. emptiness",
+    d: "Joy vs. love",
+    correct: "c"
+  },
+  {
+    question: "Which sensory imagery is most effectively used in the poem?",
+    a: "Visual imagery of ships",
+    b: "Auditory imagery of silence and echoes",
+    c: "Tactile imagery of heat",
+    d: "Olfactory imagery of the sea breeze",
+    correct: "b"
+  },
+  {
+    question: "What idea does the line 'Better dwell in the midst of alarms' express?",
+    a: "Preference for peace",
+    b: "Valor in war",
+    c: "Solitude is better than chaos",
+    d: "Danger is preferable to isolation",
+    correct: "d"
+  },
+  {
+    question: "Why is the church-going bell a powerful symbol in the poem?",
+    a: "It marks the time for prayer",
+    b: "It signifies spiritual peace",
+    c: "It symbolizes lost community and belonging",
+    d: "It signals Selkirk’s rescue",
+    correct: "c"
+  },
+  {
+    question: "What does Selkirk's life on the island mirror in terms of psychological experience?",
+    a: "Social evolution",
+    b: "Spiritual enlightenment",
+    c: "Mental deterioration from prolonged isolation",
+    d: "Philosophical growth",
+    correct: "c"
+  },
+  {
+    question: "Which literary element is reflected in 'But the beasts that roam over the plain / My form with indifference see'?",
+    a: "Allusion",
+    b: "Irony",
+    c: "Paradox",
+    d: "Symbolism",
+    correct: "b"
+  },
+  {
+    question: "What does the echo of Selkirk’s voice symbolize?",
+    a: "Hope and clarity",
+    b: "The return of civilization",
+    c: "His isolation and lack of human contact",
+    d: "His power over nature",
+    correct: "c"
+  },
+  {
+    question: "Which poetic device is used when Selkirk envies even the simplest creatures?",
+    a: "Satire",
+    b: "Hyperbole",
+    c: "Juxtaposition",
+    d: "Personification",
+    correct: "c"
+  },
+  {
+    question: "What theme does Cowper convey by contrasting the jungle sounds with church bells?",
+    a: "Sound vs. silence",
+    b: "Nature vs. civilization",
+    c: "Chaos vs. order",
+    d: "Freedom vs. discipline",
+    correct: "b"
+  },
+  {
+    question: "How does Cowper develop the psychological theme of solitude?",
+    a: "Through scenes of warfare",
+    b: "Via philosophical monologues",
+    c: "Using repetitive expressions of despair",
+    d: "Through scientific imagery",
+    correct: "c"
+  },
+  {
+    question: "Why does Selkirk claim the beasts are happier than him?",
+    a: "They have food",
+    b: "They are free from thought and suffering",
+    c: "They can roam freely",
+    d: "They live in groups",
+    correct: "b"
+  },
+  {
+    question: "What is the effect of the poem’s formal structure on its meaning?",
+    a: "It limits emotional depth",
+    b: "It mirrors Selkirk's disciplined mind",
+    c: "It contrasts with the chaotic theme",
+    d: "It emphasizes the reflective and meditative tone",
+    correct: "d"
+  },
+  {
+    question: "Which of the following best summarizes Cowper’s message?",
+    a: "Solitude brings spiritual awakening",
+    b: "Man is self-sufficient in nature",
+    c: "Human beings cannot thrive in isolation",
+    d: "Adversity strengthens character",
+    correct: "c"
+  },
+  {
+    question: "Why is the poem still relevant today?",
+    a: "It addresses colonialism",
+    b: "It explores timeless human emotions like loneliness",
+    c: "It glorifies heroism",
+    d: "It discusses religious conversion",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

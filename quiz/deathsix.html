@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+   {
+    question: "Who is the speaker in the poem?",
+    a: "A living person fearing death",
+    b: "A ghost reflecting on life",
+    c: "A person narrating her journey with Death",
+    d: "Death itself",
+    correct: "c"
+  },
+  {
+    question: "How is Death personified in the poem?",
+    a: "As a monster",
+    b: "As a violent figure",
+    c: "As a polite and kind suitor",
+    d: "As a silent shadow",
+    correct: "c"
+  },
+  {
+    question: "What does the 'Carriage' symbolize?",
+    a: "Life's journey",
+    b: "Death's journey to the afterlife",
+    c: "A wedding ride",
+    d: "A school trip",
+    correct: "b"
+  },
+  {
+    question: "Which of the following does the speaker pass during her journey?",
+    a: "A field of wheat, the sea, a mountain",
+    b: "The school, grain fields, and the setting sun",
+    c: "A forest, the city, the desert",
+    d: "A garden, a village, a church",
+    correct: "b"
+  },
+  {
+    question: "Why did the speaker put away her labor and leisure?",
+    a: "Because she was ill",
+    b: "Because she feared death",
+    c: "Because Death kindly stopped for her",
+    d: "Because she retired",
+    correct: "c"
+  },
+  {
+    question: "What does the phrase 'The Dews drew quivering and Chill' suggest?",
+    a: "Summer heat",
+    b: "Fear of death",
+    c: "Approaching coldness of death",
+    d: "The speaker’s joy",
+    correct: "c"
+  },
+  {
+    question: "What figure rides with Death and the speaker?",
+    a: "Grim Reaper",
+    b: "Time",
+    c: "Immortality",
+    d: "Love",
+    correct: "c"
+  },
+  {
+    question: "What theme is most prevalent in the poem?",
+    a: "Love and heartbreak",
+    b: "War and heroism",
+    c: "Death and the afterlife",
+    d: "Society and injustice",
+    correct: "c"
+  },
+  {
+    question: "How long has it been since the speaker’s death?",
+    a: "A few minutes",
+    b: "A year",
+    c: "Centuries",
+    d: "A lifetime",
+    correct: "c"
+  },
+  {
+    question: "Which literary device is most dominant in the poem?",
+    a: "Alliteration",
+    b: "Personification",
+    c: "Metaphor",
+    d: "Irony",
+    correct: "b"
+  },
+  {
+    question: "What does the speaker realize at the end of the poem?",
+    a: "She is dreaming",
+    b: "She is immortal",
+    c: "Her journey was to the grave",
+    d: "She is still alive",
+    correct: "c"
+  },
+  {
+    question: "Why is the tone of the poem calm despite its theme?",
+    a: "To lull readers",
+    b: "To mock death",
+    c: "To reflect acceptance of mortality",
+    d: "To mislead the reader",
+    correct: "c"
+  },
+  {
+    question: "Why is the poem considered revolutionary for its time?",
+    a: "It criticizes religion",
+    b: "It glorifies war",
+    c: "It deals with death from a serene, almost romantic perspective",
+    d: "It supports women's rights",
+    correct: "c"
+  },
+  {
+    question: "The 'Setting Sun' in the poem symbolizes:",
+    a: "A new beginning",
+    b: "The end of childhood",
+    c: "The passage into death",
+    d: "Rising hope",
+    correct: "c"
+  },
+  {
+    question: "Which of the following best describes Dickinson's style in the poem?",
+    a: "Verbose and emotional",
+    b: "Minimal and symbolic",
+    c: "Sarcastic and humorous",
+    d: "Rhymeless and dull",
+    correct: "b"
+  },
+  {
+    question: "How does the use of dashes affect the poem?",
+    a: "It makes the poem more confusing",
+    b: "It adds a musical quality",
+    c: "It creates pauses and emphasizes uncertainty",
+    d: "It enhances rhyme",
+    correct: "c"
+  },
+  {
+    question: "What role does 'Immortality' play in the poem's meaning?",
+    a: "It symbolizes love",
+    b: "It emphasizes the journey's eternal nature",
+    c: "It highlights fear",
+    d: "It interrupts death",
+    correct: "b"
+  },
+  {
+    question: "Which best explains the poem’s view of death?",
+    a: "Terrifying and dark",
+    b: "Peaceful and inevitable",
+    c: "Avoidable and tragic",
+    d: "Quick and painful",
+    correct: "b"
+  },
+  {
+    question: "What can be inferred about the speaker’s attitude toward death?",
+    a: "She is resentful",
+    b: "She resists it",
+    c: "She accepts it with calmness",
+    d: "She mocks it",
+    correct: "c"
+  },
+  {
+    question: "Why is this poem often studied in philosophical contexts?",
+    a: "It critiques politics",
+    b: "It questions the afterlife and the nature of existence",
+    c: "It discusses fate and destiny",
+    d: "It defines truth through science",
+    correct: "b"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

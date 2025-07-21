@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+	
+	
+	const quizData = [
+    {
+        question: "The story is an example of:",
+        a: "A biography",
+        b: "Historical fiction",
+        c: "Satire",
+        d: "Short story",
+        correct: "d",
+    },
+    {
+        question: "The main irony in the story is:",
+        a: "A literate man fails",
+        b: "The verger dies",
+        c: "An illiterate man becomes successful",
+        d: "The vicar resigns",
+        correct: "c",
+    },
+    {
+        question: "The vestry is best described as:",
+        a: "The church backyard",
+        b: "The priest’s residence",
+        c: "A room in the church for official meetings",
+        d: "A worship area",
+        correct: "c",
+    },
+    {
+        question: "The decision to fire Foreman was taken by:",
+        a: "The bishop",
+        b: "The church committee",
+        c: "The vicar and wardens",
+        d: "The public",
+        correct: "c",
+    },
+    {
+        question: "What does the robe symbolize in the story?",
+        a: "Wealth",
+        b: "Power",
+        c: "Identity and dignity",
+        d: "Pride",
+        correct: "c",
+    },
+    {
+        question: "Foreman refused to learn reading because:",
+        a: "He was too old",
+        b: "He didn’t need it",
+        c: "He was lazy",
+        d: "He was angry",
+        correct: "b",
+    },
+    {
+        question: "The author's attitude toward Foreman is:",
+        a: "Mocking",
+        b: "Admiring",
+        c: "Critical",
+        d: "Dismissive",
+        correct: "b",
+    },
+    {
+        question: "The story suggests success comes from:",
+        a: "Education",
+        b: "Hard work and street smarts",
+        c: "High birth",
+        d: "Religion",
+        correct: "b",
+    },
+    {
+        question: "How is religion shown in the story?",
+        a: "As outdated",
+        b: "As helpful",
+        c: "As rigid and formal",
+        d: "As deeply spiritual",
+        correct: "c",
+    },
+    {
+        question: "Which best describes Foreman’s character?",
+        a: "Dependent",
+        b: "Shy",
+        c: "Practical and confident",
+        d: "Timid",
+        correct: "c",
+    },
+    {
+        question: "The story ends with a tone of:",
+        a: "Sarcasm",
+        b: "Inspiration",
+        c: "Tragedy",
+        d: "Confusion",
+        correct: "b",
+    },
+    {
+        question: "The dialogue in the story helps reveal:",
+        a: "Political issues",
+        b: "Religious problems",
+        c: "Character traits",
+        d: "Family dynamics",
+        correct: "c",
+    },
+    {
+        question: "The story takes place in:",
+        a: "USA",
+        b: "India",
+        c: "England",
+        d: "Australia",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s attitude to religion after losing his job was:",
+        a: "Bitter",
+        b: "Respectful",
+        c: "Hostile",
+        d: "Indifferent",
+        correct: "b",
+    },
+    {
+        question: "The story teaches that failure can lead to:",
+        a: "Loneliness",
+        b: "Success",
+        c: "Pride",
+        d: "Greed",
+        correct: "b",
+    },
+    {
+        question: "The main conflict in the story is between:",
+        a: "Rich and poor",
+        b: "Literate and illiterate",
+        c: "Young and old",
+        d: "Vicar and bishop",
+        correct: "b",
+    },
+    {
+        question: "What kind of ending does the story have?",
+        a: "Tragic",
+        b: "Surprising",
+        c: "Violent",
+        d: "Sad",
+        correct: "b",
+    },
+    {
+        question: "The vicar’s demand to learn reading was:",
+        a: "Generous",
+        b: "Reasonable",
+        c: "Strict and unnecessary",
+        d: "Kindly meant",
+        correct: "c",
+    },
+    {
+        question: "Foreman’s shops mainly sold:",
+        a: "Clothes",
+        b: "Food",
+        c: "Tobacco and newspapers",
+        d: "Books",
+        correct: "c",
+    },
+    {
+        question: "After opening the shops, Foreman became:",
+        a: "A businessman",
+        b: "A teacher",
+        c: "A priest",
+        d: "A traveler",
+        correct: "a",
+    },
+    {
+        question: "The verger's role in the church was mostly:",
+        a: "Preaching",
+        b: "Decoration",
+        c: "Maintenance and assistance",
+        d: "Music",
+        correct: "c",
+    },
+    {
+        question: "The moral of the story is:",
+        a: "Education is essential",
+        b: "Success needs religion",
+        c: "Common sense can outweigh book learning",
+        d: "Luck is everything",
+        correct: "c",
+    },
+    {
+        question: "How did the new vicar feel about Foreman's illiteracy?",
+        a: "Supportive",
+        b: "Offended",
+        c: "Strictly against it",
+        d: "Willing to help",
+        correct: "c",
+    },
+    {
+        question: "What did Foreman do after being dismissed?",
+        a: "Stayed jobless",
+        b: "Started his own business",
+        c: "Moved to another town",
+        d: "Wrote a letter of complaint",
+        correct: "b",
+    },
+    {
+        question: "The turning point in Foreman's life was:",
+        a: "His hiring by the church",
+        b: "The vicar’s resignation",
+        c: "His dismissal from church",
+        d: "Opening his tenth shop",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	</script>
+  </body>
+</html>

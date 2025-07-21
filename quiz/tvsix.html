@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What does the line 'even memories melt away in mist' most deeply symbolize?",
+        a: "Failure to remember the past",
+        b: "The emotional numbness caused by prolonged isolation",
+        c: "Foggy weather during the journey",
+        d: "Lack of interest in history",
+        correct: "b",
+    },
+    {
+        question: "Which theme is *implicitly* suggested through the poem's portrayal of silence?",
+        a: "Peace and tranquility",
+        b: "Anger suppressed by fear",
+        c: "Alienation in the face of existential reality",
+        d: "Death of civilization",
+        correct: "c",
+    },
+    {
+        question: "In literary terms, the 'voyage' in the poem can be best described as a(n):",
+        a: "Extended simile",
+        b: "Allegory of human life and spiritual endurance",
+        c: "Historical commentary",
+        d: "Literal travelogue",
+        correct: "b",
+    },
+    {
+        question: "What literary technique is employed in 'the river never flows backwards'?",
+        a: "Oxymoron",
+        b: "Personification",
+        c: "Metaphor for irreversibility of time",
+        d: "Alliteration",
+        correct: "c",
+    },
+    {
+        question: "Why is the poet's continued solitary journey described with detachment rather than lament?",
+        a: "He is emotionless by nature",
+        b: "The voyage demands strength, not sentiment",
+        c: "To reflect mature acceptance of loss and endurance",
+        d: "He’s hopeful of reunion",
+        correct: "c",
+    },
+    {
+        question: "How does the poem reflect postcolonial sensibility?",
+        a: "By mentioning British rule",
+        b: "Through metaphorical exile and search for identity in a fractured world",
+        c: "By praising nationalism",
+        d: "By recounting historic events",
+        correct: "b",
+    },
+    {
+        question: "The line ‘the paddle splits but not the will’ most strongly reflects which theme?",
+        a: "Technological dependence",
+        b: "Faith vs doubt",
+        c: "Spiritual resilience amidst material failure",
+        d: "Economic struggle",
+        correct: "c",
+    },
+    {
+        question: "What makes the poem’s structure effective in reinforcing its themes?",
+        a: "Its lyrical rhyme scheme",
+        b: "Its lack of punctuation",
+        c: "Its free verse that mirrors the unpredictability of life",
+        d: "Its religious references",
+        correct: "c",
+    },
+    {
+        question: "The poet’s reference to the absence of song suggests—",
+        a: "Loss of community rituals",
+        b: "Silencing of creative expression due to emotional void",
+        c: "Environmental destruction",
+        d: "Ban on singing",
+        correct: "b",
+    },
+    {
+        question: "Which existential dilemma is most present in the poem?",
+        a: "Fear of society",
+        b: "Struggle to define self in a transient and solitary world",
+        c: "Hatred for modernity",
+        d: "War between good and evil",
+        correct: "b",
+    },
+    {
+        question: "Which literary figure does Bhupen Hazarika’s narrator most resemble in solitude and resolve?",
+        a: "Sisyphus",
+        b: "Odysseus",
+        c: "Prometheus",
+        d: "Hamlet",
+        correct: "a",
+    },
+    {
+        question: "How is 'light' used symbolically in the poem?",
+        a: "Literal sunlight",
+        b: "Hope and guidance through moral clarity",
+        c: "Police intervention",
+        d: "Spotlight on stage",
+        correct: "b",
+    },
+    {
+        question: "Why might the poet choose to *not* describe the destination?",
+        a: "It was destroyed",
+        b: "The focus is on the journey, not the end",
+        c: "He never had one",
+        d: "He forgot it",
+        correct: "b",
+    },
+    {
+        question: "How is time presented in the poem?",
+        a: "As cyclical",
+        b: "As fragmented and distorted",
+        c: "As linear and irreversible",
+        d: "As romanticized",
+        correct: "c",
+    },
+    {
+        question: "What can the poet’s solitude be interpreted as a metaphor for in postmodern literature?",
+        a: "Digital addiction",
+        b: "Globalization",
+        c: "Disconnection in an overly connected world",
+        d: "Physical illness",
+        correct: "c",
+    },
+    {
+        question: "What does the poet's broken boat most closely symbolize?",
+        a: "Childhood dreams",
+        b: "A failed career",
+        c: "Fragility of human resolve",
+        d: "Poverty",
+        correct: "c",
+    },
+    {
+        question: "The deliberate pacing and repetition in the poem serve to:",
+        a: "Increase drama",
+        b: "Create musicality",
+        c: "Mimic the rhythm of rowing and introspection",
+        d: "Confuse the reader",
+        correct: "c",
+    },
+    {
+        question: "Why is the voyage 'inevitable' for the poet?",
+        a: "It is inherited",
+        b: "It represents the inescapable journey of existence",
+        c: "It is part of a prophecy",
+        d: "It was funded by a grant",
+        correct: "b",
+    },
+    {
+        question: "Which is the most accurate characterization of the speaker's mental state?",
+        a: "Resigned yet spiritually awakened",
+        b: "Vengeful and cynical",
+        c: "Joyful and free",
+        d: "Unaware and naïve",
+        correct: "a",
+    },
+    {
+        question: "Bhupen Hazarika’s tone throughout the poem can be best described as—",
+        a: "Aggressive and rebellious",
+        b: "Calm, meditative, and melancholic",
+        c: "Didactic and judgmental",
+        d: "Ironic and humorous",
+        correct: "b",
+    }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

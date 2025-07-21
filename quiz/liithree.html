@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+{
+    question: "Which poetic technique best describes the phrase 'veils of the morning'?",
+    a: "Metaphor",
+    b: "Personification",
+    c: "Allusion",
+    d: "Hyperbole",
+    correct: "a"
+  },
+  {
+    question: "The repetition of 'I will arise and go now' suggests:",
+    a: "A literary reference",
+    b: "An actual journey",
+    c: "An urgent emotional need",
+    d: "An indecisive thought",
+    correct: "c"
+  },
+  {
+    question: "What is implied by the use of 'nine bean-rows'?",
+    a: "An agricultural economy",
+    b: "Structured simplicity",
+    c: "Rich harvest",
+    d: "Labor-intensive life",
+    correct: "b"
+  },
+  {
+    question: "Which line expresses the contrast between city life and rural peace?",
+    a: "'And a hive for the honey bee'",
+    b: "'And I shall have some peace there'",
+    c: "'And hear lake water lapping'",
+    d: "'I hear it in the deep heart’s core'",
+    correct: "b"
+  },
+  {
+    question: "The lake water lapping by the shore represents:",
+    a: "A metaphor for chaos",
+    b: "An irritating noise",
+    c: "A symbol of inner calm and serenity",
+    d: "A sign of danger",
+    correct: "c"
+  },
+  {
+    question: "The phrase 'noon a purple glow' illustrates:",
+    a: "Visual imagery",
+    b: "Olfactory imagery",
+    c: "Tactile imagery",
+    d: "Auditory imagery",
+    correct: "a"
+  },
+  {
+    question: "What does the speaker reject through this poem?",
+    a: "Natural life",
+    b: "Spiritual fulfillment",
+    c: "Materialistic urban existence",
+    d: "Art and poetry",
+    correct: "c"
+  },
+  {
+    question: "Which literary movement does the poem reflect?",
+    a: "Modernism",
+    b: "Romanticism",
+    c: "Postmodernism",
+    d: "Victorianism",
+    correct: "b"
+  },
+  {
+    question: "What emotional state dominates the speaker throughout the poem?",
+    a: "Excitement",
+    b: "Anger",
+    c: "Yearning",
+    d: "Confusion",
+    correct: "c"
+  },
+  {
+    question: "What idea is emphasized through the natural sounds in the poem?",
+    a: "Fear of isolation",
+    b: "Love for animals",
+    c: "Desire for peace and harmony",
+    d: "Anxiety in wilderness",
+    correct: "c"
+  },
+  {
+    question: "Why is the setting of Innisfree idealized?",
+    a: "It is a luxurious retreat",
+    b: "It represents simplicity and spiritual escape",
+    c: "It is crowded and lively",
+    d: "It is a religious center",
+    correct: "b"
+  },
+  {
+    question: "The poem emphasizes the power of:",
+    a: "Memory and imagination",
+    b: "Science and facts",
+    c: "Religion and devotion",
+    d: "Society and law",
+    correct: "a"
+  },
+  {
+    question: "The contrast in the poem is primarily between:",
+    a: "Rich and poor",
+    b: "Mind and body",
+    c: "Urban life and natural simplicity",
+    d: "Night and day",
+    correct: "c"
+  },
+  {
+    question: "What does the phrase 'peace comes dropping slow' highlight?",
+    a: "Peace is easily found",
+    b: "Peace is a slow and gentle experience",
+    c: "Peace is temporary",
+    d: "Peace is a myth",
+    correct: "b"
+  },
+  {
+    question: "How does the poet feel about the lake?",
+    a: "Detached",
+    b: "Nostalgic and connected",
+    c: "Fearful",
+    d: "Indifferent",
+    correct: "b"
+  },
+  {
+    question: "Why is the poet’s retreat to Innisfree significant?",
+    a: "He is escaping war",
+    b: "He wants to start a business",
+    c: "He desires spiritual regeneration",
+    d: "He is running from crime",
+    correct: "c"
+  },
+  {
+    question: "Which of these best defines the structure of the poem?",
+    a: "Three rhymed quatrains",
+    b: "Four unrhymed stanzas",
+    c: "Two tercets and a couplet",
+    d: "Continuous blank verse",
+    correct: "a"
+  },
+  {
+    question: "The poem’s diction is primarily:",
+    a: "Complex and technical",
+    b: "Scientific and factual",
+    c: "Simple and evocative",
+    d: "Sarcastic and ironic",
+    correct: "c"
+  },
+  {
+    question: "The speaker imagines building a cabin made of:",
+    a: "Wood and nails",
+    b: "Bricks and tiles",
+    c: "Clay and wattles",
+    d: "Stone and plaster",
+    correct: "c"
+  },
+  {
+    question: "Which best reflects the speaker’s conflict?",
+    a: "His wish to escape urban life",
+    b: "His anger toward the government",
+    c: "His lack of education",
+    d: "His family problems",
+    correct: "a"
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

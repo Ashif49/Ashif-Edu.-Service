@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+     {
+    question: "What is the narrator’s primary method of reconstructing the family history in 'Bina Kutir'?",
+    a: "Eyewitness accounts",
+    b: "Direct evidence from the house",
+    c: "Imaginative conjecture based on small details",
+    d: "Family letters and journals",
+    correct: "c",
+  },
+  {
+    question: "Which theme is most subtly implied throughout 'Bina Kutir'?",
+    a: "Urbanization",
+    b: "Decay of moral values",
+    c: "Alienation and imagined nostalgia",
+    d: "Revolutionary politics",
+    correct: "c",
+  },
+  {
+    question: "How does the narrator perceive the silence of the house?",
+    a: "As peaceful",
+    b: "As loud with imagined voices",
+    c: "As a statement of abandonment",
+    d: "As a source of inspiration",
+    correct: "b",
+  },
+  {
+    question: "What is the symbolic importance of the imaginary interactions within the house?",
+    a: "They reflect the narrator’s creative writing process",
+    b: "They are historically accurate",
+    c: "They showcase real dialogues from memory",
+    d: "They are meant to entertain the reader",
+    correct: "a",
+  },
+  {
+    question: "The narrator’s speculative details about the family suggest what narrative device?",
+    a: "Unreliable narrator",
+    b: "Omniscient realism",
+    c: "Epistolary mode",
+    d: "Surrealism",
+    correct: "a",
+  },
+  {
+    question: "What mood does the overgrown garden and closed shutters evoke?",
+    a: "Mystery and suspense",
+    b: "Melancholy and memory",
+    c: "Happiness",
+    d: "Modern comfort",
+    correct: "b",
+  },
+  {
+    question: "Why might the narrator never attempt to locate the family of Bina Kutir?",
+    a: "Because he was afraid",
+    b: "Because he valued imagination over reality",
+    c: "Because the family was dead",
+    d: "Because he disliked them",
+    correct: "b",
+  },
+  {
+    question: "Which philosophical question underlies the story?",
+    a: "What is justice?",
+    b: "What is the purpose of travel?",
+    c: "Can memory preserve identity in the face of change?",
+    d: "How does poverty affect morality?",
+    correct: "c",
+  },
+  {
+    question: "Which stylistic feature dominates Saurav Kumar Chaliha’s prose in this story?",
+    a: "Historical exposition",
+    b: "Rich dialogue",
+    c: "Reflective interior monologue",
+    d: "Rhyming narrative",
+    correct: "c",
+  },
+  {
+    question: "What assumption does the narrator make about the younger generation of the family?",
+    a: "They have modern jobs",
+    b: "They have betrayed their roots",
+    c: "They live abroad",
+    d: "They have turned spiritual",
+    correct: "b",
+  },
+  {
+    question: "What role does the setting of the house play in shaping the story?",
+    a: "It distracts the reader from the narrator",
+    b: "It symbolizes psychological states and generational gaps",
+    c: "It serves only as a background",
+    d: "It gives technical architectural details",
+    correct: "b",
+  },
+  {
+    question: "Which one of the following is NOT a theme in 'Bina Kutir'?",
+    a: "Historical nationalism",
+    b: "Fading traditions",
+    c: "Urban loneliness",
+    d: "Imaginative memory",
+    correct: "a",
+  },
+  {
+    question: "What type of reader does the story seem to be aimed at?",
+    a: "Children",
+    b: "General audience",
+    c: "Philosophically mature readers",
+    d: "Fans of romance",
+    correct: "c",
+  },
+  {
+    question: "Which image in the story reinforces the passage of time?",
+    a: "The changing seasons",
+    b: "Cracked windows and dust layers",
+    c: "Sound of birds",
+    d: "Echoing voices",
+    correct: "b",
+  },
+  {
+    question: "How does the narrator contrast the past and present in the story?",
+    a: "Through vivid flashbacks",
+    b: "Through diary entries",
+    c: "Through symbolic decay of the house and surroundings",
+    d: "By direct interviews with residents",
+    correct: "c",
+  },
+  {
+    question: "What does the ‘Kutir’ become a symbol of by the end of the story?",
+    a: "Political resistance",
+    b: "Cultural isolation",
+    c: "Silent testimony to change",
+    d: "Religious practice",
+    correct: "c",
+  },
+  {
+    question: "Why is the story titled 'Bina Kutir' even though Bina is never seen?",
+    a: "Because Bina is a metaphor for a missing emotional center",
+    b: "Bina is a ghost",
+    c: "Bina is the narrator's real name",
+    d: "Bina is the city's name",
+    correct: "a",
+  },
+  {
+    question: "Which literary movement best describes Chaliha’s approach in the story?",
+    a: "Romanticism",
+    b: "Magic Realism",
+    c: "Existential Modernism",
+    d: "Postmodern Absurdism",
+    correct: "c",
+  },
+  {
+    question: "What kind of narrative progression is used in the story?",
+    a: "Linear and chronological",
+    b: "Back-and-forth between past and present",
+    c: "Purely imagined projection",
+    d: "Journalistic reporting",
+    correct: "c",
+  },
+  {
+    question: "What might the narrator’s detachment from facts indicate?",
+    a: "Lack of memory",
+    b: "Postmodern critique of truth and nostalgia",
+    c: "Mental illness",
+    d: "Fear of confronting reality",
+    correct: "b",
+  }
+]
+;
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

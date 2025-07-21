@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "What does the choice of antique shop at the beginning symbolize about Rosemary’s character?",
+        a: "Her desire for comfort",
+        b: "Her passion for history",
+        c: "Her fascination with prestige and superficial elegance",
+        d: "Her humility",
+        correct: "c",
+    },
+    {
+        question: "Why does Mansfield describe the shopkeeper’s smile as 'discreet'? ",
+        a: "To show he was mocking her",
+        b: "To highlight his admiration",
+        c: "To underline the subtle power dynamics between class levels",
+        d: "To hint at a romantic subplot",
+        correct: "c",
+    },
+    {
+        question: "What narrative technique does Mansfield use to highlight Rosemary’s internal contradictions?",
+        a: "Flashback",
+        b: "Free indirect discourse",
+        c: "Stream of consciousness",
+        d: "Epistolary narration",
+        correct: "b",
+    },
+    {
+        question: "How does the story reflect Mansfield’s feminist concerns?",
+        a: "By focusing on female solidarity",
+        b: "By exposing the vulnerability of working-class women",
+        c: "By critiquing the emotional fragility and vanity imposed by patriarchal norms on upper-class women",
+        d: "By empowering Miss Smith",
+        correct: "c",
+    },
+    {
+        question: "What does Rosemary's final question to Philip reveal?",
+        a: "Her rekindled compassion",
+        b: "Her concern for social justice",
+        c: "Her insecurity and egocentrism",
+        d: "Her desire to adopt Miss Smith",
+        correct: "c",
+    },
+    {
+        question: "Why is Miss Smith's voice described as 'a whisper'? ",
+        a: "To symbolize her physical weakness",
+        b: "To indicate her emotional trauma",
+        c: "To emphasize her social invisibility and powerlessness",
+        d: "To add dramatic effect",
+        correct: "c",
+    },
+    {
+        question: "How is dramatic irony present in Rosemary’s treatment of Miss Smith?",
+        a: "The reader understands Rosemary's motives better than she does herself",
+        b: "Miss Smith is actually wealthy",
+        c: "Philip already knew Miss Smith",
+        d: "Miss Smith was acting poor",
+        correct: "a",
+    },
+    {
+        question: "What does the name 'Miss Smith' likely represent in the story?",
+        a: "A reference to English nobility",
+        b: "An anonymous, everywoman figure representing the lower class",
+        c: "A symbolic name from literature",
+        d: "A specific historical character",
+        correct: "b",
+    },
+    {
+        question: "What is significant about the fact that Rosemary never asks Miss Smith’s full story?",
+        a: "It shows she respects her privacy",
+        b: "It emphasizes the self-serving nature of her charity",
+        c: "She was afraid of hearing something horrible",
+        d: "It highlights her superior intellect",
+        correct: "b",
+    },
+    {
+        question: "How does Mansfield use dialogue to expose character flaws?",
+        a: "Through long monologues",
+        b: "By using inner thoughts",
+        c: "Through interruptions and evasions",
+        d: "By using metaphors",
+        correct: "c",
+    },
+    {
+        question: "What is the underlying satire in Rosemary’s act of offering tea?",
+        a: "The British obsession with tea",
+        b: "The absurdity of using luxury to mask social inequality",
+        c: "The colonial origins of tea culture",
+        d: "The superiority of the hostess",
+        correct: "b",
+    },
+    {
+        question: "What literary device is most prominent in the final scene between Rosemary and Philip?",
+        a: "Allegory",
+        b: "Irony",
+        c: "Foreshadowing",
+        d: "Euphemism",
+        correct: "b",
+    },
+    {
+        question: "Why is it significant that Rosemary notices Miss Smith's beauty only after Philip mentions it?",
+        a: "It reflects Rosemary’s aesthetic insecurity and competitiveness",
+        b: "It proves Miss Smith was lying",
+        c: "It highlights Philip’s rudeness",
+        d: "It shows Rosemary’s good judgment",
+        correct: "a",
+    },
+    {
+        question: "How does Mansfield use setting as a narrative contrast?",
+        a: "To differentiate wealth and poverty",
+        b: "To compare city and village life",
+        c: "To showcase England’s landscape",
+        d: "To reflect changes in time",
+        correct: "a",
+    },
+    {
+        question: "What deeper symbolism lies in the concept of 'a cup of tea' in the story?",
+        a: "The simplicity of life",
+        b: "Social unity",
+        c: "An ironic gesture that reveals superficial charity",
+        d: "Warmth and hospitality",
+        correct: "c",
+    },
+    {
+        question: "Which emotion does Mansfield purposefully keep ambiguous in Rosemary's character?",
+        a: "Kindness",
+        b: "Envy",
+        c: "Fear",
+        d: "Love",
+        correct: "a",
+    },
+    {
+        question: "Why might Mansfield avoid giving a clear resolution to Miss Smith’s fate?",
+        a: "To focus the story entirely on Rosemary’s psychological journey",
+        b: "To prepare for a sequel",
+        c: "To suggest that Miss Smith was a fantasy",
+        d: "To mock narrative conventions",
+        correct: "a",
+    },
+    {
+        question: "What critical lens can best be applied to interpret the story’s themes?",
+        a: "Structuralism",
+        b: "Postcolonialism",
+        c: "Marxist-feminist critique",
+        d: "Romantic idealism",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary’s charity feel performative rather than empathetic?",
+        a: "She invites friends to witness it",
+        b: "She seeks external validation and abandons the act when threatened",
+        c: "She reports it to the police",
+        d: "She donates publicly",
+        correct: "b",
+    },
+    {
+        question: "Which theme is *not* central to the story?",
+        a: "Power and class",
+        b: "Self-perception and vanity",
+        c: "Colonial resistance",
+        d: "The fragility of altruism",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

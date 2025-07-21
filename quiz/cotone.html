@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="quiz-container" id="quiz">
+      <div class="quiz-header">
+        <h2 id="question">Question text</h2>
+        <ul>
+          <li>
+            <input type="radio" name="answer" id="a" class="answer">
+            <label for="a" id="a_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="b" class="answer">
+            <label for="b" id="b_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="c" class="answer">
+            <label for="c" id="c_text">Question</label>
+          </li>
+
+          <li>
+            <input type="radio" name="answer" id="d" class="answer">
+            <label for="d" id="d_text">Question</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit">Submit</button>
+    </div>
+    <script>
+		
+	
+	const quizData = [
+    {
+        question: "Who is the author of 'A Cup of Tea'?",
+        a: "Virginia Woolf",
+        b: "Katherine Mansfield",
+        c: "Jane Austen",
+        d: "Charlotte Perkins Gilman",
+        correct: "b",
+    },
+    {
+        question: "What is the name of the main female character in the story?",
+        a: "Rosemary Fell",
+        b: "Mary Smith",
+        c: "Laura Brown",
+        d: "Isabelle Watson",
+        correct: "a",
+    },
+    {
+        question: "In what social class does Rosemary belong?",
+        a: "Lower class",
+        b: "Working class",
+        c: "Middle class",
+        d: "Upper class",
+        correct: "d",
+    },
+    {
+        question: "What is Rosemary doing at the beginning of the story?",
+        a: "Having lunch",
+        b: "Reading a book",
+        c: "Shopping at a fancy store",
+        d: "Walking in the park",
+        correct: "c",
+    },
+    {
+        question: "What does the poor girl ask Rosemary for?",
+        a: "A job",
+        b: "Money",
+        c: "A book",
+        d: "A cup of tea",
+        correct: "d",
+    },
+    {
+        question: "What is the name of the poor girl Rosemary meets?",
+        a: "Jane",
+        b: "Miss Smith",
+        c: "Agnes",
+        d: "Emily",
+        correct: "b",
+    },
+    {
+        question: "What impulsive act does Rosemary do?",
+        a: "Buys jewelry",
+        b: "Takes the girl to her home",
+        c: "Fires her maid",
+        d: "Writes a letter to her husband",
+        correct: "b",
+    },
+    {
+        question: "Who is Philip in the story?",
+        a: "Rosemary's brother",
+        b: "Rosemary's husband",
+        c: "A shopkeeper",
+        d: "The girl’s father",
+        correct: "b",
+    },
+    {
+        question: "How does Philip react to the presence of Miss Smith?",
+        a: "He is angry",
+        b: "He is amused",
+        c: "He is indifferent",
+        d: "He is surprised and questions Rosemary",
+        correct: "d",
+    },
+    {
+        question: "What does Philip say about Miss Smith?",
+        a: "She is rude",
+        b: "She is unclean",
+        c: "She is quite pretty",
+        d: "She is ungrateful",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary decide to give Miss Smith money?",
+        a: "Out of fear",
+        b: "Due to Philip's compliment",
+        c: "Out of genuine kindness",
+        d: "Because she wanted her to leave",
+        correct: "b",
+    },
+    {
+        question: "How much money does Rosemary give Miss Smith?",
+        a: "One pound",
+        b: "Two pounds",
+        c: "Three pounds",
+        d: "Five pounds",
+        correct: "c",
+    },
+    {
+        question: "Why does Rosemary become jealous?",
+        a: "Miss Smith has better manners",
+        b: "Philip finds Miss Smith attractive",
+        c: "Miss Smith is more educated",
+        d: "She realizes Miss Smith is wealthy",
+        correct: "b",
+    },
+    {
+        question: "What is the main theme of the story?",
+        a: "Romance",
+        b: "Class differences and superficiality",
+        c: "Adventure",
+        d: "Family loyalty",
+        correct: "b",
+    },
+    {
+        question: "What genre does the story belong to?",
+        a: "Fantasy",
+        b: "Historical fiction",
+        c: "Realistic short fiction",
+        d: "Mystery",
+        correct: "c",
+    },
+    {
+        question: "Where is the story set?",
+        a: "A countryside village",
+        b: "London",
+        c: "New York",
+        d: "Paris",
+        correct: "b",
+    },
+    {
+        question: "What kind of tone does the author use?",
+        a: "Serious and tragic",
+        b: "Humorous and witty",
+        c: "Satirical and ironic",
+        d: "Romantic and dreamy",
+        correct: "c",
+    },
+    {
+        question: "What emotion does Rosemary feel at the end?",
+        a: "Pride",
+        b: "Satisfaction",
+        c: "Insecurity",
+        d: "Anger",
+        correct: "c",
+    },
+    {
+        question: "How does the story reflect materialism?",
+        a: "Through Rosemary’s charity",
+        b: "Through Rosemary’s obsession with appearance and status",
+        c: "Through Miss Smith’s poverty",
+        d: "Through Philip’s job",
+        correct: "b",
+    },
+    {
+        question: "What does Rosemary ask Philip at the end of the story?",
+        a: "Was she really poor?",
+        b: "Did she behave rudely?",
+        c: "Am I pretty?",
+        d: "Should I call her back?",
+        correct: "c",
+    }
+];
+
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+
+const submitBtn = document.getElementById('submit')
+
+let currentQuiz = 0
+let score = 0
+
+loadQuiz()
+
+function loadQuiz() {
+    deselectAnswers()
+
+    const currentQuizData = quizData[currentQuiz]
+
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+
+
+}
+
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+
+    return answer
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected()
+    
+    if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++
+        }
+
+        currentQuiz++
+
+        if(currentQuiz < quizData.length) {
+            loadQuiz()
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `
+        }
+    }
+})
+	
+	
+	</script>
+  </body>
+</html>

@@ -25,10 +25,10 @@
 	  
 	  
 	<ul id="toplist">
-  <li><a href="">Home</a></li>
-  <li><a href="class-notes/index.html">Notes</a></li>
-  <li><a href="">Test</a></li>
-  <li><a href="subject/subjects.html">Quiz</a></li>
+  <li><a href="" >Home</a></li>
+  <li><a href="class-notes/index.html" id="notes-btn">Notes</a></li>
+  <li><a href="" id="test-btn">Test</a></li>
+  <li><a href="subject/subjects.html" id="quiz-btn">Quiz</a></li>
 </ul>
 
 <!-- Move outside nav UL and style for top-right corner -->
@@ -337,6 +337,79 @@ onAuthStateChanged(auth, (user) => {
     if (usernameSpan) usernameSpan.style.display = "none";
   }
 });
+</script>
+
+	  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBR8-Qd-0ZvGShfv9J9_QyIuEmPBgYNhLU",
+    authDomain: "ashif-edu-service.firebaseapp.com",
+    projectId: "ashif-edu-service",
+    storageBucket: "ashif-edu-service.appspot.com",
+    messagingSenderId: "463579037251",
+    appId: "1:463579037251:web:603a76b1ae70bae35b1ef6",
+    measurementId: "G-DVFQ9JHLWQ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const notesBtn = document.getElementById("notes-btn");
+  const testBtn = document.getElementById("test-btn");
+  const quizBtn = document.getElementById("quiz-btn");
+
+  const checkLoginAndRedirect = (targetURL) => {
+    const user = auth.currentUser;
+    if (user) {
+      window.location.href = targetURL;
+    } else {
+      alert("Please login first to access this feature.");
+      window.location.href = "../login/index.html";
+    }
+  };
+
+  notesBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    checkLoginAndRedirect("../class-notes/index.html");
+  });
+
+  testBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    checkLoginAndRedirect("#"); // replace with your actual Test URL
+  });
+
+  quizBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    checkLoginAndRedirect("../subject/subjects.html");
+  });
+
+  // Login display and logout handler
+  const usernameSpan = document.getElementById("username-display");
+  const loginBtn = document.querySelector(".btn-one");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      if (usernameSpan) {
+        usernameSpan.textContent = `Welcome, ${user.email}`;
+        usernameSpan.style.display = "block";
+        setTimeout(() => {
+          usernameSpan.style.display = "none";
+        }, 5000);
+      }
+      if (loginBtn) {
+        loginBtn.textContent = "Logout";
+        loginBtn.href = "#";
+        loginBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          signOut(auth).then(() => window.location.reload());
+        });
+      }
+    } else {
+      if (usernameSpan) usernameSpan.style.display = "none";
+    }
+  });
 </script>
 
   </body>

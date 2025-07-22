@@ -26,12 +26,12 @@
 	  
 	<ul id="toplist">
   <li><a href="index.html" >Home</a></li>
-  <li><a href="../class-notes/index.html" id="notes-btn">Notes</a></li>
+  <li><a href="class-notes/index.html" id="notes-btn">Notes</a></li>
   
  
 
 <li>
-  <a href="../test/index.html" id="test-btn" style="position: relative;">
+  <a href="test/index.html" id="test-btn" style="position: relative;">
     Test
     <span id="notification-dot" class="notification-dot" style="
 	position: absolute;
@@ -49,7 +49,7 @@
   
   
   
-  <li><a href="../subject/subjects.html" id="quiz-btn">Quiz</a></li>
+  <li><a href="subject/subjects.html" id="quiz-btn">Quiz</a></li>
 </ul>
 
 <!-- Move outside nav UL and style for top-right corner -->
@@ -91,7 +91,7 @@
 		comprehensive, easy-to-understand lessons tailored to your board curriculum
       </p>
       <div class="btn">
-        <a class="btn-one" href="../login/index.html">Login</a>
+        <a class="btn-one" href="login/index.html">Login</a>
         <a class="btn-two" href="#course">Visit Courses</a>
       </div>
     </section>
@@ -105,7 +105,7 @@
           <i class="fa fa-book"></i>
           <h3>Syllabus</h3>
           <p>
-            <a href="../syllabus/index.html" style="text-decoration:none;">
+            <a href="syllabus/index.html" style="text-decoration:none;">
            Click here to get an overview of Ahsec Class XII syllabus 
           </a>
           </p>
@@ -115,7 +115,7 @@
            <i class="far fa-edit"></i>
           <h3>Sticky Notes</h3>
           <p>
-		  <a href="../notes/index.html">
+		  <a href="notes/index.html">
            Note your important points that are to be noted
           </a></p>
         </div>
@@ -415,13 +415,13 @@ btn.addEventListener('click', () => {
       window.location.href = targetURL;
     } else {
       alert("Please login first to access this feature.");
-      window.location.href = "../login/index.html";
+      window.location.href = "login/index.html";
     }
   };
 
   notesBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("../class-notes/index.html");
+    checkLoginAndRedirect("class-notes/index.html");
   });
 
   testBtn.addEventListener("click", (e) => {
@@ -431,7 +431,7 @@ btn.addEventListener('click', () => {
 
   quizBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("../subject/subjects.html");
+    checkLoginAndRedirect("subject/subjects.html");
   });
 
   // Login display and logout handler

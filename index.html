@@ -26,9 +26,30 @@
 	  
 	<ul id="toplist">
   <li><a href="index.html" >Home</a></li>
-  <li><a href="class-notes/index.html" id="notes-btn">Notes</a></li>
-  <li><a href="" id="test-btn">Test</a></li>
-  <li><a href="subject/subjects.html" id="quiz-btn">Quiz</a></li>
+  <li><a href="../class-notes/index.html" id="notes-btn">Notes</a></li>
+  
+ 
+
+<li>
+  <a href="../test/index.html" id="test-btn" style="position: relative;">
+    Test
+    <span id="notification-dot" class="notification-dot" style="
+	position: absolute;
+    top: -4px;
+    right: -8px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
+    display:none;
+	"></span>
+  </a>
+</li>
+  
+  
+  
+  <li><a href="../subject/subjects.html" id="quiz-btn">Quiz</a></li>
 </ul>
 
 <!-- Move outside nav UL and style for top-right corner -->
@@ -70,7 +91,7 @@
 		comprehensive, easy-to-understand lessons tailored to your board curriculum
       </p>
       <div class="btn">
-        <a class="btn-one" href="login/index.html">Login</a>
+        <a class="btn-one" href="../login/index.html">Login</a>
         <a class="btn-two" href="#course">Visit Courses</a>
       </div>
     </section>
@@ -84,7 +105,7 @@
           <i class="fa fa-book"></i>
           <h3>Syllabus</h3>
           <p>
-            <a href="syllabus/index.html" style="text-decoration:none;">
+            <a href="../syllabus/index.html" style="text-decoration:none;">
            Click here to get an overview of Ahsec Class XII syllabus 
           </a>
           </p>
@@ -94,7 +115,7 @@
            <i class="far fa-edit"></i>
           <h3>Sticky Notes</h3>
           <p>
-		  <a href="notes/index.html">
+		  <a href="../notes/index.html">
            Note your important points that are to be noted
           </a></p>
         </div>
@@ -289,9 +310,12 @@ btn.addEventListener('click', () => {
 
     </script>
 <script type="module">
+  // ✅ Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
+  // ✅ Your Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyBR8-Qd-0ZvGShfv9J9_QyIuEmPBgYNhLU",
     authDomain: "ashif-edu-service.firebaseapp.com",
@@ -304,40 +328,65 @@ btn.addEventListener('click', () => {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
-  const loginBtn = document.querySelector('.btn-one');
-  const usernameSpan = document.getElementById("username-display");
+  const testBtn = document.getElementById("test-btn");
+  const dot = document.getElementById("notification-dot");
 
-onAuthStateChanged(auth, (user) => {
-  const usernameSpan = document.getElementById("username-display");
-  const loginBtn = document.querySelector(".btn-one");
+  onAuthStateChanged(auth, async (user) => {
+    const usernameSpan = document.getElementById("username-display");
+    const loginBtn = document.querySelector(".btn-one");
 
-  if (user) {
-    // Show email
-    if (usernameSpan) {
-      usernameSpan.textContent = `Welcome, ${user.email}`;
-      usernameSpan.style.display = "block";
+    if (user) {
+      // 🔓 Show username
+      if (usernameSpan) {
+        usernameSpan.textContent = `Welcome, ${user.email}`;
+        usernameSpan.style.display = "block";
+        setTimeout(() => {
+          usernameSpan.style.display = "none";
+        }, 5000);
+      }
 
-      // ⏳ Hide after 5 seconds
-      setTimeout(() => {
-        usernameSpan.style.display = "none";
-      }, 3000);
+      // 🔐 Logout
+      if (loginBtn) {
+        loginBtn.textContent = "Logout";
+        loginBtn.href = "#";
+        loginBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          signOut(auth).then(() => window.location.reload());
+        });
+      }
+
+      // 🔴 Red dot logic
+      const userDocRef = doc(db, "users", user.uid);
+      const globalDocRef = doc(db, "appData", "tests");
+
+      const [userSnap, globalSnap] = await Promise.all([
+        getDoc(userDocRef),
+        getDoc(globalDocRef)
+      ]);
+
+      const lastSeen = userSnap.exists() ? userSnap.data().lastSeenTestVersion || 0 : 0;
+      const latest = globalSnap.exists() ? globalSnap.data().latestTestVersion || 0 : 0;
+
+      if (dot) {
+        dot.style.display = lastSeen < latest ? "inline-block" : "none";
+      }
+
+      if (testBtn) {
+        testBtn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          await setDoc(userDocRef, { lastSeenTestVersion: latest }, { merge: true });
+          window.location.href = testBtn.href;
+        });
+      }
+
+    } else {
+      if (usernameSpan) usernameSpan.style.display = "none";
     }
-
-    // Change login to logout
-    if (loginBtn) {
-      loginBtn.textContent = "Logout";
-      loginBtn.href = "#";
-      loginBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        signOut(auth).then(() => window.location.reload());
-      });
-    }
-  } else {
-    if (usernameSpan) usernameSpan.style.display = "none";
-  }
-});
+  });
 </script>
+
 
 	  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
@@ -366,13 +415,13 @@ onAuthStateChanged(auth, (user) => {
       window.location.href = targetURL;
     } else {
       alert("Please login first to access this feature.");
-      window.location.href = "login/index.html";
+      window.location.href = "../login/index.html";
     }
   };
 
   notesBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("class-notes/index.html");
+    checkLoginAndRedirect("../class-notes/index.html");
   });
 
   testBtn.addEventListener("click", (e) => {
@@ -382,7 +431,7 @@ onAuthStateChanged(auth, (user) => {
 
   quizBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("subject/subjects.html");
+    checkLoginAndRedirect("../subject/subjects.html");
   });
 
   // Login display and logout handler
@@ -411,6 +460,30 @@ onAuthStateChanged(auth, (user) => {
     }
   });
 </script>
+
+<script>
+  // Get DOM elements
+  const testBtn = document.getElementById("test-btn");
+  const testDot = document.getElementById("notification-dot");
+
+  // Check localStorage
+  if (localStorage.getItem("testVisited")) {
+    testDot.style.display = "none";
+  } else {
+    testDot.style.display = "inline-block";
+  }
+
+  // Intercept the Test button click to set the flag BEFORE navigating
+  if (testBtn) {
+    testBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // Stop default link behavior
+      localStorage.setItem("testVisited", "true"); // Set flag
+      window.location.href = this.href; // Redirect manually
+    });
+  }
+</script>
+
+
 
   </body>
 </html>

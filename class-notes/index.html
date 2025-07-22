@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Notes Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+      padding: 30px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+      animation: fadeInDown 1s ease;
+    }
+    select {
+      padding: 12px 18px;
+      margin: 10px;
+      border-radius: 12px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      max-width: 400px;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .chapter-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 1000px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .chapter {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards;
+    }
+    .chapter h3 {
+      margin: 0 0 15px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .chapter button {
+      padding: 10px 15px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .view-btn {
+      background-color: #00b894;
+    }
+    .view-btn:hover {
+      background-color: #019875;
+    }
+    .download-btn {
+      background-color: #0984e3;
+    }
+    .download-btn:hover {
+      background-color: #0872c4;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      select {
+        font-size: 0.95rem;
+      }
+      .chapter h3 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📘Notes Hub</h1>
+  <select id="streamSelect">
+    <option value="">Select Stream</option>
+    <option value="Science">Science</option>
+    <option value="Commerce">Commerce</option>
+    <option value="Arts">Arts</option>
+  </select>
+
+  <select id="subjectSelect" disabled>
+    <option value="">Select Subject</option>
+  </select>
+
+  <div class="chapter-container" id="chapterContainer"></div>
+
+  <script>
+    const streams = {
+      Science: ["English","Alt English","Grammar","Physics", "Chemistry", "Biology"],
+      Commerce: ["English","Alt English","Grammar","Accountancy", "Economics", "Business Studies"],
+      Arts: ["English","Alt English","Grammar","History", "Political Science", "Economics","Education","Logic"]
+    };
+
+    const notesData = {
+             Physics: ["Motion", "Work", "Waves"],
+      Chemistry: ["Atoms", "Mole", "Organic"],
+      Biology: ["Cell", "Genetics", "Evolution"],
+      Accountancy: ["Journal", "Ledger", "Trial Balance"],
+      Economics: ["Micro", "Macro", "Statistics"],
+      "Business Studies": ["Management", "Marketing", "Finance"],
+      History: ["Revolution", "Empire", "Freedom"],
+      "Political Science": ["The End of Bipolarity", "Contemporary Centres of power", "Contemporary South Asia","International Organisation","Security in the contemporary World","Environment and natural resources","Globalisation","Challenges of Nation Building","Era of One Party Dominance","Politics of Planned development","India's external relation","Challenges to and restoration of the congress system","The crisis of democratic order","Regional Aspiration","Recent Development in Indian Politics"],
+      Economics: ["National income and related aggregates", "Determinaticome and employments", "Money and Banking","Government Budget and the economy","Open economy","Development experience(1947-1990)","Economics reforms since 1991","Current Challenges facing Indian economy","Development experience of India:A comparison with neighbour"],
+	  "Education": ["Development of Secondary Education in India and Assam", "Non formal Education", "Current trends in education","Learning","Memory,Forgetting,Attention and interest","Mental Health and hygiene","Elementry educational statistics"],
+	   "Logic": ["Nature of inductive enquiry ,various kinds of induction", "Grounds of induction", "Hypothesis","Mills method of experimental equiry","Realism:Naive and syntific","Idealism:Subjective and objective","Ethics and Purusarthas","Religion:its meaning and nature,religion and morality"],
+	    "English": ["The last lesson", "Memoirs of Chota Sahib", "Lost Spring","Indigo","Going places","My Mother At Sixty Six"," Keeping Quiet","A Thing of beauty","A Roadside Stand","The Tiger King","The Enemy"," On the Face of it","Memories of Childhood","Magh Bihu or Maghar Domahi"],
+		 "Alt English": ["A Cup of Tea", "The Voyage", "The Verger","The Martyr's Corner","Bina Kutir","Ozymandias of Egypt","Because I Could Not Stop for Death","Strange Meeting","The Solitude of Alexander Selkirk","The Lake Isle of Innisfree","Night of the Scorpion"],
+      "Grammar": ["Reading Skills", " Advanced Writing Skills", "Narration : Direct and Indirect","Voice","Tenses","Preposition"," Transformation of Sentences"]
+    };
+
+    const pdfLinks = (subject, chapter) => {
+  if (subject === "English" && chapter === "The last lesson") {
+    const base = "pdfs/english/Thelastlesson.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+    if (subject === "English" && chapter === "Memoirs of Chota Sahib") {
+    const base = "pdfs/english/MemoirsofChotaSahib.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+     if (subject === "English" && chapter === "Lost Spring") {
+    const base = "pdfs/english/LostSpring.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+       if (subject === "English" && chapter === "Indigo") {
+    const base = "pdfs/english/Indigo.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+         if (subject === "English" && chapter === "Going places") {
+    const base = "pdfs/english/Goingplaces.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+    
+         if (subject === "English" && chapter === "My Mother At Sixty Six") {
+    const base = "pdfs/english/MyMotherAtSixtySix.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+         if (subject === "English" && chapter === "Keeping Quiet") {
+    const base = "pdfs/english/KeepingQuiet.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+        if (subject === "English" && chapter === "A Thing of beauty") {
+    const base = "pdfs/english/AThingofbeauty.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+   if (subject === "English" && chapter === "A Roadside Stand") {
+    const base = "pdfs/english/ARoadsideStand.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+     if (subject === "English" && chapter === "The Tiger King") {
+    const base = "pdfs/english/TheTigerKing.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+      if (subject === "English" && chapter === "The Enemy") {
+    const base = "pdfs/english/TheEnemy.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+     if (subject === "English" && chapter === "On the Face of it") {
+    const base = "pdfs/english/OntheFaceofit.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+    if (subject === "English" && chapter === "Memories of Childhood") {
+    const base = "pdfs/english/MemoriesofChildhood.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+
+    if (subject === "English" && chapter === "Magh Bihu or Maghar Domahi") {
+    const base = "pdfs/english/MaghBihuorMagharDomahi.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+     if (subject === "Alt English" && chapter === "A Cup of Tea") {
+    const base = "pdfs/alt/ACupofTea.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+     if (subject === "Alt English" && chapter === "The Voyage") {
+    const base = "pdfs/alt/TheVoyage.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+    if (subject === "Alt English" && chapter === "The Verger") {
+    const base = "pdfs/alt/TheVerger.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+      if (subject === "Alt English" && chapter === "The Martyr's Corner") {
+    const base = "pdfs/alt/TheMartyrsCorner.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+        if (subject === "Alt English" && chapter === "Bina Kutir") {
+    const base = "pdfs/alt/BinaKutir.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+          if (subject === "Alt English" && chapter === "Ozymandias of Egypt") {
+    const base = "pdfs/alt/OzymandiasofEgypt.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+       if (subject === "Alt English" && chapter === "Because I Could Not Stop for Death") {
+    const base = "pdfs/alt/BecauseICouldNotStopforDeath.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+         if (subject === "Alt English" && chapter === "Strange Meeting") {
+    const base = "pdfs/alt/StrangeMeeting.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+        if (subject === "Alt English" && chapter === "The Solitude of Alexander Selkirk") {
+    const base = "pdfs/alt/TheSolitudeofAlexanderSelkirk.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+        if (subject === "Alt English" && chapter === "The Lake Isle of Innisfree") {
+    const base = "pdfs/alt/TheLakeIsleofInnisfree.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+         if (subject === "Alt English" && chapter === "Night of the Scorpion") {
+    const base = "pdfs/alt/NightoftheScorpion.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+           if (subject === "Education" && chapter === "Development of Secondary Education in India and Assam") {
+    const base = "pdfs/education/DevelopmentofSecondaryEducationinIndiaandAssam.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+          if (subject === "Education" && chapter === "Non formal Education") {
+    const base = "pdfs/education/NonformalEducation.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+           if (subject === "Education" && chapter === "Current trends in education") {
+    const base = "pdfs/education/Currenttrendsineducation.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+          if (subject === "Education" && chapter === "Learning") {
+    const base = "pdfs/education/Learning.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+   
+          if (subject === "Education" && chapter === "Memory,Forgetting,Attention and interest") {
+    const base = "pdfs/education/Memory.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+          if (subject === "Education" && chapter === "Mental Health and hygiene") {
+    const base = "pdfs/education/MentalHealthandhygiene.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+       if (subject === "Education" && chapter === "Elementry educational statistics") {
+    const base = "pdfs/education/ElementaryEducationalStatistics.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+    if (subject === "Economics" && chapter === "National income and related aggregates") {
+    const base = "pdfs/economics/Nationalincomeandrelatedaggregates.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+   if (subject === "Economics" && chapter === "Determinaticome and employments") {
+    const base = "pdfs/economics/Determinaticomeandemployments.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+   if (subject === "Economics" && chapter === "Money and Banking") {
+    const base = "pdfs/economics/MoneyandBanking.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+     if (subject === "Economics" && chapter === "Government Budget and the economy") {
+    const base = "pdfs/economics/GovernmentBudgetandtheeconomy.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+       if (subject === "Economics" && chapter === "Open economy") {
+    const base = "pdfs/economics/Openeconomy.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+      if (subject === "Economics" && chapter === "Development experience(1947-1990)") {
+    const base = "pdfs/economics/Developmentexperience(1947-1990).pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+    if (subject === "Economics" && chapter === "Economics reforms since 1991") {
+    const base = "pdfs/economics/Economicsreformssince1991.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+   if (subject === "Economics" && chapter === "Current Challenges facing Indian economy") {
+    const base = "pdfs/economics/CurrentChallengesfacingIndianeconomy.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+    if (subject === "Economics" && chapter === "Development experience of India:A comparison with neighbour") {
+    const base = "pdfs/economics/Development.pdf";
+    return {
+      view: base,
+      download: base
+    };
+  }
+  
+  
+  
+  const base = `https://example.com/notes/${subject}/${chapter}`.replace(/\s+/g, '-').toLowerCase();
+  return {
+    view: `${base}.pdf`,
+    download: `${base}.pdf`
+  };
+};
+
+    const streamSelect = document.getElementById('streamSelect');
+    const subjectSelect = document.getElementById('subjectSelect');
+    const chapterContainer = document.getElementById('chapterContainer');
+
+    streamSelect.addEventListener('change', () => {
+      subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+      const selected = streamSelect.value;
+      subjectSelect.disabled = !selected;
+      if (selected) {
+        streams[selected].forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub;
+          opt.textContent = sub;
+          subjectSelect.appendChild(opt);
+        });
+      }
+    });
+
+    subjectSelect.addEventListener('change', () => {
+      chapterContainer.innerHTML = '';
+      const subject = subjectSelect.value;
+      if (subject && notesData[subject]) {
+        notesData[subject].forEach((chapter, index) => {
+          const { view, download } = pdfLinks(subject, chapter);
+          const div = document.createElement('div');
+          div.className = 'chapter';
+          div.style.animationDelay = `${index * 100}ms`;
+          div.innerHTML = `
+            <h3>${chapter}</h3>
+            <button class="view-btn" onclick="window.open('${view}', '_blank')">View</button>
+            <button class="download-btn" onclick="window.location.href='${download}'">Download</button>
+          `;
+          chapterContainer.appendChild(div);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

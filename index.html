@@ -366,13 +366,13 @@ onAuthStateChanged(auth, (user) => {
       window.location.href = targetURL;
     } else {
       alert("Please login first to access this feature.");
-      window.location.href = "../login/index.html";
+      window.location.href = "login/index.html";
     }
   };
 
   notesBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("../class-notes/index.html");
+    checkLoginAndRedirect("class-notes/index.html");
   });
 
   testBtn.addEventListener("click", (e) => {
@@ -382,7 +382,7 @@ onAuthStateChanged(auth, (user) => {
 
   quizBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    checkLoginAndRedirect("../subject/subjects.html");
+    checkLoginAndRedirect("subject/subjects.html");
   });
 
   // Login display and logout handler

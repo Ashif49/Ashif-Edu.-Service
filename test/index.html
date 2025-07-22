@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Section</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4fa;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      background: #e0e0f0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .tab-btn.active {
+      background: #5a4fcf;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    .test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .test-item {
+      background: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .test-details {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .test-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .completed-label {
+      color: green;
+      font-weight: bold;
+      display: none;
+    }
+
+    .test-item.completed .completed-label {
+      display: inline;
+    }
+
+    .test-item.completed .view-btn {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .view-btn {
+      padding: 6px 12px;
+      background: #5a4fcf;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    .view-btn:hover {
+      background: #443ab3;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @media (max-width: 600px) {
+      .test-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .test-actions {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Tests</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="live">Live</button>
+    <button class="tab-btn" data-tab="upcoming">Upcoming</button>
+    <button class="tab-btn" data-tab="results">Results</button>
+  </div>
+
+  <!-- Live Tests -->
+  <div class="tab-content active" id="live">
+    <div class="test-list">
+      <div class="test-item">
+        <div class="test-details">
+          <input type="checkbox" class="mark-done">
+          <label>Economics ch-1</label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="pdfs/economics/chone.pdf" target="_blank">View</a>
+          <span class="completed-label">Completed</span>
+        </div>
+      </div>
+
+      <div class="test-item">
+        <div class="test-details">
+          <input type="checkbox" class="mark-done">
+          <label>English </label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="pdfs/english/chone.pdf" target="_blank">View</a>
+          <span class="completed-label">Completed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Tests -->
+  <div class="tab-content" id="upcoming">
+    <div class="test-list">
+      <div class="test-item">
+        <div class="test-details">
+          <label>Political</label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="tests/political.pdf" target="_blank">View</a>
+        </div>
+      </div>
+
+      <div class="test-item">
+        <div class="test-details">
+          <label>Alt English</label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="tests/AltEnglish.pdf" target="_blank">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Answer key -->
+  <div class="tab-content" id="results">
+    <div class="test-list">
+      <div class="test-item">
+        <div class="test-details">
+          <label>Economics ch-1 (22-07-25)</label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="results/answerkey.pdf" target="_blank">View Result</a>
+        </div>
+      </div>
+
+      <div class="test-item">
+        <div class="test-details">
+          <label>English (22-07-25)</label>
+        </div>
+        <div class="test-actions">
+          <a class="view-btn" href="results/answerkey.pdf" target="_blank">View Result</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach(b => b.classList.remove("active"));
+        contents.forEach(c => c.classList.remove("active"));
+
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    // Mark test as done
+    document.querySelectorAll(".mark-done").forEach(checkbox => {
+      checkbox.addEventListener("change", function () {
+        const item = this.closest(".test-item");
+        if (this.checked) {
+          item.classList.add("completed");
+        } else {
+          item.classList.remove("completed");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
